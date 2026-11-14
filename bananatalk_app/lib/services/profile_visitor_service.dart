@@ -77,6 +77,7 @@ class ProfileVisitorService {
     int limit = 20,
     int page = 1,
     bool reveal = false,
+    bool seen = false,
   }) async {
     try {
       final token = await _getToken();
@@ -84,6 +85,8 @@ class ProfileVisitorService {
 
       // Gated shape (masked rows + `revealed`); only with boostsEnabled.
       if (reveal) queryParams['reveal'] = '1';
+      // The visitors screen marks the list seen (offer engine on only).
+      if (seen) queryParams['seen'] = '1';
       if (limit != 20) queryParams['limit'] = limit.toString();
       if (page != 1) queryParams['page'] = page.toString();
 

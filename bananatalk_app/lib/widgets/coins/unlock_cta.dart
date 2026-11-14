@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// "Unlock N for 💎X" — the coins à-la-carte CTA added as a SECOND action
 /// beside "Go VIP" in the 3 limit surfaces (translation, tutor 429,
@@ -26,6 +28,33 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 bool isExtraMatchesMaxed(int statusCode, String? error) =>
     statusCode == 409 && error == 'extra_matches_maxed';
 
+/// Paywall placement for a coin-unlock feature key, used when the surface
+/// did not hand its own flow to [UnlockCta].
+String paywallPlacementForFeature(String featureKey) {
+  switch (featureKey) {
+    case 'translation':
+      return PaywallPlacement.translationCap;
+    case 'moment':
+      return PaywallPlacement.momentCap;
+    case 'dm':
+      return PaywallPlacement.dmCap;
+    case 'wave':
+      return PaywallPlacement.waveCap;
+    case 'extra_matches':
+      return PaywallPlacement.extraMatches;
+    case 'who_waved':
+      return PaywallPlacement.visitorList;
+    case 'chat':
+    case 'roleplay':
+    case 'story':
+    case 'photo':
+    case 'pronunciation':
+      return PaywallPlacement.tutorQuota;
+    default:
+      return PaywallPlacement.other;
+  }
+}
+
 class UnlockCta extends ConsumerWidget {
   const UnlockCta({
     super.key,
@@ -33,9 +62,19 @@ class UnlockCta extends ConsumerWidget {
     this.onUnlocked,
     this.labelBuilder,
     this.onMaxed,
+    this.flow,
+    this.onCtaTapped,
   });
 
   final String featureKey;
+
+  /// The showing this button belongs to. Without one the button starts its
+  /// own flow (placement by [featureKey]) the first time it is tapped.
+  final PaywallFlow? flow;
+
+  /// Called when the button is tapped, so the host surface can tell that the
+  /// person acted (and not log `dismissed`).
+  final VoidCallback? onCtaTapped;
 
   /// Called when the server refuses because the daily ceiling is reached
   /// (409 `extra_matches_maxed`). The CTA hides itself either way.
@@ -74,6 +113,8 @@ class UnlockCta extends ConsumerWidget {
           onUnlocked: onUnlocked,
           labelBuilder: labelBuilder,
           onMaxed: onMaxed,
+          flow: flow,
+          onCtaTapped: onCtaTapped,
         );
       },
       // Avoid popping the CTA in mid-interaction — safest to render
@@ -92,9 +133,13 @@ class _UnlockButton extends ConsumerStatefulWidget {
     this.onUnlocked,
     this.labelBuilder,
     this.onMaxed,
+    this.flow,
+    this.onCtaTapped,
   });
 
   final String featureKey;
+  final PaywallFlow? flow;
+  final VoidCallback? onCtaTapped;
   final VoidCallback? onMaxed;
   final int cost;
   final int grant;
@@ -111,9 +156,28 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
   /// Server said the daily ceiling is reached; render nothing from now on.
   bool _maxed = false;
 
+  PaywallFlow? _ownFlow;
+
+  PaywallFlow get _flow =>
+      widget.flow ??
+      (_ownFlow ??= PaywallFlow.start(
+        paywallPlacementForFeature(widget.featureKey),
+        detail: widget.featureKey,
+      ));
+
+  /// The flow the shop opens on after a 402: same id, own placement.
+  PaywallFlow get _shopFlow => PaywallFlow(
+    placement: PaywallPlacement.notEnoughCoins,
+    flowId: _flow.flowId,
+    offerId: _flow.offerId,
+    detail: widget.featureKey,
+  );
+
   Future<void> _handleTap() async {
     if (_busy) return;
     setState(() => _busy = true);
+    widget.onCtaTapped?.call();
+    paywallLog(_flow, PaywallAction.ctaCoins);
 
     try {
       final client = ref.read(coinApiClientProvider);
@@ -123,7 +187,13 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
       final l10n = AppLocalizations.of(context)!;
 
       if (response.success) {
+        paywallLog(
+          _flow,
+          PaywallAction.unlockSucceeded,
+          detail: widget.featureKey,
+        );
         refreshCoinBalance(ref);
+        refreshOffersAfterPurchase(ref);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${l10n.unlockedMore(widget.grant)} 💎')),
         );
@@ -182,10 +252,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
             FilledButton(
               onPressed: () {
                 Navigator.pop(dialogContext);
-                Navigator.push(
-                  context,
-                  AppPageRoute(builder: (_) => const CoinShopScreen()),
-                );
+                openCoinShop<void>(context, _shopFlow, route: PaywallRoute.app);
               },
               child: Text(l10n.getMoreCoins),
             ),
@@ -200,10 +267,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
         action: SnackBarAction(
           label: l10n.getMoreCoins,
           onPressed: () {
-            Navigator.push(
-              context,
-              AppPageRoute(builder: (_) => const CoinShopScreen()),
-            );
+            openCoinShop<void>(context, _shopFlow, route: PaywallRoute.app);
           },
         ),
       ),

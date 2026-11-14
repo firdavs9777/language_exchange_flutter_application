@@ -1,5 +1,6 @@
 // lib/pages/chat/conversation/chat_conversation_screen.dart
 import 'dart:async';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/review_prompt_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -1014,6 +1015,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           context: context,
           error: error,
           userId: _currentUserId,
+          placement: PaywallPlacement.dmCap,
         );
       }
     }

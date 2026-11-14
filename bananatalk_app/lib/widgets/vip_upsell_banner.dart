@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Banner shown when viewing a VIP user's profile
-/// Encourages non-VIP users to upgrade
-class VipUpsellBanner extends StatelessWidget {
+/// Encourages non-VIP users to upgrade. With the offer engine on it shows
+/// only when the server's offer names [OfferSurface.profileBanner].
+class VipUpsellBanner extends ConsumerWidget {
   final String userName;
   final bool isCurrentUserVip;
 
@@ -15,11 +20,14 @@ class VipUpsellBanner extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Don't show if current user is already VIP
     if (isCurrentUserVip) return const SizedBox.shrink();
+    final gate = ref.watch(offerGateProvider(OfferSurface.profileBanner));
+    if (gate is OfferGateHidden) return const SizedBox.shrink();
+    final offerFlow = gate is OfferGateShow ? gate.flow : null;
 
-    return Container(
+    final banner = Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -40,9 +48,11 @@ class VipUpsellBanner extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            Navigator.push(
+            openVipPlans<void>(
               context,
-              MaterialPageRoute(builder: (_) => const VipPlansScreen()),
+              offerFlow ??
+                  PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'profile_banner'),
+              logCta: true,
             );
           },
           borderRadius: BorderRadius.circular(16),
@@ -110,96 +120,8 @@ class VipUpsellBanner extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// A smaller VIP promo card for use in lists or grids
-class VipPromoCard extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  const VipPromoCard({super.key, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFFFFD700).withOpacity(0.15),
-            const Color(0xFFFFA500).withOpacity(0.1),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFFFD700).withOpacity(0.3),
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap ??
-              () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const VipPlansScreen()),
-                );
-              },
-          borderRadius: BorderRadius.circular(12),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(
-                    Icons.workspace_premium,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.upgradeToVIP,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!.vipUnlockAllFeatures,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.grey[400],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    if (offerFlow == null) return banner;
+    return OfferShownReporter(flow: offerFlow, child: banner);
   }
 }
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:go_router/go_router.dart';
 
 /// AppBar for the Community screen.
@@ -99,9 +99,10 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 context.push('/matching');
                 break;
               case 'vip':
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  AppPageRoute(builder: (_) => const VipPlansScreen()),
+                  PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'community_app_bar'),
+                  route: PaywallRoute.app,
                 );
                 break;
             }

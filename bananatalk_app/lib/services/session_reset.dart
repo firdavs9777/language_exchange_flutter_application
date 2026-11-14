@@ -51,6 +51,8 @@ import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_provi
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/feed_open_tracker.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
@@ -191,6 +193,14 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'momentsServiceProvider': momentsServiceProvider,
   // Queued opens are sent under whoever is signed in at flush time.
   'feedOpenTrackerProvider': feedOpenTrackerProvider,
+  // Queued paywall events are dropped on sign-out (dispose clears the
+  // queue), so none is sent under the next account.
+  'paywallTrackerProvider': paywallTrackerProvider,
+  // The signed-in user's server offer; the next user starts with none (its
+  // expiry timer is cancelled when it is disposed).
+  'offersProvider': offersProvider,
+  'offerGateProvider': offerGateProvider,
+  'offersApiProvider': offersApiProvider,
   'momentsProvider': momentsProvider,
   'momentsFeedFreshnessProvider': momentsFeedFreshnessProvider,
   'momentsFeedProvider': momentsFeedProvider,
@@ -289,6 +299,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
 /// objects whose identity other code holds on to.
 const Set<String> kAppScopedProviderNames = {
   'themeProvider', // device appearance
+  'savedStorePricesProvider', // last store prices of this phone, device-level
   'languageProvider', // app UI language
   'apiClientProvider', // ApiClient() singleton; its token cache is cleared
   'clubsV2ApiProvider', // stateless GatheringApiClient over that singleton
@@ -305,6 +316,9 @@ const Set<String> kAppScopedProviderNames = {
   'appConfigRefreshStateProvider', // last app-config fetch time
   'hashtagsEnabledProvider', // derived from appConfigProvider
   'communityFastListEnabledProvider', // derived from appConfigProvider
+  'paywallEventsEnabledProvider', // derived from appConfigProvider
+  'offerEngineEnabledProvider', // derived from appConfigProvider
+  'offersClockProvider', // the wall clock (a test seam)
   // Stateless: every entry is keyed by user id, and sign-out clears them
   // (AuthService._clearAuthData).
   'communityFirstPageCacheProvider',

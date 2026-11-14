@@ -1,3 +1,8 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +15,6 @@ import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
@@ -531,14 +535,20 @@ class _LoadError extends StatelessWidget {
   }
 }
 
-class _Empty extends StatelessWidget {
+class _Empty extends ConsumerWidget {
   const _Empty({this.onBrowse, this.showBoost = false});
   final VoidCallback? onBrowse;
   final bool showBoost;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    // With the offer engine on, only the Boost / VIP buttons follow the
+    // server's offer; the rest of the empty state always draws. Both buttons
+    // already share one style, so the offer's lead changes no styling.
+    final gate = ref.watch(offerGateProvider(OfferSurface.matchesEmpty));
+    final offerFlow = gate is OfferGateShow ? gate.flow : null;
+    final showButtons = showBoost && gate is! OfferGateHidden;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -563,26 +573,40 @@ class _Empty extends StatelessWidget {
                 child: Text(l10n.matchesEmptyCta),
               ),
             ],
-            if (showBoost) ...[
+            if (showButtons) ...[
               const SizedBox(height: 8),
               TextButton.icon(
                 key: const Key('matches-empty-boost'),
-                onPressed: () => Navigator.push(
-                  context,
-                  AppPageRoute<void>(builder: (_) => const BoostScreen()),
-                ),
+                onPressed: () {
+                  if (offerFlow != null) {
+                    paywallLog(offerFlow, PaywallAction.ctaCoins);
+                  }
+                  Navigator.push(
+                    context,
+                    AppPageRoute<void>(
+                      builder: (_) => BoostScreen(flow: offerFlow),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.rocket_launch_rounded, size: 18),
                 label: Text(l10n.boostFromMatches),
               ),
               TextButton.icon(
                 key: const Key('matches-empty-vip'),
-                onPressed: () => Navigator.push(
+                onPressed: () => openVipPlans<void>(
                   context,
-                  AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
+                  offerFlow ??
+                      PaywallFlow.start(PaywallPlacement.matchesEmpty, detail: 'vip_button'),
+                  route: PaywallRoute.app,
                 ),
                 icon: const Icon(Icons.workspace_premium_rounded, size: 18),
                 label: Text(l10n.vipMoreMatchesCta),
               ),
+              if (offerFlow != null)
+                OfferShownReporter(
+                  flow: offerFlow,
+                  child: const SizedBox.shrink(),
+                ),
             ],
           ],
         ),

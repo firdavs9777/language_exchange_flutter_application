@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
@@ -34,7 +38,6 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 import 'package:bananatalk_app/utils/hidden_authors.dart';
@@ -800,14 +803,23 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   }
 
   /// "Go VIP" chip shown to non-VIP users next to the Moments title.
-  /// Tappable → opens the VIP plans screen.
+  /// Tappable → opens the VIP plans screen. With the offer engine on it
+  /// shows only when the server's offer names [OfferSurface.momentsChip].
   Widget _buildGoVipChip(BuildContext context) {
-    return Material(
+    final gate = ref.watch(offerGateProvider(OfferSurface.momentsChip));
+    if (gate is OfferGateHidden) return const SizedBox.shrink();
+    final offerFlow = gate is OfferGateShow ? gate.flow : null;
+    final chip = Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => Navigator.of(
+        key: const Key('moments-go-vip'),
+        onTap: () => openVipPlans<void>(
           context,
-        ).push(AppPageRoute(builder: (_) => const VipPlansScreen())),
+          offerFlow ??
+              PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'moments_chip'),
+          route: PaywallRoute.app,
+          logCta: true,
+        ),
         borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -855,6 +867,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         ),
       ),
     );
+    if (offerFlow == null) return chip;
+    return OfferShownReporter(flow: offerFlow, child: chip);
   }
 
   /// Small gold VIP pill rendered next to the Moments title in the AppBar

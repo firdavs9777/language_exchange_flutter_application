@@ -1,3 +1,6 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -13,7 +16,6 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/utils/language_names.dart';
@@ -24,6 +26,7 @@ typedef VisitorsFetcher =
       int limit,
       int page,
       bool reveal,
+      bool seen,
     });
 
 class ProfileVisitorsScreen extends ConsumerStatefulWidget {
@@ -32,10 +35,16 @@ class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   /// Injectable for tests; defaults to the live service.
   final VisitorsFetcher fetchVisitors;
 
+  /// The flow of the surface that opened this screen (an engine offer).
+  /// When given, this screen's own events go on it instead of a new flow,
+  /// so an unlock here counts for that offer.
+  final PaywallFlow? flow;
+
   const ProfileVisitorsScreen({
     Key? key,
     required this.userId,
     this.fetchVisitors = ProfileVisitorService.getProfileVisitors,
+    this.flow,
   }) : super(key: key);
 
   @override
@@ -66,6 +75,20 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
   bool _isLoading = true;
   String? _error;
 
+  /// One flow per visit of this screen: the masked tile and the unlock banner
+  /// share it, and `shown` is logged once, not per tile or per rebuild.
+  PaywallFlow? _paywallFlow;
+
+  void _reportPaywallShown() {
+    if (_paywallFlow != null) return;
+    final hasMasked =
+        _locked > 0 || _visitors.any((v) => v['revealed'] == false);
+    if (!hasMasked && visitorsUnlockLeft(_revealUntil) == null) return;
+    _paywallFlow =
+        widget.flow ?? PaywallFlow.start(PaywallPlacement.visitorList);
+    paywallLog(_paywallFlow!, PaywallAction.shown);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -88,15 +111,19 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
 
     try {
       var reveal = false;
+      var seen = false;
       try {
         final config = await ref.read(appConfigProvider.future);
         reveal = config?.boostsEnabled ?? false;
+        seen = config?.offerEngineEnabled ?? false;
       } catch (_) {}
       final result = await widget.fetchVisitors(
         userId: widget.userId,
         page: page,
         limit: _pageSize,
         reveal: reveal,
+        // Only this screen marks visitors seen, and only for the offer engine.
+        seen: seen,
       );
 
       if (mounted) {
@@ -117,6 +144,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
             _revealUntil = DateTime.tryParse('${result['revealUntil'] ?? ''}');
             _isLoading = false;
           });
+          _reportPaywallShown();
         } else if (!silent) {
           setState(() {
             _error = result['error'];
@@ -338,9 +366,13 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.push(
+              onPressed: () => openVipPlans<void>(
                 context,
-                AppPageRoute(builder: (_) => const VipPlansScreen(userId: '')),
+                _paywallFlow ??
+                    PaywallFlow.start(PaywallPlacement.visitorList,
+                        detail: 'unlock_banner'),
+                userId: '',
+                route: PaywallRoute.app,
               ),
               child: Text(l10n.goVip),
             ),
@@ -358,6 +390,8 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
         ? _maskedCount!
         : maskedLocal;
     return MaskedPersonTile(
+      placement: PaywallPlacement.visitorList,
+      flow: _paywallFlow,
       count: count,
       title: l10n.visitorsMaskedTitle(count),
       body: (cost) => cost != null

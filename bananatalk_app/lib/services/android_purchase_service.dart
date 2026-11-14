@@ -5,7 +5,9 @@ import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
+import 'package:bananatalk_app/services/product_query_gate.dart';
 import 'package:bananatalk_app/services/purchase_call_guard.dart';
+import 'package:bananatalk_app/services/store_price_cache.dart';
 import 'package:bananatalk_app/services/purchase_restorer.dart';
 import 'package:bananatalk_app/services/vip_plan_switch.dart';
 
@@ -27,7 +29,7 @@ class AndroidPurchaseService {
   // Track initialization state to prevent multiple concurrent initializations
   static bool _isInitializing = false;
   static Completer<bool>? _initializationCompleter;
-  static bool _isLoadingProducts = false;
+  static final SingleFlight<void> _productQuery = SingleFlight<void>();
 
   // Callback for when purchase completes
   static PurchaseCallback? _purchaseCallback;
@@ -77,8 +79,13 @@ class AndroidPurchaseService {
       return false;
     }
 
-    // Already initialized successfully
-    if (_isAvailable && _subscription != null) {
+    // Already initialized with products. With none (the last query failed or
+    // came back empty) this falls through and asks the store again.
+    if (!storeNeedsProductQuery(
+      available: _isAvailable,
+      subscribed: _subscription != null,
+      hasProducts: _products.isNotEmpty,
+    )) {
       return true;
     }
 
@@ -125,7 +132,10 @@ class AndroidPurchaseService {
   }
 
   /// Internal method to load products (called from initializeStore)
-  static Future<void> _loadProductsInternal() async {
+  static Future<void> _loadProductsInternal() =>
+      _productQuery.run(_queryProducts);
+
+  static Future<void> _queryProducts() async {
 
     final ProductDetailsResponse response =
         await _inAppPurchase.queryProductDetails(_productIds);
@@ -144,6 +154,10 @@ class AndroidPurchaseService {
     _products.clear();
     _products.addAll(response.productDetails);
     _queryProductError = null;
+    // Remember the prices for the next launch's first frame.
+    unawaited(
+      StorePriceCache().save(response.productDetails).catchError((Object _) {}),
+    );
   }
 
   /// Load available products from Google Play (public method for manual refresh)
@@ -154,14 +168,8 @@ class AndroidPurchaseService {
       return; // initializeStore already loads products
     }
 
-    // If already loading, skip
-    if (_isLoadingProducts) {
-      return;
-    }
-
-    _isLoadingProducts = true;
+    // One query at a time: a call during a running query shares it.
     await _loadProductsInternal();
-    _isLoadingProducts = false;
   }
 
   /// Get available products
@@ -603,7 +611,7 @@ class AndroidPurchaseService {
     _redeliveryHandler = null;
     _isAvailable = false;
     _isInitializing = false;
-    _isLoadingProducts = false;
+    _productQuery.reset();
     _initializationCompleter = null;
     _queryProductError = null;
     _purchaseCallback = null;

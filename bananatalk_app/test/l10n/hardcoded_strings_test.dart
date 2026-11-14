@@ -1172,7 +1172,6 @@ const Map<String, List<String>> _filesByTask = {
   'L11': [
     'pages/coins/coin_history_screen.dart',
     'pages/coins/coin_shop_screen.dart',
-    'pages/vip/visitor_upgrade_screen.dart',
     'utils/api_error_handler.dart',
     'utils/feature_gate.dart',
     'widgets/ads/ad_widgets.dart',
@@ -1181,7 +1180,6 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/tutor/persona_upgrade_sheet.dart',
     'widgets/vip_locked_feature.dart',
     'widgets/vip_up_pill.dart',
-    'widgets/visitor_limit_dialog.dart',
     'widgets/welcome_back_modal.dart',
   ],
   'L12': [
@@ -1225,7 +1223,6 @@ const Map<String, List<String>> _filesByTask = {
     'pages/stories/viewer/story_viewer_screen.dart',
     'pages/stories/viewer/story_viewers_sheet.dart',
     'pages/vip/vip_payment_screen.dart',
-    'pages/vip/visitor_upgrade_screen.dart',
     'utils/api_error_handler.dart',
     'utils/feature_gate.dart',
     'widgets/ads/ad_widgets.dart',
@@ -1238,7 +1235,6 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/story/story_poll_widget.dart',
     'widgets/story/story_question_box_widget.dart',
     'widgets/translation_bottom_sheet.dart',
-    'widgets/visitor_limit_dialog.dart',
     'widgets/voice_recorder/voice_recorder_stub.dart',
     'widgets/welcome_back_modal.dart',
   ],

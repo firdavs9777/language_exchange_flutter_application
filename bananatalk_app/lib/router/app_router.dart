@@ -12,6 +12,9 @@ import 'package:bananatalk_app/pages/stories/insights/story_insights_screen.dart
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_link_screen.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
+import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
+import 'package:bananatalk_app/services/profile_visitor_service.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
@@ -139,6 +142,85 @@ class _CommunitySubTabLandingState
 
   @override
   Widget build(BuildContext context) => const TabsScreen(initialIndex: 1);
+}
+
+/// Landing for `/visitors` (masked "someone viewed your profile" push): the
+/// visitors list needs the signed-in user's id, which the push does not carry.
+/// When the profile cannot load (the push tapped offline) it uses the id the
+/// route's redirect checked in prefs, and with none goes to the tabs, rather
+/// than leaving a blank screen with no way back.
+class VisitorsLanding extends ConsumerStatefulWidget {
+  const VisitorsLanding({
+    super.key,
+    this.savedUserId = _savedUserId,
+    this.fetchVisitors = ProfileVisitorService.getProfileVisitors,
+  });
+
+  /// The signed-in user's id as saved in prefs; injectable for tests.
+  final Future<String?> Function() savedUserId;
+
+  /// Passed to the visitors list; injectable for tests.
+  final VisitorsFetcher fetchVisitors;
+
+  static Future<String?> _savedUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId');
+  }
+
+  @override
+  ConsumerState<VisitorsLanding> createState() => _VisitorsLandingState();
+}
+
+class _VisitorsLandingState extends ConsumerState<VisitorsLanding> {
+  String? _saved;
+  bool _savedRead = false;
+  bool _left = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _readSaved();
+  }
+
+  Future<void> _readSaved() async {
+    String? id;
+    try {
+      id = await widget.savedUserId();
+    } catch (_) {}
+    if (!mounted) return;
+    setState(() {
+      _saved = id;
+      _savedRead = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+    final id = user.valueOrNull?.id;
+    if (id != null && id.isNotEmpty) {
+      return ProfileVisitorsScreen(
+        userId: id,
+        fetchVisitors: widget.fetchVisitors,
+      );
+    }
+    if (user.hasError) {
+      final saved = _saved;
+      if (saved != null && saved.isNotEmpty) {
+        return ProfileVisitorsScreen(
+          userId: saved,
+          fetchVisitors: widget.fetchVisitors,
+        );
+      }
+      if (_savedRead && !_left) {
+        _left = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) context.go('/tabs/0');
+        });
+      }
+    }
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+  }
 }
 
 final goRouter = GoRouter(
@@ -406,6 +488,22 @@ final goRouter = GoRouter(
       path: '/boost',
       pageBuilder: (context, state) =>
           _buildSlideTransition(state: state, child: const BoostScreen()),
+    ),
+
+    // Masked `profile_visit` push: the visitors list. Signed-out → splash,
+    // which makes the usual auth decision (same as the invite route).
+    GoRoute(
+      path: '/visitors',
+      redirect: (context, state) async {
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          final id = prefs.getString('userId');
+          if (id == null || id.isEmpty) return '/splash';
+        } catch (_) {}
+        return null;
+      },
+      pageBuilder: (context, state) =>
+          _buildSlideTransition(state: state, child: const VisitorsLanding()),
     ),
 
     // Announcement detail: notifications-list rows and `announcement` pushes.

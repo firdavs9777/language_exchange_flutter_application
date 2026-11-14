@@ -37,6 +37,9 @@ const Set<String> kDeviceLevelPrefsKeys = {
   'auto_download_videos',
   'auto_download_voice',
   'auto_download_documents',
+  // Last known store prices (StorePriceCache): the storefront of this phone,
+  // not of the account; lets the plans screen paint a real price at once.
+  'store_prices_v1',
   // Store review / app-update / ads-notice nags are per install.
   'review_prompt_at',
   'review_prompt_count',

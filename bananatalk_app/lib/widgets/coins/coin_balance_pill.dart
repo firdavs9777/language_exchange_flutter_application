@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Coin balance pill ("💎 247") — the entry-point CTA for the coin shop,
 /// placed alongside [VipUpPill] in the same high-traffic app bars (chat
@@ -44,9 +45,10 @@ class CoinBalancePill extends ConsumerWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap ??
-              () => Navigator.push(
+              () => openCoinShop<void>(
                     context,
-                    AppPageRoute(builder: (_) => const CoinShopScreen()),
+                    PaywallFlow.start(PaywallPlacement.coinEntry, detail: 'pill'),
+                    route: PaywallRoute.app,
                   ),
           borderRadius: BorderRadius.circular(14),
           child: Container(

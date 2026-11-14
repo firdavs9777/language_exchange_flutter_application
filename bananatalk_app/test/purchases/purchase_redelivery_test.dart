@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:bananatalk_app/services/expired_receipt_memo.dart';
 import 'package:bananatalk_app/services/purchase_redelivery.dart';
 import 'package:bananatalk_app/services/purchase_restorer.dart';
 
@@ -44,7 +46,9 @@ class _Harness {
         isVipActive: () async => vipActive,
         verifySubscription: (p) async {
           subVerified.add(p.transactionId!);
-          return subOk;
+          return subOk
+              ? const RestoreVerifyResult.success()
+              : const RestoreVerifyResult.failure('nope');
         },
         verifyCoinPack: (p) async {
           coinVerified.add(p.transactionId!);
@@ -150,6 +154,159 @@ void main() {
       expect(await handler.handle(_p(_year)), RedeliveryAction.verifyFailed);
       expect(await handler.handle(_p(_coins, tx: 'c')),
           RedeliveryAction.verifyFailed);
+    });
+  });
+
+  group('expired receipts are sent once', () {
+    RestoredPurchase sub({String tx = 'tx-1', DateTime? renewedAt}) =>
+        RestoredPurchase(
+          productId: _year,
+          receipt: 'r-$tx',
+          transactionId: tx,
+          renewedAt: renewedAt,
+        );
+
+    // Builds a handler wired to an in-memory memo, counting verify calls.
+    ({PurchaseRedeliveryHandler handler, List<int> calls, ExpiredReceiptMemo memo})
+        build({
+      required RestoreVerifyResult result,
+      bool vipActive = false,
+      bool Function(RestoredPurchase)? lapsed,
+    }) {
+      final calls = <int>[];
+      final memo = ExpiredReceiptMemo(userId: 'u1');
+      final handler = PurchaseRedeliveryHandler(
+        vipProductIds: const {_year},
+        coinProductIds: const {_coins},
+        canVerify: () => true,
+        isVipActive: () async => vipActive,
+        verifySubscription: (p) async {
+          calls.add(1);
+          return result;
+        },
+        verifyCoinPack: (_) async => true,
+        completeCoinPack: (_) async {},
+        isKnownExpired: memo.contains,
+        rememberExpired: memo.add,
+        isLapsed: lapsed,
+      );
+      return (handler: handler, calls: calls, memo: memo);
+    }
+
+    setUp(() => SharedPreferences.setMockInitialValues({}));
+
+    test(
+        'an expired answer is remembered and the same transaction is not sent again',
+        () async {
+      final b = build(result: const RestoreVerifyResult.failure('Subscription has expired', expired: true));
+      expect(await b.handler.handle(sub()), RedeliveryAction.verifyFailed);
+      expect(b.calls.length, 1);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedKnownExpired);
+      expect(b.calls.length, 1);
+    });
+
+    test('a network failure is not remembered; the next launch tries again',
+        () async {
+      final b = build(result: const RestoreVerifyResult.failure('SocketException'));
+      expect(await b.handler.handle(sub()), RedeliveryAction.verifyFailed);
+      expect(await b.handler.handle(sub()), RedeliveryAction.verifyFailed);
+      expect(b.calls.length, 2);
+      expect(await b.memo.contains(sub()), isFalse);
+    });
+
+    test('a lapsed purchase is skipped without a request and not remembered',
+        () async {
+      final b = build(
+          result: const RestoreVerifyResult.success(), lapsed: (_) => true);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
+      expect(b.calls, isEmpty);
+      expect(await b.memo.contains(sub()), isFalse);
+    });
+
+    test('once the clock no longer says lapsed, the same purchase is sent',
+        () async {
+      var lapsed = true;
+      final b = build(
+          result: const RestoreVerifyResult.success(),
+          lapsed: (_) => lapsed);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
+      lapsed = false;
+      expect(await b.handler.handle(sub()),
+          RedeliveryAction.verifiedSubscription);
+      expect(b.calls.length, 1);
+    });
+
+    test('a renewal with the same transaction id but a later renewedAt is sent',
+        () async {
+      final b = build(result: const RestoreVerifyResult.failure('Subscription has expired', expired: true));
+      final first = sub(renewedAt: DateTime.utc(2026, 1, 1));
+      final renewed = sub(renewedAt: DateTime.utc(2026, 2, 1));
+      await b.handler.handle(first);
+      expect(await b.handler.handle(first), RedeliveryAction.skippedKnownExpired);
+      expect(await b.handler.handle(renewed), RedeliveryAction.verifyFailed);
+      expect(b.calls.length, 2);
+    });
+
+    test('an active VIP still short-circuits first', () async {
+      final b = build(
+          result: const RestoreVerifyResult.success(),
+          vipActive: true,
+          lapsed: (_) => true);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedAlreadyVip);
+      expect(await b.memo.contains(sub()), isFalse,
+          reason: 'nothing is remembered for an active VIP');
+      expect(b.calls, isEmpty);
+    });
+
+    test('without the new dependencies the handler behaves exactly as before',
+        () async {
+      var calls = 0;
+      final handler = PurchaseRedeliveryHandler(
+        vipProductIds: const {_year},
+        coinProductIds: const {_coins},
+        canVerify: () => true,
+        isVipActive: () async => false,
+        verifySubscription: (_) async {
+          calls++;
+          return const RestoreVerifyResult.failure('Subscription has expired', expired: true);
+        },
+        verifyCoinPack: (_) async => true,
+        completeCoinPack: (_) async {},
+      );
+      expect(await handler.handle(sub()), RedeliveryAction.verifyFailed);
+      expect(await handler.handle(sub()), RedeliveryAction.verifyFailed);
+      expect(calls, 2);
+    });
+  });
+
+  group('isServerExpiredAnswer', () {
+    test('only 400 plus the exact server phrase counts', () {
+      expect(isServerExpiredAnswer(400, 'Subscription has expired'), isTrue);
+      expect(isServerExpiredAnswer(400, 'SUBSCRIPTION HAS EXPIRED '), isTrue);
+      expect(isServerExpiredAnswer(401, 'jwt expired'), isFalse);
+      expect(isServerExpiredAnswer(401, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(403, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(500, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(null, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(400, 'Token expired'), isFalse);
+      expect(isServerExpiredAnswer(400, 'Purchase verification failed'),
+          isFalse);
+      expect(isServerExpiredAnswer(400, null), isFalse);
+    });
+  });
+
+  group('clearlyLapsed', () {
+    Duration? period(String id) => const Duration(days: 30);
+    final now = DateTime.utc(2026, 6, 1);
+    RestoredPurchase at(DateTime? t) =>
+        RestoredPurchase(productId: _year, receipt: 'r', renewedAt: t);
+
+    test('lapsed only after period plus grace; unknown times are not lapsed', () {
+      expect(clearlyLapsed(at(DateTime.utc(2026, 4, 1)), now, planPeriod: period), isTrue);
+      expect(clearlyLapsed(at(DateTime.utc(2026, 5, 15)), now, planPeriod: period), isFalse);
+      expect(clearlyLapsed(at(null), now, planPeriod: period), isFalse);
+      expect(clearlyLapsed(at(DateTime.utc(2026, 1, 1)), now, planPeriod: (_) => null), isFalse);
     });
   });
 }

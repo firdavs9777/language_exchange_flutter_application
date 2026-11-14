@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
 import 'package:bananatalk_app/pages/chat/panels/chat_media_panel.dart';
 import 'package:bananatalk_app/pages/chat/panels/chat_phrases_panel.dart';
 import 'package:bananatalk_app/pages/chat/panels/chat_sticker_panel.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatInputSection extends ConsumerWidget {
   final TextEditingController messageController;
@@ -207,11 +207,11 @@ class _MessageLimitIndicator extends ConsumerWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  openVipPlans<void>(
                     context,
-                    AppPageRoute(
-                      builder: (_) => VipPlansScreen(userId: userId),
-                    ),
+                    PaywallFlow.start(PaywallPlacement.dmCap, detail: 'indicator'),
+                    userId: userId,
+                    route: PaywallRoute.app,
                   );
                 },
                 child: Container(

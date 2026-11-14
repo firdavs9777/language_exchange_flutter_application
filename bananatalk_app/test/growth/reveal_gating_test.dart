@@ -192,6 +192,7 @@ void main() {
         int limit = 20,
         int page = 1,
         bool reveal = false,
+        bool seen = false,
       }) async {
         calls.add(reveal);
         return {
@@ -219,6 +220,7 @@ void main() {
         int limit = 20,
         int page = 1,
         bool reveal = false,
+        bool seen = false,
       }) async {
         calls.add(reveal);
         return {'success': true, 'visitors': []};
@@ -245,6 +247,7 @@ void main() {
         int limit = 20,
         int page = 1,
         bool reveal = false,
+        bool seen = false,
       }) async =>
           {
             'success': true,
@@ -271,6 +274,7 @@ void main() {
         int limit = 20,
         int page = 1,
         bool reveal = false,
+        bool seen = false,
       }) async =>
           {
             'success': true,
@@ -294,6 +298,7 @@ void main() {
         int limit = 20,
         int page = 1,
         bool reveal = false,
+        bool seen = false,
       }) async {
         pages.add(page);
         final n = page == 1 ? 50 : 3;

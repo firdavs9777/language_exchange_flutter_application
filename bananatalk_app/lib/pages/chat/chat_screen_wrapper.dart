@@ -4,12 +4,9 @@ import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/call/call_launcher.dart';
-import 'package:bananatalk_app/services/daily_chat_limit_service.dart';
-import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 class ChatScreenWrapper extends ConsumerStatefulWidget {
@@ -36,7 +33,6 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
   Community? _userData;
   bool _isLoading = true;
   String? _error;
-  bool _chatLimitReached = false;
   bool _autoCallDone = false;
 
   @override
@@ -98,103 +94,6 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
         body: const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
-          ),
-        ),
-      );
-    }
-
-    if (_chatLimitReached) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: const AppBackButton(),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFD700).withValues(alpha: 0.15),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.chat_bubble_outline,
-                    size: 40,
-                    color: Color(0xFFFFD700),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  AppLocalizations.of(context)!.chatDailyLimitTitle,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  AppLocalizations.of(context)!.chatDailyLimitBody(DailyChatLimitService.maxDailyChats),
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: context.textSecondary,
-                    height: 1.5,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 28),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        builder: (_) => VipUpgradeSheet(
-                          featureName: AppLocalizations.of(context)!.chatUnlimitedTitle,
-                          description:
-                              AppLocalizations.of(context)!.chatUnlimitedBody,
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFD700),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.workspace_premium, size: 20),
-                        const SizedBox(width: 8),
-                        Text(
-                          AppLocalizations.of(context)!.upgradeToVIP,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(
-                    AppLocalizations.of(context)!.maybeLater,
-                    style: TextStyle(color: context.textSecondary),
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       );

@@ -46,6 +46,11 @@ class Endpoints {
   static String getVipStatusURL(String userId) =>
       'auth/users/$userId/vip/status';
   
+  // Paywall funnel events (gated server-side by paywallEventsEnabled)
+  static const String paywallEventsURL = 'purchases/paywall-events';
+  // The server's daily offer (gated server-side by offerEngineEnabled)
+  static const String offersURL = 'offers';
+
   // iOS purchase endpoints
   static const String iosVerifyPurchaseURL = 'purchases/ios/verify';
   static const String iosSubscriptionStatusURL =

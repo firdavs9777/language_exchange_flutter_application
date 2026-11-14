@@ -39,6 +39,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Debug builds run inside a zone that names the caller of any bare
@@ -280,6 +281,15 @@ Future<void> reconnectChatIfSignedIn() async {
   } catch (_) {}
 }
 
+/// Re-reads the server's daily offer for a signed-in user (resume).
+Future<void> refreshOffersIfSignedIn() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    if ((prefs.getString('token') ?? '').isEmpty) return;
+    await appProviderContainer.read(offersProvider.notifier).refresh();
+  } catch (_) {}
+}
+
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
@@ -311,6 +321,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     // Server switches flipped while the app was away show on return.
     if (state == AppLifecycleState.resumed) {
       unawaited(refreshAppConfig(appProviderContainer));
+      // The server's daily offer (no request while offerEngineEnabled is off;
+      // turning it on in that app-config refresh fetches it too).
+      unawaited(refreshOffersIfSignedIn());
       // The balance can change server-side (grant, another device).
       appProviderContainer.invalidate(coinBalanceProvider);
       // Chat must be live on whatever screen the app resumes to (it used to

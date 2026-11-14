@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
@@ -17,7 +17,7 @@ import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 ///
 /// Callers render ONE tile for all masked rows ([count]); one unlock reveals
 /// everyone, so a tile per row would offer N buttons for the same purchase.
-class MaskedPersonTile extends ConsumerWidget {
+class MaskedPersonTile extends ConsumerStatefulWidget {
   const MaskedPersonTile({
     super.key,
     required this.onUnlocked,
@@ -25,7 +25,16 @@ class MaskedPersonTile extends ConsumerWidget {
     this.count = 1,
     this.title,
     this.body,
+    this.placement = PaywallPlacement.other,
+    this.flow,
   });
+
+  /// The host screen's flow (it logged `shown` once). Without one the tile
+  /// starts its own on [placement], shared by both buttons.
+  final PaywallFlow? flow;
+
+  /// Paywall placement both buttons report when no [flow] is given.
+  final String placement;
 
   /// Called after a successful unlock so the caller can reload its list.
   final VoidCallback onUnlocked;
@@ -44,7 +53,24 @@ class MaskedPersonTile extends ConsumerWidget {
   final Widget? trailing;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MaskedPersonTile> createState() => _MaskedPersonTileState();
+}
+
+class _MaskedPersonTileState extends ConsumerState<MaskedPersonTile> {
+  PaywallFlow? _ownFlow;
+
+  /// The host's flow, or one of the tile's own (started on first use), so
+  /// the unlock and "Go VIP" on one tile report the same placement and flow.
+  PaywallFlow get _flow =>
+      widget.flow ??
+      (_ownFlow ??= PaywallFlow.start(widget.placement, detail: 'masked_tile'));
+
+  @override
+  Widget build(BuildContext context) {
+    final count = widget.count;
+    final title = widget.title;
+    final body = widget.body;
+    final trailing = widget.trailing;
     final l10n = AppLocalizations.of(context)!;
     final cost = ref.watch(coinUnlockCatalogProvider).maybeWhen(
           data: (c) {
@@ -95,7 +121,7 @@ class MaskedPersonTile extends ConsumerWidget {
                   style:
                       context.bodyMedium.copyWith(color: context.textSecondary),
                 ),
-                if (trailing != null) ...[const SizedBox(height: 4), trailing!],
+                if (trailing != null) ...[const SizedBox(height: 4), trailing],
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -104,15 +130,16 @@ class MaskedPersonTile extends ConsumerWidget {
                   children: [
                     UnlockCta(
                       featureKey: 'who_waved',
-                      onUnlocked: onUnlocked,
+                      flow: _flow,
+                      onUnlocked: widget.onUnlocked,
                       labelBuilder: (cost, _) => l10n.coinAmount(cost),
                     ),
                     TextButton(
                       key: const ValueKey('masked-go-vip'),
-                      onPressed: () => Navigator.push(
+                      onPressed: () => openVipPlans<void>(
                         context,
-                        AppPageRoute<void>(
-                            builder: (_) => const VipPlansScreen()),
+                        _flow,
+                        route: PaywallRoute.app,
                       ),
                       child: Text(l10n.goVip),
                     ),

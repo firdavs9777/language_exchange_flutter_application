@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_showing.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_feature_labels.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_features.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
 enum StudyUpgradeReason { locked, exhausted }
@@ -22,17 +23,33 @@ Future<bool> showStudyUpgradeSheet(
 }) async {
   AnalyticsService.instance
       .studyUpgradeSheetShown(feature: feature.slug, reason: reason.name);
+  final showing = PaywallShowing.begin(
+    PaywallPlacement.studyLock,
+    detail: feature.slug,
+  );
   final unlocked = await showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
     showDragHandle: true,
-    builder: (_) => _StudyUpgradeSheet(feature: feature, reason: reason),
+    builder: (_) => _StudyUpgradeSheet(
+      feature: feature,
+      reason: reason,
+      showing: showing,
+    ),
   );
+  // Swipe-down, barrier tap and "Not now" all land here without a CTA.
+  showing.finish();
   return unlocked ?? false;
 }
 
 class _StudyUpgradeSheet extends ConsumerWidget {
-  const _StudyUpgradeSheet({required this.feature, required this.reason});
+  const _StudyUpgradeSheet({
+    required this.feature,
+    required this.reason,
+    required this.showing,
+  });
+
+  final PaywallShowing showing;
 
   final StudyFeature feature;
   final StudyUpgradeReason reason;
@@ -81,6 +98,8 @@ class _StudyUpgradeSheet extends ConsumerWidget {
             if (reason == StudyUpgradeReason.exhausted && feature.quotaKey != null) ...[
               UnlockCta(
                 featureKey: feature.quotaKey!,
+                flow: showing.flow,
+                onCtaTapped: showing.markActed,
                 onUnlocked: () {
                   AnalyticsService.instance
                       .studyUpgradeUnlock(feature: feature.slug, method: 'coins');
@@ -94,9 +113,15 @@ class _StudyUpgradeSheet extends ConsumerWidget {
               onPressed: () {
                 AnalyticsService.instance
                     .studyUpgradeUnlock(feature: feature.slug, method: 'vip');
+                showing.markActed();
                 final nav = Navigator.of(context);
                 nav.pop(false);
-                nav.push(AppPageRoute(builder: (_) => const VipPlansScreen()));
+                openVipPlans<void>(
+                  context,
+                  showing.flow,
+                  route: PaywallRoute.app,
+                  navigator: nav,
+                );
               },
               child: Text(l.studyUpgradeGetVip),
             ),

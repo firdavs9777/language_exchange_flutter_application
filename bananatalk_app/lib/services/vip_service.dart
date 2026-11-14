@@ -269,6 +269,7 @@ class VipService {
         } else {
           return {
             'success': false,
+            'statusCode': response.statusCode,
             'error': data['error'] ?? data['message'] ?? 'Purchase verification failed',
           };
         }
@@ -276,6 +277,7 @@ class VipService {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
+          'statusCode': response.statusCode,
           'error': errorData['error'] ?? errorData['message'] ?? 'Purchase verification failed',
         };
       }
@@ -341,6 +343,7 @@ class VipService {
         } else {
           return {
             'success': false,
+            'statusCode': response.statusCode,
             'error': data['error'] ??
                 data['message'] ??
                 'Purchase verification failed',
@@ -350,6 +353,7 @@ class VipService {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
+          'statusCode': response.statusCode,
           'error': errorData['error'] ??
               errorData['message'] ??
               'Purchase verification failed',

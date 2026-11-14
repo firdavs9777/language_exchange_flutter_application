@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 /// A widget that overlays a lock on non-VIP features
 /// Shows the feature with reduced opacity and a lock icon overlay
@@ -119,43 +120,6 @@ class VipLockedFeature extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// A compact lock indicator for smaller UI elements
-class VipLockBadge extends StatelessWidget {
-  final bool isVip;
-  final VoidCallback? onTap;
-
-  const VipLockBadge({
-    super.key,
-    required this.isVip,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (isVip) return const SizedBox.shrink();
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.7),
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: const Color(0xFFFFD700),
-            width: 1.5,
-          ),
-        ),
-        child: const Icon(
-          Icons.lock_rounded,
-          color: Color(0xFFFFD700),
-          size: 12,
-        ),
       ),
     );
   }
@@ -288,11 +252,9 @@ class VipUpgradeSheet extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.push(
+                  openVipPlans<void>(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => const VipPlansScreen(),
-                    ),
+                    PaywallFlow.start(PaywallPlacement.studyLock, detail: 'ai_tools_tab'),
                   );
                 },
                 style: ElevatedButton.styleFrom(

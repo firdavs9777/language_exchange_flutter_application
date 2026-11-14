@@ -3,7 +3,6 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
@@ -14,6 +13,12 @@ import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/pages/vip/vip_price.dart';
+import 'package:bananatalk_app/services/store_price_cache.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -32,7 +37,10 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 ///      repurchasable. A failed verify leaves the purchase un-consumed so
 ///      the store can retry or refund it.
 class CoinShopScreen extends ConsumerStatefulWidget {
-  const CoinShopScreen({super.key});
+  const CoinShopScreen({super.key, this.flow});
+
+  /// The upsell flow that opened the shop; null is reported as `other`.
+  final PaywallFlow? flow;
 
   @override
   ConsumerState<CoinShopScreen> createState() => _CoinShopScreenState();
@@ -57,13 +65,22 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   // loaded up front.
   bool _adCapReached = false;
 
+  /// The flow this opening of the shop belongs to; purchases report on it.
+  late final PaywallFlow _flow =
+      widget.flow ?? PaywallFlow.start(PaywallPlacement.other);
+
   @override
   void initState() {
     super.initState();
+    paywallLog(_flow, PaywallAction.shopViewed);
     // Coins can change outside this device (an admin grant, a purchase on
     // another device); show the server's balance, not the session's cache.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) refreshCoinBalance(ref);
+      if (!mounted) return;
+      refreshCoinBalance(ref);
+      // A failed or empty product answer from an earlier visit is asked
+      // again once, not kept.
+      retryEmptyProductQuery(ref, isIOS: _isIOS, isAndroid: _isAndroid);
     });
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
@@ -85,13 +102,16 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
 
     setState(() => _purchasingPackId = pack.id);
 
+    final attempt = PurchaseAttempt(_flow);
     try {
       final productId = pack.productId(_isIOS);
+      attempt.start(productId);
       final purchase = _isIOS
           ? await IOSPurchaseService.purchaseCoinPack(productId)
           : await AndroidPurchaseService.purchaseCoinPack(productId);
 
       if (purchase == null) {
+        attempt.finish(PurchaseOutcome.cancelled);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsPurchaseCanceled);
         }
@@ -116,6 +136,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       }
 
       if (receipt.isEmpty || transactionId.isEmpty) {
+        attempt.finish(PurchaseOutcome.error);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsReceiptUnreadable);
         }
@@ -130,6 +151,13 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       );
 
       final outcome = coinVerifyOutcome(response);
+      attempt.finish(
+        purchaseOutcomeForCoinVerify(outcome),
+        productId: productId,
+      );
+      if (purchaseOutcomeForCoinVerify(outcome) == PurchaseOutcome.succeeded) {
+        refreshOffersAfterPurchase(ref);
+      }
       if (outcome.finishesPurchase) {
         // Only now is it safe to finish/consume — the backend confirmed
         // the receipt and credited coins (or refused it for good because
@@ -161,6 +189,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           );
         }
       }
+    } catch (_) {
+      attempt.finish(PurchaseOutcome.error);
+      rethrow;
     } finally {
       if (mounted) setState(() => _purchasingPackId = null);
     }
@@ -235,23 +266,6 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     } finally {
       if (mounted) setState(() => _adClaiming = false);
     }
-  }
-
-  ProductDetails? _storeProduct(WidgetRef ref, String productId) {
-    final productsAsync = _isIOS
-        ? ref.watch(iosProductsProvider)
-        : _isAndroid
-        ? ref.watch(androidProductsProvider)
-        : const AsyncValue<List<ProductDetails>>.data(<ProductDetails>[]);
-    return productsAsync.maybeWhen(
-      data: (products) {
-        for (final p in products) {
-          if (p.id == productId) return p;
-        }
-        return null;
-      },
-      orElse: () => null,
-    );
   }
 
   @override
@@ -597,8 +611,17 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   Widget _buildPackCard(CoinPack pack) {
     const accent = Color(0xFF1E88E5);
     final productId = pack.productId(_isIOS);
-    final product = _storeProduct(ref, productId);
-    final priceText = product?.price ?? '\$${pack.usdPrice.toStringAsFixed(2)}';
+    final answer = _isIOS
+        ? ref.watch(iosProductsProvider).valueOrNull
+        : _isAndroid
+            ? ref.watch(androidProductsProvider).valueOrNull
+            : null;
+    final priceText = storePriceText(
+      id: productId,
+      answer: answer,
+      saved: ref.watch(savedStorePricesProvider).valueOrNull?[productId],
+      fallback: '\$${pack.usdPrice.toStringAsFixed(2)}',
+    );
     final isBusy = _purchasingPackId == pack.id;
     final isBestValue = pack.id == 'large';
 

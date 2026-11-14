@@ -5,6 +5,10 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
@@ -19,8 +23,18 @@ import 'package:bananatalk_app/utils/image_utils.dart';
 ///
 /// Returns [SizedBox.shrink] when there are no visitors so the card is
 /// invisible until real data arrives.
+///
+/// With the offer engine on it shows only when the server's offer names
+/// [OfferSurface.visitorRecall]; otherwise it draws nothing and requests
+/// nothing.
 class VisitorRecallCard extends ConsumerStatefulWidget {
-  const VisitorRecallCard({super.key});
+  const VisitorRecallCard({
+    super.key,
+    this.fetchVisitors = ProfileVisitorService.getProfileVisitors,
+  });
+
+  /// Injectable for tests; defaults to the live service. Never sent `seen`.
+  final VisitorsFetcher fetchVisitors;
 
   @override
   ConsumerState<VisitorRecallCard> createState() => _VisitorRecallCardState();
@@ -30,6 +44,7 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
   List<Map<String, dynamic>> _visitors = [];
   int _totalCount = 0;
   bool _isLoaded = false;
+  bool _requested = false;
 
   // Avatar sizing for the overlapping stack.
   static const double _avatarSize = 38;
@@ -38,17 +53,22 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
   @override
   void initState() {
     super.initState();
-    _load();
+    if (ref.read(offerGateProvider(OfferSurface.visitorRecall))
+        is! OfferGateHidden) {
+      _load();
+    }
   }
 
   Future<void> _load() async {
+    if (_requested) return;
+    _requested = true;
     final myId = ref.read(authServiceProvider).userId;
     if (myId.isEmpty) {
       setState(() => _isLoaded = true);
       return;
     }
     try {
-      final result = await ProfileVisitorService.getProfileVisitors(
+      final result = await widget.fetchVisitors(
         userId: myId,
         limit: 5,
       );
@@ -133,21 +153,46 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
 
   @override
   Widget build(BuildContext context) {
+    // A gate that stops hiding (offer arrives, engine turns off) loads once.
+    ref.listen<OfferGate>(offerGateProvider(OfferSurface.visitorRecall), (
+      _,
+      next,
+    ) {
+      if (next is! OfferGateHidden) _load();
+    });
+    final gate = ref.watch(offerGateProvider(OfferSurface.visitorRecall));
+    if (gate is OfferGateHidden) return const SizedBox.shrink();
     if (!_isLoaded || _visitors.isEmpty) {
       return const SizedBox.shrink();
     }
+    final offerFlow = gate is OfferGateShow ? gate.flow : null;
+    final offerLead = gate is OfferGateShow ? gate.offer.lead : null;
 
     final l10n = AppLocalizations.of(context)!;
     final myId = ref.read(authServiceProvider).userId;
 
     void openVisitors() {
+      if (offerFlow != null) {
+        paywallLog(
+          offerFlow,
+          offerLead == OfferLead.coins
+              ? PaywallAction.ctaCoins
+              : PaywallAction.ctaVip,
+        );
+      }
       Navigator.push(
         context,
-        AppPageRoute(builder: (_) => ProfileVisitorsScreen(userId: myId)),
+        AppPageRoute(
+          builder: (_) => ProfileVisitorsScreen(
+            userId: myId,
+            fetchVisitors: widget.fetchVisitors,
+            flow: offerFlow,
+          ),
+        ),
       );
     }
 
-    return GestureDetector(
+    final card = GestureDetector(
       onTap: openVisitors,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -186,6 +231,8 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
         ),
       ),
     );
+    if (offerFlow == null) return card;
+    return OfferShownReporter(flow: offerFlow, child: card);
   }
 
   Widget _buildAvatarStack(BuildContext context) {

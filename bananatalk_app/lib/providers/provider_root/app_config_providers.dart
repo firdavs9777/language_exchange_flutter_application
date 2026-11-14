@@ -42,6 +42,23 @@ final communityFastListEnabledProvider = Provider<bool>((ref) {
       );
 });
 
+/// Server's paywall-event switch. False while app-config loads, on error,
+/// and when the server predates the flag.
+final paywallEventsEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.paywallEventsEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
+/// Server's offer-engine switch; same shape as [paywallEventsEnabledProvider].
+final offerEngineEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.offerEngineEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
 /// How long after a fetch a resume does not fetch again.
 const Duration appConfigRefreshInterval = Duration(minutes: 2);
 
