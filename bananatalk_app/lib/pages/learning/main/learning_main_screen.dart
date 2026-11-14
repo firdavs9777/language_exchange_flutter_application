@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart'
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
+import 'package:bananatalk_app/pages/learning/main/study_tab_opened_reporter.dart';
 import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 
 /// The AI Study tab. Owns the streak / level-up / achievement celebration
@@ -145,8 +146,12 @@ class _LearningMainState extends ConsumerState<LearningMain> {
 
     final showHub = _showHub;
     if (showHub == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const StudyTabOpenedReporter(
+        child: Scaffold(body: Center(child: CircularProgressIndicator())),
+      );
     }
-    return showHub ? const StudyHub() : const LegacyStudyHub();
+    return StudyTabOpenedReporter(
+      child: showHub ? const StudyHub() : const LegacyStudyHub(),
+    );
   }
 }

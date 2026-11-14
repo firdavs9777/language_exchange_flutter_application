@@ -385,6 +385,15 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - 2026-10-08 — Merge 12c8e2b4 auth audit: session reset, 401 redirect, registration token, biometric on Android (FlutterFragmentActivity), keychain accessibility, biometric snapshot freshness, socket re-enable.
 - 2026-10-02 — Monetization & growth tranches built dark; 2.6.1 (10574) tagged and released, superseding 2.4.0 / 2.5.0 / 2.6.0.
 
+## AI Study foundations app (Plan S2, branch feat/ai-study-foundations-app)
+
+- [x] Task 1: study events behind `studyEventsEnabled` (off): `StudyTracker` + `studyLog`, points in the tab, pack flow, feature tiles and level check. Needs the backend `study/events` endpoint and flag on before anything is sent; no new request while off.
+- [ ] Task 2: things that could not work, and the tutor's new 429 reasons (daily_conversations, conversation_full, conversation_starting).
+- [ ] Task 3: the level the server says (`levelMeasured`, `levelChange`, refetch the pack after a level check).
+- [ ] Task 4: the AI Study tab paints at once (per-user disk cache, first build only).
+- [ ] Task 5: whole-app check and handoff.
+- [ ] Device check of the events once the server flag is on (tab_opened on each select, step_started/finished, feature_opened, level check).
+
 ## Moments smart feed app (Plan A2) (2026-11-12, branch feat/moments-smart-feed-app)
 
 - [x] 2026-11-12 final whole-branch review: 1 critical + 10 important findings fixed (e30e257a..34ba4e4a). Re-check of the five that are visible on today's server in progress; the six dormant ones (I5–I10) are to be re-checked before their server switch is turned on.

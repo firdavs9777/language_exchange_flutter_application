@@ -27,6 +27,7 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/feature_seen_store.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/study/study_upgrade_sheet.dart';
 
@@ -112,6 +113,7 @@ class StudyFeatureGroups extends ConsumerWidget {
 
   Future<void> _onTap(BuildContext context, WidgetRef ref, StudyFeature f, TileBadge? badge) async {
     AnalyticsService.instance.studyTileTap(feature: f.slug, badge: badge?.analyticsName);
+    studyLog(StudyEvent.featureOpened, kind: f.slug);
     // The tile may be gone when markSeen resolves; `ref` would throw then,
     // so invalidate through the container captured now.
     final container = ProviderScope.containerOf(context, listen: false);

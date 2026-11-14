@@ -48,6 +48,8 @@ class Endpoints {
   
   // Paywall funnel events (gated server-side by paywallEventsEnabled)
   static const String paywallEventsURL = 'purchases/paywall-events';
+  // AI Study events (gated server-side by studyEventsEnabled)
+  static const String studyEventsURL = 'study/events';
   // The server's daily offer (gated server-side by offerEngineEnabled)
   static const String offersURL = 'offers';
 

@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/daily/widgets/day_complete_sheet.d
 import 'package:bananatalk_app/pages/learning/daily/widgets/station_rail.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/review_prompt_service.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -86,6 +87,24 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     _index = _outstanding.isEmpty
         ? 0
         : widget.initialIndex.clamp(0, _outstanding.length - 1);
+    studyLog(StudyEvent.sessionStarted, language: widget.pack.language);
+    if (_outstanding.isEmpty) {
+      _logSessionFinished();
+    } else {
+      _logStepStarted();
+    }
+  }
+
+  bool _finishLogged = false;
+
+  void _logStepStarted() => studyLog(StudyEvent.stepStarted,
+      language: widget.pack.language, kind: _outstanding[_index].kind);
+
+  /// Once per flow: the day-complete sheet is what the learner sees next.
+  void _logSessionFinished() {
+    if (_finishLogged) return;
+    _finishLogged = true;
+    studyLog(StudyEvent.sessionFinished, language: widget.pack.language);
   }
 
   Future<StationResult> _submit(
@@ -110,15 +129,22 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
     }
     _last = result;
+    studyLog(StudyEvent.stepFinished,
+        language: widget.pack.language,
+        kind: station,
+        score: result.score,
+        total: result.total);
     return result;
   }
 
   void _advance() {
     if (_index + 1 < _outstanding.length && !(_last?.packComplete ?? false)) {
       setState(() => _index += 1);
+      _logStepStarted();
       return;
     }
     setState(() => _finished = true);
+    _logSessionFinished();
     if (_last?.packComplete ?? false) _maybeAskForReview();
   }
 
