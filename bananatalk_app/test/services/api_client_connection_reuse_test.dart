@@ -35,4 +35,12 @@ void main() {
     expect(requests, 4);
     expect(clientsMade, 1, reason: 'one client, so one kept-alive connection');
   });
+
+  test('reads the server time from Server-Timing', () {
+    expect(ApiClient.serverMsFromTiming('app;dur=12.3'), 12.3);
+    expect(ApiClient.serverMsFromTiming('db;dur=4, app;dur=80'), 80);
+    expect(ApiClient.serverMsFromTiming(null), isNull);
+    expect(ApiClient.serverMsFromTiming('app'), isNull);
+    expect(ApiClient.serverMsFromTiming('cdn;dur=5'), isNull);
+  });
 }

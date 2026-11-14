@@ -130,14 +130,30 @@ class ApiClient {
     debugPrint('[API] >> $method $url$bodyStr');
   }
 
-  void _logResponse(String method, String url, int statusCode, int durationMs, {dynamic body, String? error}) {
+  void _logResponse(String method, String url, int statusCode, int durationMs,
+      {dynamic body, String? error, Map<String, String>? headers}) {
     if (!enableDebugLogs) return;
+    // Server time beside the total, so a slow line shows whether the time
+    // went to the server or the network (backend middleware/serverTiming.js).
+    final server = serverMsFromTiming(headers?['server-timing']);
+    final timing = server == null
+        ? '${durationMs}ms'
+        : '${durationMs}ms (server ${server.round()}ms)';
     if (error != null) {
-      debugPrint('[API] << $method $url [$statusCode] ${durationMs}ms ERROR: $error');
+      debugPrint('[API] << $method $url [$statusCode] $timing ERROR: $error');
     } else {
       final dataStr = body != null ? ' ${body.toString().length > 300 ? '${body.toString().substring(0, 300)}...' : body}' : '';
-      debugPrint('[API] << $method $url [$statusCode] ${durationMs}ms$dataStr');
+      debugPrint('[API] << $method $url [$statusCode] $timing$dataStr');
     }
+  }
+
+  /// The `app` duration from a `Server-Timing` header (`app;dur=12.3`), in
+  /// milliseconds; null when absent or unreadable.
+  @visibleForTesting
+  static double? serverMsFromTiming(String? header) {
+    if (header == null) return null;
+    final match = RegExp(r'(?:^|,)\s*app;dur=([0-9.]+)').firstMatch(header);
+    return match == null ? null : double.tryParse(match.group(1)!);
   }
 
   /// Get auth token with caching
@@ -613,7 +629,8 @@ class ApiClient {
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
       _logResponse('GET', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
-          body: result.success ? result.data : null, error: result.error);
+          body: result.success ? result.data : null, error: result.error,
+          headers: response.headers);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -667,7 +684,8 @@ class ApiClient {
       final result = _handleResponse(response, endpoint,
           suppressRateLimitToast: suppressRateLimitToast);
       _logResponse('POST', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
-          body: result.success ? result.data : null, error: result.error);
+          body: result.success ? result.data : null, error: result.error,
+          headers: response.headers);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -719,7 +737,8 @@ class ApiClient {
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
       _logResponse('PUT', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
-          body: result.success ? result.data : null, error: result.error);
+          body: result.success ? result.data : null, error: result.error,
+          headers: response.headers);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -774,7 +793,8 @@ class ApiClient {
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
       _logResponse('DELETE', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
-          body: result.success ? result.data : null, error: result.error);
+          body: result.success ? result.data : null, error: result.error,
+          headers: response.headers);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -839,7 +859,8 @@ class ApiClient {
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
       _logResponse('POST(multipart)', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
-          body: result.success ? result.data : null, error: result.error);
+          body: result.success ? result.data : null, error: result.error,
+          headers: response.headers);
       return result;
     } catch (e) {
       return ApiResponse(
