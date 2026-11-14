@@ -20,7 +20,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 ### AI Study phase 2a app (Plan S4) — branch feat/ai-study-my-words-app, dark behind studyFromChatsEnabled / studyDoorsEnabled
 
 - [x] Task 1: both app-config flags, MyWordsApi, models, myWordsProvider, 24 strings in 19 locales (the 18 non-English machine-drafted; need native review)
-- [ ] Task 2: "My words and mistakes" screen (keep / dismiss, got it)
+- [x] Task 2: "My words and mistakes" screen (keep / dismiss, got it, say it) — `lib/pages/learning/my_words/`; not linked from anywhere yet (next task)
 - [ ] Task 3: study-hub card for it
 - [ ] Task 4: hub doors (Talk, Roleplay, More)
 - [ ] Task 5: "Say it" pronunciation (`source: 'own'`) and final QA
