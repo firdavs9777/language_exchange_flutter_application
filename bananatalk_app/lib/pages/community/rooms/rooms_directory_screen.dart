@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/community/rooms/live_rooms_pill.dart';
+import 'package:bananatalk_app/pages/community/rooms/voice_rooms_entry.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -78,14 +78,8 @@ class RoomsDirectoryScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          // Live voice rooms ("🔴 N live"), hidden when none are live.
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: LiveRoomsPill(onTap: () => openVoiceRoomsScreen(context)),
-            ),
-          ),
+          // Always shown: the only way to browse or start a voice room.
+          VoiceRoomsEntry(onTap: () => openVoiceRoomsScreen(context)),
           Expanded(child: roomsAsync.when(
         loading: () => const UserListSkeleton(count: 6),
         error: (error, _) => CommunityErrorState(

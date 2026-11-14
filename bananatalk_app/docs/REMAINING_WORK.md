@@ -737,6 +737,8 @@ P2 cleanup
 - [ ] Owner: merge, version bump, signed release build, store submission; turn on the server `COMMUNITY_SLIM_LIST_ENABLED` only after the build is adopted and the avatar-thumb backfill is done
 
 ## Backend + app check (2026-11-14)
+- [x] Voice rooms were unreachable: since 2ba94aa7 (four Community tabs) the only way in was the "🔴 N live" pill in Rooms, hidden whenever nothing was live, and creating a room is inside the voice rooms screen. Rooms now always shows a "Voice" row (live count as a badge when > 0) that opens the screen (`voice_rooms_entry.dart`, `test/community/voice_rooms_entry_test.dart`).
+- [ ] Device check: Rooms tab → Voice row → empty state → Start room → second phone sees the badge. Voice rooms are still unreachable while `roomsEnabled` is off (no Rooms tab). S
 - [x] Logout reset: `alreadyWavedProvider`, `userMomentsPagedProvider`, `userMomentsTotalProvider` were never added to `userScopedProviders`, so the next account could inherit the previous one's wave state and moment lists (`session_reset_test` failed). Now reset.
 - [x] Backend `fix/gatherings-admin-cancel` (admin cancel notifies; no-shows grant no free message) merged and deployed 2026-11-13 (d00703df); backend pointer moved.
 - [ ] `flutter analyze`: 0 errors, 3 warnings, all in tests (unused imports in `chat_state_edit_failed_test.dart`, `moments_main_layout_test.dart`; unused parameter `active`). S
