@@ -29,24 +29,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/community_fixture.dart';
 
-final _now = DateTime(2026, 11, 14, 9);
+/// The device clock the hub's cache reads; tests move it.
+DateTime _clock = DateTime(2026, 11, 14, 9);
 const _today = '2026-11-14';
 
-StudyHubCache _cache() => StudyHubCache(now: () => _now);
+StudyHubCache _cache() => StudyHubCache(now: () => _clock);
 
-StudyHubSnapshot _snapshot({String dateKey = _today}) => StudyHubSnapshot(
+StudyHubSnapshot _snapshot({
+  String dateKey = _today,
+  String packDateKey = _today,
+  String language = 'Korean',
+  DateTime? savedAt,
+}) => StudyHubSnapshot(
   dateKey: dateKey,
-  language: 'Korean',
+  packDateKey: packDateKey,
+  language: language,
   level: 'B1',
   streak: 7,
   stationsDone: 2,
   stationsTotal: 4,
-  savedAt: _now,
+  savedAt: savedAt ?? _clock,
 );
 
-DailyPack _livePack({int done = 0}) => DailyPack(
+DailyPack _livePack({int done = 0, String dateKey = _today}) => DailyPack(
   needsLanguage: false,
-  dateKey: _today,
+  dateKey: dateKey,
   weekKey: '2026-W46',
   dayInWeek: 2,
   language: 'ko',
@@ -155,7 +162,10 @@ String _streak(WidgetTester t, int n) =>
     AppLocalizations.of(t.element(find.byType(StudyHub)))!.studyStreakDays(n);
 
 void main() {
-  setUp(() => SharedPreferences.setMockInitialValues({'userId': 'me'}));
+  setUp(() {
+    _clock = DateTime(2026, 11, 14, 9);
+    SharedPreferences.setMockInitialValues({'userId': 'me'});
+  });
 
   testWidgets(
     "today's snapshot paints streak, level and progress on the first frame, no spinner",
@@ -229,23 +239,102 @@ void main() {
     expect(find.text(_streak(t, 7)), findsNothing);
   });
 
+  testWidgets('while the live requests are loading the cached values show', (
+    t,
+  ) async {
+    await _seed(_snapshot());
+    await _pump(t);
+    expect(find.text(_streak(t, 7)), findsOneWidget);
+    expect(find.text('Korean · B1'), findsOneWidget);
+    expect(find.byKey(const Key('today-cached-row')), findsOneWidget);
+  });
+
+  testWidgets('live progress failing leaves no cached streak chip', (t) async {
+    await _seed(_snapshot());
+    final h = await _pump(t);
+    expect(find.text(_streak(t, 7)), findsOneWidget);
+    h.progress.complete(null); // the provider maps a failure to null
+    await t.pump();
+    await t.pump();
+    expect(find.text(_streak(t, 7)), findsNothing);
+    expect(find.textContaining('streak'), findsNothing);
+    // The pack is still loading, so its cached values are still there.
+    expect(find.text('Korean · B1'), findsOneWidget);
+  });
+
   testWidgets(
-    'a failed live request keeps the cached chips; the row hides as before',
+    'live pack failing leaves no cached level and the row hides as before',
     (t) async {
       await _seed(_snapshot());
-      final h = await _pump(t);
-      h.pack.completeError(Exception('offline'));
-      h.progress.complete(null);
-      await t.pump();
-      await t.pump();
-      expect(find.text(_streak(t, 7)), findsOneWidget);
+      final h = await _pump(t, user: Future.value(communityFixture()));
       expect(find.text('Korean · B1'), findsOneWidget);
+      h.pack.completeError(Exception('offline'));
+      await t.pump();
+      await t.pump();
+      expect(find.text('Korean'), findsOneWidget);
+      expect(find.textContaining('B1'), findsNothing);
       // Today's error handling for the pack row: nothing.
       expect(find.byKey(const Key('today-cached-row')), findsNothing);
       expect(find.text('Start'), findsNothing);
       expect(find.byType(CircularProgressIndicator), findsNothing);
     },
   );
+
+  testWidgets("a snapshot whose pack date is yesterday is not painted", (
+    t,
+  ) async {
+    await _seed(_snapshot(packDateKey: '2026-11-13'));
+    await _pump(t);
+    expect(find.text('2/4'), findsNothing);
+    expect(find.text(_streak(t, 7)), findsNothing);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('a snapshot older than 24 hours is not painted', (t) async {
+    await _seed(_snapshot(savedAt: DateTime(2026, 11, 13, 8)));
+    await _pump(t);
+    expect(find.text('2/4'), findsNothing);
+    expect(find.text(_streak(t, 7)), findsNothing);
+  });
+
+  testWidgets('a hub open across midnight stops painting cached values', (
+    t,
+  ) async {
+    _clock = DateTime(2026, 11, 14, 23, 58);
+    await _seed(_snapshot());
+    final h = await _pump(t);
+    expect(find.text('2/4'), findsOneWidget);
+    _clock = DateTime(2026, 11, 15, 0, 2);
+    h.container.invalidate(appConfigProvider); // any rebuild of the hub
+    await t.pump();
+    await t.pump();
+    expect(find.text('2/4'), findsNothing);
+    expect(find.text(_streak(t, 7)), findsNothing);
+    expect(find.text('Korean · B1'), findsNothing);
+    expect(find.byKey(const Key('today-cached-row')), findsNothing);
+  });
+
+  testWidgets('the cached level is not shown for a different language', (
+    t,
+  ) async {
+    await _seed(_snapshot(language: 'Spanish'));
+    await _pump(t, user: Future.value(communityFixture())); // learns Korean
+    expect(find.text('Korean'), findsOneWidget);
+    expect(find.textContaining('B1'), findsNothing);
+    expect(find.textContaining('Spanish'), findsNothing);
+  });
+
+  testWidgets('a pack from another day is not written', (t) async {
+    final h = await _pump(t, user: Future.value(communityFixture()));
+    h.progress.complete(_progress(5));
+    h.pack.complete(_livePack(dateKey: '2026-11-13'));
+    await t.pump();
+    await t.pump();
+    await t.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 50)),
+    );
+    expect(await _cache().read('me'), isNull);
+  });
 
   testWidgets(
     'the cached row is tappable and opens the pack flow once the real pack loads',
@@ -265,6 +354,43 @@ void main() {
       expect(find.byType(DailyPackFlow), findsOneWidget);
     },
   );
+
+  testWidgets('tapping the cached row shows a spinner while it waits', (
+    t,
+  ) async {
+    await _seed(_snapshot());
+    final h = await _pump(t);
+    expect(find.byKey(const Key('today-cached-waiting')), findsNothing);
+    await t.tap(find.byKey(const Key('today-cached-row')));
+    await t.pump();
+    expect(find.byKey(const Key('today-cached-waiting')), findsOneWidget);
+    expect(find.text('2/4'), findsNothing);
+    h.pack.complete(_livePack());
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 500));
+    expect(find.byType(DailyPackFlow), findsOneWidget);
+  });
+
+  testWidgets('no navigation if the hub is no longer the current route', (
+    t,
+  ) async {
+    await _seed(_snapshot());
+    final h = await _pump(t);
+    await t.tap(find.byKey(const Key('today-cached-row')));
+    await t.pump();
+    Navigator.of(t.element(find.byType(StudyHub))).push(
+      MaterialPageRoute<void>(
+        builder: (_) => const Scaffold(body: Text('elsewhere')),
+      ),
+    );
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 500));
+    h.pack.complete(_livePack());
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 500));
+    expect(find.byType(DailyPackFlow), findsNothing);
+    expect(find.text('elsewhere'), findsOneWidget);
+  });
 
   testWidgets('a successful live load writes the snapshot for the next open', (
     t,

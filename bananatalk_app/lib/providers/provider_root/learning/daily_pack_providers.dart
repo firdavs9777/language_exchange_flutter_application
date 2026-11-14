@@ -43,7 +43,8 @@ final weeklyReportProvider = FutureProvider.autoDispose<WeeklyReport>((ref) asyn
 });
 
 /// What the AI Study tab paints from disk until the live answers arrive: the
-/// signed-in user's snapshot, only when it was written today (device date).
+/// signed-in user's snapshot, only while it is fresh (see `StudyHubCache.isFresh`); the hub checks again
+/// when painting.
 /// Built once per session (user-scoped, so a sign-out starts it over), which
 /// is what keeps the tab from repainting from disk after live data: nothing
 /// invalidates it. Null when there is nothing usable; never throws.
@@ -52,6 +53,6 @@ final studyHubSnapshotProvider = FutureProvider<StudyHubSnapshot?>((ref) async {
   final userId = await cache.signedInUserId();
   if (userId == null) return null;
   final snapshot = await cache.read(userId);
-  if (snapshot == null || snapshot.dateKey != cache.todayKey()) return null;
+  if (snapshot == null || !cache.isFresh(snapshot)) return null;
   return snapshot;
 });

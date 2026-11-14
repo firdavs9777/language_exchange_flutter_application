@@ -123,10 +123,15 @@ class TodayPackSnapshotRow extends StatelessWidget {
   final StudyHubSnapshot snapshot;
   final VoidCallback onOpen;
 
+  /// True while a tap waits for the real pack: a small spinner replaces the
+  /// progress.
+  final bool waiting;
+
   const TodayPackSnapshotRow({
     super.key,
     required this.snapshot,
     required this.onOpen,
+    this.waiting = false,
   });
 
   @override
@@ -162,7 +167,17 @@ class TodayPackSnapshotRow extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  if (done)
+                  if (waiting)
+                    const SizedBox(
+                      key: Key('today-cached-waiting'),
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  else if (done)
                     const Icon(Icons.check_circle_rounded, color: Colors.white)
                   else
                     Text(

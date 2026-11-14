@@ -14,6 +14,7 @@ final studyHubCacheProvider = Provider<StudyHubCache>((ref) => StudyHubCache());
 class StudyHubSnapshot {
   const StudyHubSnapshot({
     required this.dateKey,
+    required this.packDateKey,
     this.language,
     this.level,
     required this.streak,
@@ -26,6 +27,10 @@ class StudyHubSnapshot {
   /// own `dateKey` may differ around midnight; the snapshot is compared with
   /// the device date again at read time.
   final String dateKey;
+
+  /// The pack's own date key. A snapshot is only ever written from a pack
+  /// whose key equals the device date, and only painted while it still does.
+  final String packDateKey;
 
   /// The language chip's text, and the CEFR level the chip showed.
   final String? language;
@@ -54,10 +59,28 @@ class StudyHubCache {
 
   static const String keyPrefix = 'study_hub_v1_';
 
-  /// Bumped by every [clearAll] (sign-out, "clear all cache"). A [write]
+  /// Bumped by every [clearAll] (sign-out). A [write]
   /// takes it before its first await: a write begun before a clear is
   /// dropped, even if the clear has not removed the key yet.
   static int _epoch = 0;
+
+  /// Taken by a caller before its first await and passed to [write], so a
+  /// write begun before a [clearAll] is dropped.
+  int get epoch => _epoch;
+
+  /// A snapshot may be painted only when the device day is still the day it
+  /// was saved, its pack was today's pack, and it is under 24 hours old.
+  /// Checked when painting, not only when it was read from disk.
+  static const Duration maxAge = Duration(hours: 24);
+
+  bool isFresh(StudyHubSnapshot s) {
+    final today = todayKey();
+    final age = _now().difference(s.savedAt);
+    return s.dateKey == today &&
+        s.packDateKey == today &&
+        !age.isNegative &&
+        age < maxAge;
+  }
 
   static String keyFor(String userId) => '$keyPrefix$userId';
 
@@ -78,18 +101,19 @@ class StudyHubCache {
     }
   }
 
-  Future<void> write(String userId, StudyHubSnapshot s) async {
+  Future<void> write(String userId, StudyHubSnapshot s, {int? epoch}) async {
     if (userId.isEmpty) return;
-    final epoch = _epoch;
+    final started = epoch ?? _epoch;
     try {
       final prefs = await _prefs();
-      if (epoch != _epoch) return;
+      if (started != _epoch) return;
       await prefs.setString(
         keyFor(userId),
         jsonEncode({
           'v': 1,
           'userId': userId,
           'dateKey': s.dateKey,
+          'packDateKey': s.packDateKey,
           'language': s.language,
           'level': s.level,
           'streak': s.streak,
@@ -131,6 +155,7 @@ class StudyHubCache {
     final d = jsonDecode(text);
     if (d is! Map || d['v'] != 1 || d['userId'] != userId) return null;
     final dateKey = d['dateKey'];
+    final packDateKey = d['packDateKey'];
     final language = d['language'];
     final level = d['level'];
     final streak = d['streak'];
@@ -138,6 +163,7 @@ class StudyHubCache {
     final total = d['stationsTotal'];
     final savedAt = d['savedAt'];
     if (dateKey is! String ||
+        packDateKey is! String ||
         (language != null && language is! String) ||
         (level != null && level is! String) ||
         streak is! int ||
@@ -151,6 +177,7 @@ class StudyHubCache {
     }
     return StudyHubSnapshot(
       dateKey: dateKey,
+      packDateKey: packDateKey,
       language: language as String?,
       level: level as String?,
       streak: streak,
@@ -165,10 +192,13 @@ class StudyHubCache {
   /// right count. Touches nothing without a signed-in user and a snapshot
   /// written today.
   Future<void> recordStationCompleted({required int stationsRemaining}) async {
+    // Before the first await: a sign-out clear that runs while this reads
+    // must also stop the write below.
+    final started = _epoch;
     final userId = await signedInUserId();
     if (userId == null) return;
     final s = await read(userId);
-    if (s == null || s.dateKey != todayKey() || s.stationsTotal <= 0) return;
+    if (s == null || !isFresh(s) || s.stationsTotal <= 0) return;
     final done = (s.stationsTotal - stationsRemaining).clamp(
       0,
       s.stationsTotal,
@@ -177,6 +207,7 @@ class StudyHubCache {
       userId,
       StudyHubSnapshot(
         dateKey: s.dateKey,
+        packDateKey: s.packDateKey,
         language: s.language,
         level: s.level,
         streak: s.streak,
@@ -184,10 +215,11 @@ class StudyHubCache {
         stationsTotal: s.stationsTotal,
         savedAt: _now(),
       ),
+      epoch: started,
     );
   }
 
-  /// Every user's snapshot (sign-out, Data & Storage "clear all").
+  /// Every user's snapshot (sign-out).
   Future<void> clearAll() async {
     _epoch++;
     try {
