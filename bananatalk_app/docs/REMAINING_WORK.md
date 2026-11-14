@@ -774,7 +774,9 @@ P2 cleanup
 ## AI Study path (project 4; design 2026-11-14, branch docs/ai-study-spec)
 Design: `docs/superpowers/specs/2026-11-14-ai-study-path-design.md`. Nothing built yet.
 - [ ] Owner: approve the design and the four decisions in its section 12 (free/paid line; store trial offers and regional prices; chat capture default and privacy forms; new free allowances on pronunciation and writing feedback). M
-- [ ] Phase 1 plans (backend, app): fixes, level per language, study events, fast open. M
+- [x] Design approved 2026-11-14 (the four owner decisions in section 12 are still open; phase 1 needs none of them).
+- [x] Phase 1 backend plan written: `docs/superpowers/plans/2026-11-14-ai-study-plan-s1-backend.md` (8 tasks, backend branch `feat/ai-study-foundations`, not started).
+- [ ] Phase 1 app plan (S2) not written. M
 - [ ] Phase 2 plans: learner record, From your chats, Today's session, tutor context. L
 - [ ] Phase 3 plans: free/paid line, 7-day store trial incl. server-side trial state, reminder push. M
 - [ ] Content for Chinese, Korean, Japanese to B1 and check-your-level sets (authored outside the code plans). L
