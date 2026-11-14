@@ -36,11 +36,19 @@ class PaywallTracker {
   final List<Map<String, dynamic>> _queue = [];
   Timer? _timer;
 
+  /// Set by [dispose] (sign-out): nothing more is queued or sent.
+  bool _disposed = false;
+
+  void _drop() {
+    _queue.clear();
+    _timer?.cancel();
+    _timer = null;
+  }
+
   void log(PaywallFlow flow, String action, {String? detail}) {
+    if (_disposed) return;
     if (!enabled()) {
-      _queue.clear();
-      _timer?.cancel();
-      _timer = null;
+      _drop();
       return;
     }
     var d = detail ?? flow.detail;
@@ -61,6 +69,12 @@ class PaywallTracker {
   }
 
   Future<void> flush() async {
+    // The flag may have turned off since these were queued (a config
+    // refresh): the timer and the pause observer must not post them.
+    if (_disposed || !enabled()) {
+      _drop();
+      return;
+    }
     _timer?.cancel();
     _timer = null;
     if (_queue.isEmpty) return;
@@ -68,6 +82,7 @@ class PaywallTracker {
     // Cleared BEFORE any await so a concurrent flush cannot send it twice.
     _queue.clear();
     for (var i = 0; i < all.length; i += _maxBatch) {
+      if (_disposed) return;
       final end = i + _maxBatch < all.length ? i + _maxBatch : all.length;
       final chunk = all.sublist(i, end);
       try {
@@ -79,9 +94,10 @@ class PaywallTracker {
     }
   }
 
+  /// Drops what is queued (it belonged to the account signing out).
   void dispose() {
-    _timer?.cancel();
-    _timer = null;
+    _disposed = true;
+    _drop();
   }
 }
 
@@ -117,13 +133,18 @@ final paywallTrackerProvider = Provider<PaywallTracker>((ref) {
 @visibleForTesting
 void Function(PaywallFlow flow, String action, String? detail)? paywallLogSpy;
 
-/// Fire-and-forget entry point for any surface. Never throws.
+/// Test seam: the container [paywallLog] reads (defaults to the app's).
+@visibleForTesting
+ProviderContainer? paywallLogContainer;
+
+/// Fire-and-forget entry point for any surface. Never throws. While the
+/// events flag is off nothing is built: no tracker, no client, no observer.
 void paywallLog(PaywallFlow flow, String action, {String? detail}) {
   try {
     paywallLogSpy?.call(flow, action, detail);
-    appProviderContainer
-        .read(paywallTrackerProvider)
-        .log(flow, action, detail: detail);
+    final container = paywallLogContainer ?? appProviderContainer;
+    if (!container.read(paywallEventsEnabledProvider)) return;
+    container.read(paywallTrackerProvider).log(flow, action, detail: detail);
   } catch (e) {
     debugPrint('[paywall] log skipped: $e');
   }

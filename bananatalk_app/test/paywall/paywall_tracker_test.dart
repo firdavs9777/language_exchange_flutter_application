@@ -1,5 +1,7 @@
 import 'package:fake_async/fake_async.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 
@@ -145,6 +147,54 @@ void main() {
     });
   });
 
+  test('a flush after the flag turned off sends nothing (timer or pause)', () {
+    fakeAsync((a) {
+      t.log(flow, 'shown');
+      on = false; // config refresh turned events off; nothing logged since
+      a.elapse(const Duration(seconds: 30)); // the queued timer fires
+      t.flush(); // the pause observer
+      a.flushMicrotasks();
+      expect(sent, isEmpty);
+      on = true;
+      t.flush();
+      a.flushMicrotasks();
+      expect(sent, isEmpty, reason: 'the old queue was dropped, not kept');
+    });
+  });
+
+  test('dispose with queued events sends nothing and cancels the timer', () {
+    fakeAsync((a) {
+      t.log(flow, 'shown');
+      expect(a.pendingTimers, isNotEmpty);
+      t.dispose();
+      expect(a.pendingTimers, isEmpty);
+      t.flush();
+      a.elapse(const Duration(seconds: 30));
+      expect(sent, isEmpty);
+    });
+  });
+
+  test('a multi-chunk flush stops after dispose', () {
+    fakeAsync((a) {
+      late PaywallTracker big;
+      big = PaywallTracker(
+        send: (e) async {
+          sent.add(e);
+          big.dispose(); // sign-out while the first chunk is in flight
+          return true;
+        },
+        enabled: () => true,
+        maxQueue: 1000,
+      );
+      for (var i = 0; i < 120; i++) {
+        big.log(flow, 'shown');
+      }
+      big.flush();
+      a.flushMicrotasks();
+      expect(sent.map((b) => b.length).toList(), [50]);
+    });
+  });
+
   test('turning the flag on mid-session starts sending', () {
     fakeAsync((a) {
       on = false;
@@ -168,9 +218,67 @@ void main() {
     expect(b.offerId, 'o');
   });
 
-  test('paywallLog never throws when the container is unavailable', () {
-    // No binding-backed provider overrides here; the flag is off (no
-    // app-config), so this must simply do nothing.
-    expect(() => paywallLog(flow, 'shown'), returnsNormally);
+  group('paywallLog', () {
+    late int built;
+    late List<String> spied;
+
+    ProviderContainer make({required bool flag, bool throwing = false}) {
+      final c = ProviderContainer(
+        overrides: [
+          paywallEventsEnabledProvider.overrideWithValue(flag),
+          paywallTrackerProvider.overrideWith((ref) {
+            built++;
+            if (throwing) throw StateError('tracker unavailable');
+            return t;
+          }),
+        ],
+      );
+      paywallLogContainer = c;
+      return c;
+    }
+
+    setUp(() {
+      built = 0;
+      spied = [];
+      paywallLogSpy = (f, action, d) => spied.add(action);
+    });
+    tearDown(() {
+      paywallLogSpy = null;
+      paywallLogContainer = null;
+    });
+
+    test('flag off: the spy sees the call but no tracker is built', () {
+      fakeAsync((a) {
+        final c = make(flag: false);
+        paywallLog(flow, 'shown');
+        a.elapse(const Duration(seconds: 30));
+        expect(spied, ['shown']);
+        expect(built, 0);
+        expect(c.exists(paywallTrackerProvider), isFalse);
+        expect(sent, isEmpty);
+        c.dispose();
+      });
+    });
+
+    test('flag on: the event reaches the tracker', () {
+      fakeAsync((a) {
+        final c = make(flag: true);
+        paywallLog(flow, 'shown');
+        a.elapse(const Duration(seconds: 10));
+        expect(built, 1);
+        expect(sent.single.single['action'], 'shown');
+        c.dispose();
+      });
+    });
+
+    test('a throw inside (spy or tracker) is caught, never thrown', () {
+      final c = make(flag: true, throwing: true);
+      addTearDown(c.dispose);
+      expect(() => paywallLog(flow, 'shown'), returnsNormally);
+      expect(built, 1, reason: 'the tracker build threw inside paywallLog');
+
+      paywallLogSpy = (f, action, d) => throw StateError('spy');
+      expect(() => paywallLog(flow, 'shown'), returnsNormally);
+    });
   });
 }

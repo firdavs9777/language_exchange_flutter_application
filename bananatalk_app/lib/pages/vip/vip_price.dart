@@ -74,10 +74,18 @@ String vipPriceText(
 
 /// The saved price of [plan] to show as a placeholder: null once the store
 /// has answered (see [savedPlaceholder]).
-SavedPrice? vipSavedPrice(WidgetRef ref, VipPlan plan, {required bool isIOS}) {
-  final answer = ref
-      .watch(isIOS ? iosProductsProvider : androidProductsProvider)
-      .valueOrNull;
+SavedPrice? vipSavedPrice(
+  WidgetRef ref,
+  VipPlan plan, {
+  required bool isIOS,
+  required bool isAndroid,
+}) {
+  // A host with neither store (desktop, tests) queries neither.
+  final answer = isIOS
+      ? ref.watch(iosProductsProvider).valueOrNull
+      : isAndroid
+          ? ref.watch(androidProductsProvider).valueOrNull
+          : null;
   return savedPlaceholder(answer,
       ref.watch(savedStorePricesProvider).valueOrNull?[plan.productId(isIOS)]);
 }

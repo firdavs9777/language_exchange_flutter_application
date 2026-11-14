@@ -223,7 +223,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         // times over ~6 seconds. Only show success when backend
         // confirms isVIP === true.
         bool confirmedVip = false;
-        for (int attempt = 1; attempt <= 3; attempt++) {
+        for (int check = 1; check <= 3; check++) {
           ref.invalidate(userProvider);
           ref.invalidate(vipStatusProvider(widget.userId));
           ref.invalidate(userLimitsProvider(widget.userId));
@@ -236,7 +236,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           } catch (_) {
             // Soft-fail; retry until budget exhausted.
           }
-          if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
+          if (check < 3) await Future.delayed(const Duration(seconds: 2));
         }
         attempt.finish(
           confirmedVip ? PurchaseOutcome.succeeded : PurchaseOutcome.pending,
@@ -436,7 +436,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       if (verifyResult['success'] == true) {
         // Step 13A: webhook race fix — same pattern as iOS path.
         bool confirmedVip = false;
-        for (int attempt = 1; attempt <= 3; attempt++) {
+        for (int check = 1; check <= 3; check++) {
           ref.invalidate(userProvider);
           ref.invalidate(vipStatusProvider(widget.userId));
           ref.invalidate(userLimitsProvider(widget.userId));
@@ -447,7 +447,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
               break;
             }
           } catch (_) {}
-          if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
+          if (check < 3) await Future.delayed(const Duration(seconds: 2));
         }
         attempt.finish(
           confirmedVip ? PurchaseOutcome.succeeded : PurchaseOutcome.pending,

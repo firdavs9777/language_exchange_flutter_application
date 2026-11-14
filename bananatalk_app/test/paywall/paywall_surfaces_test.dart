@@ -24,6 +24,7 @@ import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:bananatalk_app/widgets/study/study_upgrade_sheet.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 
@@ -487,6 +488,27 @@ void main() {
         await tester.pumpAndSettle();
         expect(actions(), ['shown', 'cta_coins', 'unlock_succeeded']);
         expect(logged.map((l) => l.flowId).toSet().length, 1);
+      },
+    );
+  });
+
+  group('masked person tile', () {
+    testWidgets(
+      'waves tile (no host flow): unlock and Go VIP report one placement on one flow',
+      (tester) async {
+        await tester.pumpWidget(
+          host(Scaffold(body: MaskedPersonTile(onUnlocked: () {}))),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.byType(UnlockCta));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const ValueKey('masked-go-vip')));
+        await tester.pump();
+        expect(actions().take(3), ['cta_coins', 'unlock_succeeded', 'cta_vip']);
+        final three = logged.take(3).toList();
+        expect(three.map((l) => l.placement).toSet(), {'other'});
+        expect(three.map((l) => l.flowId).toSet().length, 1);
+        await tester.pumpWidget(const SizedBox.shrink());
       },
     );
   });

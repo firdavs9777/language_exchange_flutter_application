@@ -124,4 +124,32 @@ void main() {
       expect(text, yearlyFallback);
     });
   });
+
+  testWidgets('vipSavedPrice on a host with no store queries neither store',
+      (tester) async {
+    var androidBuilt = 0;
+    var iosBuilt = 0;
+    await tester.pumpWidget(ProviderScope(
+      overrides: [
+        iosProductsProvider.overrideWith((ref) async {
+          iosBuilt++;
+          return const <ProductDetails>[];
+        }),
+        androidProductsProvider.overrideWith((ref) async {
+          androidBuilt++;
+          return const <ProductDetails>[];
+        }),
+        savedStorePricesProvider.overrideWith((ref) async => const {}),
+      ],
+      child: MaterialApp(
+        home: Consumer(builder: (context, ref, _) {
+          vipSavedPrice(ref, VipPlan.monthly, isIOS: false, isAndroid: false);
+          return const SizedBox();
+        }),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(androidBuilt, 0);
+    expect(iosBuilt, 0);
+  });
 }

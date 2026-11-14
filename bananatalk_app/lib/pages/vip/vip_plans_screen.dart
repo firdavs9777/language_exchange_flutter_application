@@ -447,7 +447,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
     // Use store price when available, otherwise fall back to the plan const.
     final product = _storeProduct(plan);
-    final saved = vipSavedPrice(ref, plan, isIOS: _isIOS);
+    final saved =
+        vipSavedPrice(ref, plan, isIOS: _isIOS, isAndroid: _isAndroid);
     final priceText = vipPriceText(ref, plan,
         isIOS: _isIOS, isAndroid: _isAndroid, saved: saved);
     final months = plan == VipPlan.monthly
@@ -463,7 +464,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     final savingsPct = vipSavingsPercent(
       plan: figures,
       monthly: _storeProduct(VipPlan.monthly) ??
-          vipSavedPrice(ref, VipPlan.monthly, isIOS: _isIOS)
+          vipSavedPrice(ref, VipPlan.monthly,
+                  isIOS: _isIOS, isAndroid: _isAndroid)
               ?.toProductDetails(VipPlan.monthly.productId(_isIOS)),
       months: months,
     );

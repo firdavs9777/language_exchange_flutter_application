@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
@@ -132,7 +133,7 @@ void main() {
 
     openVipPlans<void>(ctx, flow, route: PaywallRoute.app);
     await tester.pump();
-    expect(spy.pushed[base], isA<PageRouteBuilder<void>>());
+    expect(spy.pushed[base], isA<AppPageRoute<void>>());
     expect(spy.pushed[base], isNot(isA<MaterialPageRoute<void>>()));
     await tester.pump(const Duration(milliseconds: 400));
 

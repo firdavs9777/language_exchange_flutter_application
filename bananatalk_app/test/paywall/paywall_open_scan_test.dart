@@ -11,22 +11,29 @@ void main() {
     () {
       final offenders = <String>[];
       final ctor = RegExp(r'\b(VipPlansScreen|CoinShopScreen)\(');
-      final ownDecl = RegExp(r'\bconst\s+(VipPlansScreen|CoinShopScreen)\(');
+      // Each screen file may declare its OWN constructor only.
+      final ownDecl = {
+        'pages/vip/vip_plans_screen.dart':
+            RegExp(r'^\s*const\s+VipPlansScreen\('),
+        'pages/coins/coin_shop_screen.dart':
+            RegExp(r'^\s*const\s+CoinShopScreen\('),
+      };
       for (final entity in Directory('lib').listSync(recursive: true)) {
         if (entity is! File || !entity.path.endsWith('.dart')) continue;
         if (entity.path.endsWith('services/paywall/paywall_navigation.dart')) {
           continue;
         }
-        final isScreenFile =
-            entity.path.endsWith('pages/vip/vip_plans_screen.dart') ||
-            entity.path.endsWith('pages/coins/coin_shop_screen.dart');
+        RegExp? own;
+        for (final e in ownDecl.entries) {
+          if (entity.path.endsWith(e.key)) own = e.value;
+        }
         final lines = entity.readAsLinesSync();
         for (var i = 0; i < lines.length; i++) {
           if (!ctor.hasMatch(lines[i])) continue;
-          // The screen's own constructor declaration.
-          if (isScreenFile &&
-              ownDecl.hasMatch(lines[i]) &&
-              lines[i].trimLeft().startsWith('const ')) {
+          // The screen's own constructor declaration, in its own file.
+          if (own != null &&
+              own.hasMatch(lines[i]) &&
+              ctor.allMatches(lines[i]).length == 1) {
             continue;
           }
           offenders.add('${entity.path}:${i + 1}');

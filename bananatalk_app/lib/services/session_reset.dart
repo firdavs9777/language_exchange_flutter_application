@@ -193,7 +193,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'momentsServiceProvider': momentsServiceProvider,
   // Queued opens are sent under whoever is signed in at flush time.
   'feedOpenTrackerProvider': feedOpenTrackerProvider,
-  // Queued paywall events are sent under whoever is signed in at flush time.
+  // Queued paywall events are dropped on sign-out (dispose clears the
+  // queue), so none is sent under the next account.
   'paywallTrackerProvider': paywallTrackerProvider,
   // The signed-in user's server offer; the next user starts with none (its
   // expiry timer is cancelled when it is disposed).
