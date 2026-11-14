@@ -36,6 +36,28 @@ String pronunciationSource({
   return 'practice';
 }
 
+/// What scoring sends: the source and the language. A selected language wins;
+/// before one is set the caller's base language is used, else 'en'.
+({String source, String language}) pronunciationRequest({
+  String? initialText,
+  String? initialLanguage,
+  required bool ownSentence,
+  required String currentText,
+  String? selectedLanguageCode,
+}) {
+  final caller = (initialLanguage == null || initialLanguage.isEmpty)
+      ? null
+      : initialLanguage.split('-').first.toLowerCase();
+  return (
+    source: pronunciationSource(
+      initialText: initialText,
+      currentText: currentText,
+      ownSentence: ownSentence,
+    ),
+    language: selectedLanguageCode ?? caller ?? 'en',
+  );
+}
+
 /// The language in [languages] matching [code] on its base code, or null.
 Language? languageForInitialCode(List<Language> languages, String? code) {
   if (code == null || code.isEmpty) return null;
@@ -128,7 +150,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   l.name.toLowerCase() == 'english',
             );
           }
-          _selectedLanguage = languageForInitialCode(
+          _selectedLanguage ??= languageForInitialCode(
                 _languages,
                 widget.initialLanguage,
               ) ??
@@ -358,17 +380,20 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     }
 
     final text = _textController.text.trim();
-    final langCode = _selectedLanguage?.code ?? 'en';
+    final request = pronunciationRequest(
+      initialText: widget.initialText,
+      initialLanguage: widget.initialLanguage,
+      ownSentence: widget.ownSentence,
+      currentText: text,
+      selectedLanguageCode: _selectedLanguage?.code,
+    );
+    final langCode = request.language;
 
     final res = await AIService.evaluatePronunciation(
       File(path),
       text,
       langCode,
-      source: pronunciationSource(
-        initialText: widget.initialText,
-        currentText: text,
-        ownSentence: widget.ownSentence,
-      ),
+      source: request.source,
     );
 
     if (!mounted) return;

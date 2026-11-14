@@ -34,13 +34,43 @@ void main() {
     expect(field.controller!.text, 'Je voudrais un café');
   });
 
-  testWidgets('an unknown initialLanguage keeps the default language',
-      (tester) async {
-    await tester.pumpWidget(
-      _host(const PronunciationScreen(initialLanguage: 'xx')),
+  test('request: no arguments is practice in English', () {
+    final r = pronunciationRequest(currentText: 'Hello', ownSentence: false);
+    expect(r.source, 'practice');
+    expect(r.language, 'en');
+  });
+
+  test('request: own sentence before languages load uses the caller language',
+      () {
+    final r = pronunciationRequest(
+      initialText: 'Bonjour',
+      initialLanguage: 'fr-CA',
+      ownSentence: true,
+      currentText: 'Bonjour',
     );
-    await tester.pump();
-    expect(tester.takeException(), isNull);
+    expect(r.source, 'own');
+    expect(r.language, 'fr');
+  });
+
+  test('request: an edited own sentence is practice', () {
+    final r = pronunciationRequest(
+      initialText: 'Bonjour',
+      initialLanguage: 'fr',
+      ownSentence: true,
+      currentText: 'Salut',
+    );
+    expect(r.source, 'practice');
+    expect(r.language, 'fr');
+  });
+
+  test('request: a selected language wins over the caller language', () {
+    final r = pronunciationRequest(
+      initialLanguage: 'fr',
+      ownSentence: false,
+      currentText: 'x',
+      selectedLanguageCode: 'ko',
+    );
+    expect(r.language, 'ko');
   });
 
   test('language choice matches on the base code only when listed', () {

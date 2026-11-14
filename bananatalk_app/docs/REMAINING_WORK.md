@@ -20,12 +20,10 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 ### AI Study phase 2a app (Plan S4) — branch feat/ai-study-my-words-app, dark behind studyFromChatsEnabled / studyDoorsEnabled
 
 - [x] Task 1: both app-config flags, MyWordsApi, models, myWordsProvider, 24 strings in 19 locales (the 18 non-English machine-drafted; need native review)
-- [x] Task 2: "My words and mistakes" screen (keep / dismiss, got it, say it) — `lib/pages/learning/my_words/`; not linked from anywhere yet (next task)
-- [ ] Task 3: study-hub card for it
-- [ ] Task 4: hub doors (Talk, Roleplay, More)
-- [ ] Task 5: "Say it" pronunciation (`source: 'own'`) and final QA
-  - [x] Plan task 2 (done): `PronunciationScreen` accepts `initialText` / `initialLanguage` / `ownSentence`; sends `source: 'own'` while the text is unchanged. No callers yet.
-  - [ ] "Say it" callers (mistakes / my-words rows) and final QA
+- [x] Task 2: "Say it" on the pronunciation screen — `PronunciationScreen` takes `initialText` / `initialLanguage` / `ownSentence`; sends `source: 'own'` while the text is unchanged; language falls back to the caller's base code
+- [x] Task 3: "My words and mistakes" screen (keep / dismiss, got it, say it) — `lib/pages/learning/my_words/`; not linked from anywhere yet
+- [ ] Task 4: three doors on the hub and the More screen (also the study-hub card linking to My words)
+- [ ] Task 5: whole-suite check and handoff
 
 ## 2. Owner — manual steps (in order)
 
