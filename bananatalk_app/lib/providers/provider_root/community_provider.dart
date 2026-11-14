@@ -278,22 +278,7 @@ class CommunityService {
       );
 
       if (response.success && response.data != null) {
-        // ApiClient returns the full body when the response has both
-        // `data` and `pagination` keys. The waves endpoint's `data` is
-        // itself an object: { waves: [...], unreadCount: N }.
-        // Older endpoints used `data: [...]` directly, so support both.
-        final inner = response.data['data'];
-        final List dataList;
-        if (inner is List) {
-          dataList = inner;
-        } else if (inner is Map && inner['waves'] is List) {
-          dataList = inner['waves'] as List;
-        } else {
-          dataList = const [];
-        }
-        return dataList
-            .map((item) => Wave.fromJson(item as Map<String, dynamic>))
-            .toList();
+        return parseWavesList(response.data);
       } else {
         throw Exception(response.error ?? 'Failed to get waves');
       }
@@ -302,15 +287,25 @@ class CommunityService {
     }
   }
 
-  /// Server-side unread wave count (the `unreadCount` field of the waves
-  /// response) -- not the size of the returned page.
-  Future<int> getWavesUnreadCount() async {
+  /// The unread waves inbox in ONE request: the first [limit] unread waves
+  /// and the server-side unread count (`unreadCount`, not the page size).
+  /// Feeds both the waves badge and the Chats intro strip; they used to make
+  /// two requests to the same endpoint (limit=1 for the count, limit=20 for
+  /// the list) on every launch.
+  Future<UnreadWaves> getUnreadWaves({int limit = 20}) async {
     final response = await _apiClient.get(
       Endpoints.wavesReceivedURL,
-      queryParams: {'page': '1', 'limit': '1', 'unreadOnly': 'true'},
+      queryParams: {
+        'page': '1',
+        'limit': limit.toString(),
+        'unreadOnly': 'true',
+      },
     );
     if (response.success && response.data != null) {
-      return parseWavesUnreadCount(response.data);
+      return (
+        waves: parseWavesList(response.data),
+        unreadCount: parseWavesUnreadCount(response.data),
+      );
     }
     throw Exception(response.error ?? 'Failed to get waves');
   }
@@ -678,10 +673,20 @@ final singleCommunityProvider = FutureProvider.family<Community?, String>((
 
 /// Returns the count of unread waves for the current user. Refresh on
 /// app resume and after `markWavesAsRead`.
+/// The first page of unread waves plus the server's unread count, fetched
+/// once and shared by [wavesUnreadProvider] (badge) and
+/// [pendingIntrosProvider] (Chats intro strip).
+///
+/// To refresh after marking waves read, invalidate THIS provider: the two
+/// derived ones watch it, so invalidating only one of them re-reads the
+/// cached value instead of the server.
+final unreadWavesProvider = FutureProvider<UnreadWaves>((ref) {
+  return ref.read(communityServiceProvider).getUnreadWaves();
+});
+
 final wavesUnreadProvider = FutureProvider<int>((ref) async {
-  final service = ref.read(communityServiceProvider);
   try {
-    return await service.getWavesUnreadCount();
+    return (await ref.watch(unreadWavesProvider.future)).unreadCount;
   } catch (e) {
     // Errors read as 0 deliberately: a badge that can't be verified is
     // hidden rather than showing a stale or guessed number.
@@ -704,12 +709,33 @@ int parseWavesUnreadCount(dynamic body) {
 }
 
 /// Pending (unread) intros/waves for the current user, consumed by the
-/// intros strip and the waves badge.
-final pendingIntrosProvider = FutureProvider<List<Wave>>((ref) {
-  return ref
-      .read(communityServiceProvider)
-      .getWavesReceived(unreadOnly: true, limit: 20);
+/// Chats intro strip. Read from [unreadWavesProvider]; errors propagate so the
+/// strip can tell a failed load from an empty inbox.
+final pendingIntrosProvider = FutureProvider<List<Wave>>((ref) async {
+  return (await ref.watch(unreadWavesProvider.future)).waves;
 });
+
+/// One page of unread waves and the server-side unread count.
+typedef UnreadWaves = ({List<Wave> waves, int unreadCount});
+
+/// Pure mapping from a waves response body to its rows. The waves endpoint's
+/// `data` is `{ waves: [...], unreadCount: N }` (ApiClient returns the full
+/// body when there is a `pagination` key); older endpoints sent `data: [...]`
+/// directly, so both are accepted. Anything else reads as no rows.
+List<Wave> parseWavesList(dynamic body) {
+  final inner = body is Map ? body['data'] : null;
+  final List dataList;
+  if (inner is List) {
+    dataList = inner;
+  } else if (inner is Map && inner['waves'] is List) {
+    dataList = inner['waves'] as List;
+  } else {
+    dataList = const [];
+  }
+  return dataList
+      .map((item) => Wave.fromJson(item as Map<String, dynamic>))
+      .toList();
+}
 
 // ==================== TOPIC USERS PAGINATED ====================
 

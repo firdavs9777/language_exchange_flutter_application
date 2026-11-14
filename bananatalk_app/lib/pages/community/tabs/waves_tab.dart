@@ -122,8 +122,8 @@ class _WavesTabState extends ConsumerState<WavesTab> {
                   if (!w.isRead) w.id,
               ],
             );
-        ref.invalidate(wavesUnreadProvider);
-        ref.invalidate(pendingIntrosProvider);
+        // The shared source of both the waves badge and the intro strip.
+        ref.invalidate(unreadWavesProvider);
       } catch (_) {
         // Non-fatal: the badge just clears on the next successful load.
       }

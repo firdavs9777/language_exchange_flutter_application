@@ -171,6 +171,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'communityServiceProvider': communityServiceProvider,
   'filterMatchCountProvider': filterMatchCountProvider,
   'singleCommunityProvider': singleCommunityProvider,
+  'unreadWavesProvider': unreadWavesProvider,
   'wavesUnreadProvider': wavesUnreadProvider,
   'pendingIntrosProvider': pendingIntrosProvider,
   'partnerQuickChipsProvider': partnerQuickChipsProvider,
