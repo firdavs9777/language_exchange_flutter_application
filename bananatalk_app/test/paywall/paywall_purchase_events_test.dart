@@ -118,4 +118,52 @@ void main() {
     paywallLogPurchase(null, PurchaseOutcome.started, productId: 'x');
     expect(logged, isEmpty);
   });
+
+  group('PurchaseAttempt', () {
+    List<String> acts() => logged.map((l) => l.action).toList();
+
+    test('second terminal event is ignored', () {
+      final a = PurchaseAttempt(flow)..start('vip_monthly');
+      a.finish(PurchaseOutcome.succeeded, productId: 'vip_monthly');
+      a.finish(PurchaseOutcome.error);
+      a.finish(PurchaseOutcome.cancelled);
+      expect(acts(), ['purchase_started', 'purchase_succeeded']);
+    });
+
+    test('started then pending gives started + succeeded(pending)', () {
+      PurchaseAttempt(flow)
+        ..start('vip_monthly')
+        ..finish(PurchaseOutcome.pending, productId: 'vip_monthly');
+      expect(acts(), ['purchase_started', 'purchase_succeeded']);
+      expect(logged.map((l) => l.detail), ['vip_monthly', 'pending']);
+    });
+
+    test('no terminal event without a start (no store purchase requested)', () {
+      PurchaseAttempt(flow).finish(PurchaseOutcome.error);
+      expect(logged, isEmpty);
+    });
+
+    test('start is logged once', () {
+      PurchaseAttempt(flow)
+        ..start('a')
+        ..start('b');
+      expect(acts(), ['purchase_started']);
+      expect(logged.single.detail, 'a');
+    });
+
+    test('attempts are independent', () {
+      PurchaseAttempt(flow)
+        ..start('a')
+        ..finish(PurchaseOutcome.cancelled);
+      PurchaseAttempt(flow)
+        ..start('a')
+        ..finish(PurchaseOutcome.verifyFailed);
+      expect(acts(), [
+        'purchase_started',
+        'dismissed',
+        'purchase_started',
+        'purchase_failed',
+      ]);
+    });
+  });
 }

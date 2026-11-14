@@ -172,7 +172,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
         _isLoading = false;
       });
       if (_isLimitReached) {
-        _limitShowing ??= PaywallShowing.begin(
+        // Each limit hit is its own showing: close the previous one first.
+        _limitShowing?.finish();
+        _limitShowing = PaywallShowing.begin(
           PaywallPlacement.translationCap,
           detail: 'bottom_sheet',
         );

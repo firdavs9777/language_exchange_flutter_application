@@ -97,19 +97,16 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
 
     setState(() => _purchasingPackId = pack.id);
 
+    final attempt = PurchaseAttempt(_flow);
     try {
       final productId = pack.productId(_isIOS);
-      paywallLogPurchase(
-        _flow,
-        PurchaseOutcome.started,
-        productId: productId,
-      );
+      attempt.start(productId);
       final purchase = _isIOS
           ? await IOSPurchaseService.purchaseCoinPack(productId)
           : await AndroidPurchaseService.purchaseCoinPack(productId);
 
       if (purchase == null) {
-        paywallLogPurchase(_flow, PurchaseOutcome.cancelled);
+        attempt.finish(PurchaseOutcome.cancelled);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsPurchaseCanceled);
         }
@@ -134,7 +131,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       }
 
       if (receipt.isEmpty || transactionId.isEmpty) {
-        paywallLogPurchase(_flow, PurchaseOutcome.error);
+        attempt.finish(PurchaseOutcome.error);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsReceiptUnreadable);
         }
@@ -149,8 +146,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       );
 
       final outcome = coinVerifyOutcome(response);
-      paywallLogPurchase(
-        _flow,
+      attempt.finish(
         purchaseOutcomeForCoinVerify(outcome),
         productId: productId,
       );
@@ -189,7 +185,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         }
       }
     } catch (_) {
-      paywallLogPurchase(_flow, PurchaseOutcome.error);
+      attempt.finish(PurchaseOutcome.error);
       rethrow;
     } finally {
       if (mounted) setState(() => _purchasingPackId = null);

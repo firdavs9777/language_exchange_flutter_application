@@ -133,6 +133,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       isProcessing = true;
     });
 
+    final attempt = PurchaseAttempt(widget.flow);
     try {
       // Initialize store if not already done
       if (!IOSPurchaseService.isAvailable) {
@@ -164,12 +165,12 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
 
       // Initiate purchase and wait for completion
-      paywallLogPurchase(widget.flow, PurchaseOutcome.started, productId: productId);
+      attempt.start(productId);
       final purchaseDetails = await IOSPurchaseService.purchaseProductAndWait(productId);
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
-        paywallLogPurchase(widget.flow, PurchaseOutcome.cancelled);
+        attempt.finish(PurchaseOutcome.cancelled);
         if (!mounted) return;
         setState(() {
           isProcessing = false;
@@ -205,6 +206,12 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       );
 
 
+      // Recorded before the mounted check so a finished purchase is never lost.
+      if (verifyResult['success'] != true) {
+        attempt.finish(PurchaseOutcome.verifyFailed);
+      } else if (!mounted) {
+        attempt.finish(PurchaseOutcome.pending, productId: productId);
+      }
       if (!mounted) return;
       setState(() {
         isProcessing = false;
@@ -231,14 +238,13 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           }
           if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
         }
+        attempt.finish(
+          confirmedVip ? PurchaseOutcome.succeeded : PurchaseOutcome.pending,
+          productId: productId,
+        );
         if (!mounted) return;
         if (confirmedVip) {
           ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
-          paywallLogPurchase(
-            widget.flow,
-            PurchaseOutcome.succeeded,
-            productId: productId,
-          );
           refreshOffersAfterPurchase(ref);
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name,
@@ -255,7 +261,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           platform: Platform.isIOS ? 'ios' : 'android',
           errorCode: verifyResult['error']?.toString() ?? 'unknown',
         );
-        paywallLogPurchase(widget.flow, PurchaseOutcome.verifyFailed);
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
@@ -265,7 +270,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
       }
     } catch (e) {
-      paywallLogPurchase(widget.flow, PurchaseOutcome.error);
+      attempt.finish(PurchaseOutcome.error);
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 
@@ -309,6 +314,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       isProcessing = true;
     });
 
+    final attempt = PurchaseAttempt(widget.flow);
     try {
       // Initialize store if not already done
       if (!AndroidPurchaseService.isAvailable) {
@@ -344,7 +350,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       // Initiate purchase and wait for completion. A plan switch replaces
       // the owned subscription instead of buying a second one.
-      paywallLogPurchase(widget.flow, PurchaseOutcome.started, productId: productId);
       final PurchaseDetails? purchaseDetails;
       if (widget.isPlanSwitch) {
         final result =
@@ -352,6 +357,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         if (!mounted) return;
         switch (result.status) {
           case VipPlanSwitchStatus.switched:
+            attempt.start(productId);
             purchaseDetails = result.purchase;
           case VipPlanSwitchStatus.scheduled:
             setState(() => isProcessing = false);
@@ -367,16 +373,18 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             );
             return;
           case VipPlanSwitchStatus.canceled:
+            attempt.start(productId);
             purchaseDetails = null;
         }
       } else {
+        attempt.start(productId);
         purchaseDetails =
             await AndroidPurchaseService.purchaseProductAndWait(productId);
       }
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
-        paywallLogPurchase(widget.flow, PurchaseOutcome.cancelled);
+        attempt.finish(PurchaseOutcome.cancelled);
         if (!mounted) return;
         setState(() {
           isProcessing = false;
@@ -414,6 +422,12 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       );
 
 
+      // Recorded before the mounted check so a finished purchase is never lost.
+      if (verifyResult['success'] != true) {
+        attempt.finish(PurchaseOutcome.verifyFailed);
+      } else if (!mounted) {
+        attempt.finish(PurchaseOutcome.pending, productId: productId);
+      }
       if (!mounted) return;
       setState(() {
         isProcessing = false;
@@ -435,14 +449,13 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           } catch (_) {}
           if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
         }
+        attempt.finish(
+          confirmedVip ? PurchaseOutcome.succeeded : PurchaseOutcome.pending,
+          productId: productId,
+        );
         if (!mounted) return;
         if (confirmedVip) {
           ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
-          paywallLogPurchase(
-            widget.flow,
-            PurchaseOutcome.succeeded,
-            productId: productId,
-          );
           refreshOffersAfterPurchase(ref);
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name, platform: 'android',
@@ -457,7 +470,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           plan: widget.plan.name, platform: 'android',
           errorCode: verifyResult['error']?.toString() ?? 'unknown',
         );
-        paywallLogPurchase(widget.flow, PurchaseOutcome.verifyFailed);
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
@@ -467,7 +479,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
       }
     } catch (e) {
-      paywallLogPurchase(widget.flow, PurchaseOutcome.error);
+      attempt.finish(PurchaseOutcome.error);
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 
