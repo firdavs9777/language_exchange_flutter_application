@@ -229,8 +229,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           .markWavesAsRead(waveIds: matchingIds);
 
       if (!mounted) return;
-      ref.invalidate(pendingIntrosProvider);
-      ref.invalidate(wavesUnreadProvider);
+      // The shared source of both the intro strip and the waves badge.
+      ref.invalidate(unreadWavesProvider);
     } catch (_) {
       // Best-effort only — never let this affect conversation load.
     }

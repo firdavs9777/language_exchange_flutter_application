@@ -52,8 +52,8 @@ class _IntroRequestsStripContent extends ConsumerWidget {
       // Best-effort: even if the network call fails, refresh the local
       // state so the UI doesn't get stuck showing a stale intro.
     } finally {
-      ref.invalidate(pendingIntrosProvider);
-      ref.invalidate(wavesUnreadProvider);
+      // The shared source of both the strip and the badge.
+      ref.invalidate(unreadWavesProvider);
     }
   }
 

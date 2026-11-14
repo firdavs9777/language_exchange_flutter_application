@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.
 import 'package:bananatalk_app/pages/chat/state/chat_state_provider.dart'
     as chat_page_state;
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_actions.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/daily_practice_card.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
@@ -172,6 +173,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'communityServiceProvider': communityServiceProvider,
   'filterMatchCountProvider': filterMatchCountProvider,
   'singleCommunityProvider': singleCommunityProvider,
+  'unreadWavesProvider': unreadWavesProvider,
   'wavesUnreadProvider': wavesUnreadProvider,
   'pendingIntrosProvider': pendingIntrosProvider,
   'partnerQuickChipsProvider': partnerQuickChipsProvider,
@@ -210,6 +212,11 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'trendingMomentsProvider': trendingMomentsProvider,
   'promptOfDayProvider': promptOfDayProvider,
   'userMomentsProvider': userMomentsProvider,
+  'userMomentsPagedProvider': userMomentsPagedProvider,
+  'userMomentsTotalProvider': userMomentsTotalProvider,
+  // Whether THIS account already waved at someone: the next account must not
+  // inherit a greyed-out Wave button.
+  'alreadyWavedProvider': alreadyWavedProvider,
   'momentFilterProvider': momentFilterProvider,
   'filteredMomentsProvider': filteredMomentsProvider,
   'momentsFeedTabProvider': momentsFeedTabProvider,
