@@ -12893,7 +12893,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get myWordsEmpty => 'Chưa có gì đang chờ. Hãy tra một từ trong cuộc trò chuyện và nó sẽ xuất hiện ở đây.';
 
   @override
-  String get myWordsActionFailed => 'Chưa lưu được. Hãy thử lại.';
+  String get myWordsActionFailed => 'Không được. Hãy thử lại.';
 
   @override
   String get myWordsYouWrote => 'Bạn đã viết';

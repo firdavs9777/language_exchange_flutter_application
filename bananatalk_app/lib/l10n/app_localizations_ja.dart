@@ -12873,7 +12873,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get myWordsKeep => '保存';
 
   @override
-  String get myWordsDismiss => '閉じる';
+  String get myWordsDismiss => '非表示';
 
   @override
   String get myWordsGotIt => 'わかった';
@@ -12893,7 +12893,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get myWordsEmpty => '待っているものはありません。チャットで単語を調べると、ここに表示されます。';
 
   @override
-  String get myWordsActionFailed => '保存できませんでした。もう一度お試しください。';
+  String get myWordsActionFailed => 'うまくいきませんでした。もう一度お試しください。';
 
   @override
   String get myWordsYouWrote => 'あなたが書いた文';

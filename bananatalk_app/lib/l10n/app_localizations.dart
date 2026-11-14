@@ -23327,7 +23327,7 @@ abstract class AppLocalizations {
   /// No description provided for @myWordsActionFailed.
   ///
   /// In en, this message translates to:
-  /// **'That didn\'t save. Try again.'**
+  /// **'That didn\'t work. Try again.'**
   String get myWordsActionFailed;
 
   /// No description provided for @myWordsYouWrote.

@@ -8,7 +8,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/study/my_words.dart';
 import 'package:bananatalk_app/pages/ai/pronunciation/pronunciation_screen.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/study_doors.dart';
 import 'package:bananatalk_app/pages/learning/my_words/my_words_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/my_words_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/services/study/my_words_api.dart';
@@ -46,6 +48,98 @@ class _FakeApi extends MyWordsApi {
     if (g != null) return g.future;
     return gotItAnswer;
   }
+}
+
+/// A fake server: keep, dismiss and got it change what the next fetch
+/// returns, and a fetch sends at most 20 of each, like the real one.
+class _ServerApi extends MyWordsApi {
+  _ServerApi({
+    required List<WordCandidate> candidates,
+    List<StudyMistakeItem> mistakes = const [],
+  }) : candidates = List.of(candidates),
+       mistakes = List.of(mistakes);
+
+  final List<WordCandidate> candidates;
+  final List<StudyMistakeItem> mistakes;
+  int fetches = 0;
+  Completer<void>? fetchGate, keepGate;
+
+  @override
+  Future<MyWords> fetch() async {
+    fetches++;
+    final gate = fetchGate;
+    if (gate != null) await gate.future;
+    return MyWords(
+      candidateCount: candidates.length,
+      mistakeCount: mistakes.length,
+      dueWords: 0,
+      candidates: candidates.take(20).toList(),
+      mistakes: mistakes.take(20).toList(),
+    );
+  }
+
+  @override
+  Future<String?> keep(String candidateId) async {
+    await keepGate?.future;
+    candidates.removeWhere((c) => c.id == candidateId);
+    return 'v1';
+  }
+
+  @override
+  Future<void> dismiss(String candidateId) async {
+    candidates.removeWhere((c) => c.id == candidateId);
+  }
+
+  @override
+  Future<({int successes, bool resolved})> gotIt(String mistakeId) async {
+    final i = mistakes.indexWhere((m) => m.id == mistakeId);
+    final n = mistakes[i].successes + 1;
+    if (n >= 3) {
+      mistakes.removeAt(i);
+      return (successes: n, resolved: true);
+    }
+    mistakes[i] = _mistake(mistakeId, successes: n);
+    return (successes: n, resolved: false);
+  }
+}
+
+/// The real [myWordsProvider] over [api], with the switch on; [home] is the
+/// screen itself or a stand-in hub holding the my-words door card.
+Future<void> _pumpLive(
+  WidgetTester tester,
+  _ServerApi api, {
+  Widget home = const MyWordsScreen(),
+}) async {
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        studyFromChatsEnabledProvider.overrideWithValue(true),
+        myWordsApiProvider.overrideWithValue(api),
+        vocabularyStatsProvider(
+          null,
+        ).overrideWith((ref) => Future.value(_stats(0))),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: home,
+      ),
+    ),
+  );
+  await tester.pumpAndSettle();
+}
+
+const _hub = Scaffold(body: MyWordsDoorCard());
+
+Future<void> _openFromCard(WidgetTester tester) async {
+  await tester.tap(find.byType(MyWordsDoorCard));
+  await tester.pumpAndSettle();
+  expect(find.byType(MyWordsScreen), findsOneWidget);
+}
+
+Future<void> _leave(WidgetTester tester) async {
+  Navigator.of(tester.element(find.byType(MyWordsScreen))).pop();
+  await tester.pumpAndSettle();
 }
 
 WordCandidate _cand(String id, String text, {String? pos}) => WordCandidate(
@@ -194,6 +288,8 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.textContaining('Nothing waiting'), findsNothing);
+    // The usual progress indicator, not a blank body.
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
     gate.complete(_stats(3));
     await tester.pumpAndSettle();
     expect(find.text('Words to review'), findsOneWidget);
@@ -275,7 +371,7 @@ void main() {
       await tester.tap(find.text('Dismiss'));
       await tester.pumpAndSettle();
       expect(find.text('bonjour'), findsOneWidget);
-      expect(find.text("That didn't save. Try again."), findsOneWidget);
+      expect(find.text("That didn't work. Try again."), findsOneWidget);
     },
   );
 
@@ -471,6 +567,31 @@ void main() {
     expect(find.text('bonjour'), findsOneWidget);
   });
 
+  testWidgets('retry shows progress while reloading and takes no second tap', (
+    tester,
+  ) async {
+    var calls = 0;
+    final reload = Completer<MyWords>();
+    await _pump(
+      tester,
+      _data(),
+      load: () {
+        calls++;
+        if (calls == 1) return Future.error(StateError('down'));
+        return reload.future;
+      },
+    );
+    await tester.tap(find.text('Retry'));
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    // Nothing left to tap a second time while it loads.
+    expect(find.text('Retry'), findsNothing);
+    expect(calls, 2);
+    reload.complete(_data(c: [_cand('c1', 'bonjour')]));
+    await tester.pumpAndSettle();
+    expect(find.text('bonjour'), findsOneWidget);
+  });
+
   testWidgets('a failed refresh keeps the rows and throws nothing', (
     tester,
   ) async {
@@ -489,6 +610,95 @@ void main() {
     expect(calls, greaterThan(1));
     expect(find.text('bonjour'), findsOneWidget);
     expect(tester.takeException(), isNull);
+    // The learner is told, once.
+    expect(find.text('Something went wrong'), findsOneWidget);
+  });
+
+  testWidgets('a mistake with no correction shows no Correction and no Say it', (
+    tester,
+  ) async {
+    await _pump(tester, _data(m: [_mistake('m1', corrected: '')]));
+    expect(find.text('I goed home'), findsOneWidget);
+    expect(find.text('Correction'), findsNothing);
+    expect(find.text('Say it'), findsNothing);
+    expect(find.text('Got it'), findsOneWidget);
+  });
+
+  for (final action in ['Keep', 'Dismiss']) {
+    testWidgets('$action, leave: the hub card count drops; reopen: the word '
+        'is not listed', (tester) async {
+      final api = _ServerApi(
+        candidates: [_cand('c1', 'one'), _cand('c2', 'two')],
+        mistakes: [_mistake('m1')],
+      );
+      await _pumpLive(tester, api, home: _hub);
+      expect(find.text('2 words, 1 mistake to look at'), findsOneWidget);
+      await _openFromCard(tester);
+      await tester.tap(find.text(action).first);
+      await tester.pumpAndSettle();
+      await _leave(tester);
+      expect(find.text('1 word, 1 mistake to look at'), findsOneWidget);
+      await _openFromCard(tester);
+      expect(find.text('one'), findsNothing);
+      expect(find.text('two'), findsOneWidget);
+    });
+  }
+
+  testWidgets('a keep answered after the learner left still lowers the count', (
+    tester,
+  ) async {
+    final api = _ServerApi(candidates: [_cand('c1', 'one'), _cand('c2', 'two')])
+      ..keepGate = Completer<void>();
+    await _pumpLive(tester, api, home: _hub);
+    await _openFromCard(tester);
+    await tester.tap(find.text('Keep').first);
+    await tester.pump();
+    await _leave(tester);
+    expect(find.text('2 words to look at'), findsOneWidget);
+    api.keepGate!.complete();
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.text('1 word to look at'), findsOneWidget);
+  });
+
+  testWidgets('a got-it count survives reopening (it comes from the server)', (
+    tester,
+  ) async {
+    final api = _ServerApi(candidates: const [], mistakes: [_mistake('m1')]);
+    await _pumpLive(tester, api, home: _hub);
+    await _openFromCard(tester);
+    await tester.tap(find.text('Got it'));
+    await tester.pumpAndSettle();
+    expect(find.text('1 of 3'), findsOneWidget);
+    await _leave(tester);
+    await _openFromCard(tester);
+    expect(find.text('1 of 3'), findsOneWidget);
+  });
+
+  testWidgets('20 of 35 cleared: the next rows come and "Nothing waiting" '
+      'never shows in between', (tester) async {
+    final api = _ServerApi(
+      candidates: [for (var i = 0; i < 35; i++) _cand('c$i', 'w$i')],
+    );
+    await _pumpLive(tester, api);
+    expect(find.text('w0'), findsOneWidget);
+    // Every refetch is held, so each in-between state stays on screen.
+    api.fetchGate = Completer<void>();
+    for (var i = 0; i < 20; i++) {
+      await tester.tap(find.text('Dismiss').first);
+      await tester.pump();
+      await tester.pump();
+      expect(
+        find.textContaining('Nothing waiting'),
+        findsNothing,
+        reason: 'after clearing ${i + 1}',
+      );
+    }
+    expect(find.text('w19'), findsNothing);
+    api.fetchGate!.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('w20'), findsOneWidget);
+    expect(find.textContaining('Nothing waiting'), findsNothing);
   });
 
   testWidgets('leaving mid-keep throws nothing and still invalidates stats', (

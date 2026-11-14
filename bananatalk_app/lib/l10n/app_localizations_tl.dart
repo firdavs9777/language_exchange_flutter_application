@@ -12924,7 +12924,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get myWordsEmpty => 'Walang naghihintay. Maghanap ng salita sa chat at lalabas ito dito.';
 
   @override
-  String get myWordsActionFailed => 'Hindi ito nai-save. Subukan ulit.';
+  String get myWordsActionFailed => 'Hindi ito gumana. Subukan ulit.';
 
   @override
   String get myWordsYouWrote => 'Isinulat mo';

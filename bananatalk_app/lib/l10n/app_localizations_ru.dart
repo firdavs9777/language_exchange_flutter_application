@@ -13425,7 +13425,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get myWordsEmpty => 'Ничего не ждёт. Посмотрите слово в чате, и оно появится здесь.';
 
   @override
-  String get myWordsActionFailed => 'Не сохранилось. Попробуйте ещё раз.';
+  String get myWordsActionFailed => 'Не получилось. Попробуйте ещё раз.';
 
   @override
   String get myWordsYouWrote => 'Вы написали';

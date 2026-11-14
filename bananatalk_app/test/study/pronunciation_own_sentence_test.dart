@@ -80,6 +80,26 @@ void main() {
     expect(languageForInitialCode(list, null), isNull);
   });
 
+  test('an exact code match wins over an earlier base-code match', () {
+    final list = [_lang('zh-CN'), _lang('zh-TW')];
+    expect(languageForInitialCode(list, 'zh-TW')?.code, 'zh-TW');
+    expect(languageForInitialCode(list, 'ZH-tw')?.code, 'zh-TW');
+    // Only then the base code.
+    expect(languageForInitialCode(list, 'zh')?.code, 'zh-CN');
+    expect(languageForInitialCode(list, 'zh-HK')?.code, 'zh-CN');
+  });
+
+  test('request: sends the exact code the selected language has', () {
+    final r = pronunciationRequest(
+      initialText: '你好',
+      initialLanguage: 'zh-TW',
+      ownSentence: true,
+      currentText: '你好',
+      selectedLanguageCode: 'zh-TW',
+    );
+    expect(r.language, 'zh-TW');
+  });
+
   test('source is own only while the text is still the given sentence', () {
     expect(
       pronunciationSource(

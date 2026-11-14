@@ -12935,7 +12935,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get myWordsEmpty => 'Rien en attente. Cherche un mot dans une discussion et il apparaîtra ici.';
 
   @override
-  String get myWordsActionFailed => 'Ça n\'a pas été enregistré. Réessaie.';
+  String get myWordsActionFailed => 'Ça n\'a pas marché. Réessaie.';
 
   @override
   String get myWordsYouWrote => 'Tu as écrit';

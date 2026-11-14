@@ -58,10 +58,15 @@ String pronunciationSource({
   );
 }
 
-/// The language in [languages] matching [code] on its base code, or null.
+/// The language in [languages] whose code is [code] (any case); failing that
+/// the first matching its base code; else null.
 Language? languageForInitialCode(List<Language> languages, String? code) {
   if (code == null || code.isEmpty) return null;
-  final base = code.split('-').first.toLowerCase();
+  final exact = code.toLowerCase();
+  for (final l in languages) {
+    if (l.code.toLowerCase() == exact) return l;
+  }
+  final base = exact.split('-').first;
   for (final l in languages) {
     if (l.code.split('-').first.toLowerCase() == base) return l;
   }

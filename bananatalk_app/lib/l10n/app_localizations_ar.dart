@@ -12983,8 +12983,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count كلمات',
+      other: '$count كلمة',
+      many: '$count كلمة',
+      few: '$count كلمات',
+      two: 'كلمتان',
       one: 'كلمة واحدة',
+      zero: 'لا كلمات',
     );
     return '$_temp0';
   }
@@ -12994,8 +12998,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count أخطاء',
+      other: '$count خطأ',
+      many: '$count خطأً',
+      few: '$count أخطاء',
+      two: 'خطآن',
       one: 'خطأ واحد',
+      zero: 'لا أخطاء',
     );
     return '$_temp0';
   }
@@ -13027,8 +13035,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count كلمات جاهزة',
+      other: '$count كلمة جاهزة',
+      many: '$count كلمة جاهزة',
+      few: '$count كلمات جاهزة',
+      two: 'كلمتان جاهزتان',
       one: 'كلمة واحدة جاهزة',
+      zero: 'لا كلمات جاهزة',
     );
     return '$_temp0';
   }
@@ -13057,7 +13069,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myWordsEmpty => 'لا شيء بانتظارك. ابحث عن كلمة في محادثة وستظهر هنا.';
 
   @override
-  String get myWordsActionFailed => 'لم يُحفظ ذلك. حاول مرة أخرى.';
+  String get myWordsActionFailed => 'لم ينجح ذلك. حاول مرة أخرى.';
 
   @override
   String get myWordsYouWrote => 'كتبتَ';

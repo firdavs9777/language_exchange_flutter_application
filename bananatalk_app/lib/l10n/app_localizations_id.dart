@@ -12884,7 +12884,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get myWordsKeep => 'Simpan';
 
   @override
-  String get myWordsDismiss => 'Tutup';
+  String get myWordsDismiss => 'Sembunyikan';
 
   @override
   String get myWordsGotIt => 'Mengerti';
@@ -12904,7 +12904,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get myWordsEmpty => 'Tidak ada yang menunggu. Cari kata di obrolan dan kata itu akan muncul di sini.';
 
   @override
-  String get myWordsActionFailed => 'Itu tidak tersimpan. Coba lagi.';
+  String get myWordsActionFailed => 'Itu tidak berhasil. Coba lagi.';
 
   @override
   String get myWordsYouWrote => 'Kamu menulis';

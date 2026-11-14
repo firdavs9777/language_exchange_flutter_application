@@ -12935,7 +12935,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get myWordsEmpty => 'कुछ भी इंतज़ार में नहीं है। चैट में कोई शब्द खोजें, वह यहां दिखेगा।';
 
   @override
-  String get myWordsActionFailed => 'यह सहेजा नहीं गया। फिर से कोशिश करें।';
+  String get myWordsActionFailed => 'यह नहीं हो पाया। फिर से कोशिश करें।';
 
   @override
   String get myWordsYouWrote => 'आपने लिखा';

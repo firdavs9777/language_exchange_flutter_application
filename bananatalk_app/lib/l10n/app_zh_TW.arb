@@ -4531,7 +4531,7 @@
   "myWordsSayIt": "說出來",
   "myWordsReview": "複習",
   "myWordsEmpty": "目前沒有待辦。在聊天中查一個單字，它就會出現在這裡。",
-  "myWordsActionFailed": "未能儲存，請再試一次。",
+  "myWordsActionFailed": "沒有成功，請再試一次。",
   "myWordsYouWrote": "你寫的",
   "myWordsCorrection": "修正",
   "studyDoorTalk": "對話",

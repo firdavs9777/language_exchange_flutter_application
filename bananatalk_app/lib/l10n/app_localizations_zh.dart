@@ -12893,7 +12893,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get myWordsEmpty => '暂无待办。在聊天中查一个单词，它就会出现在这里。';
 
   @override
-  String get myWordsActionFailed => '未能保存，请重试。';
+  String get myWordsActionFailed => '没有成功，请重试。';
 
   @override
   String get myWordsYouWrote => '你写的';
@@ -25803,7 +25803,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get myWordsEmpty => '目前沒有待辦。在聊天中查一個單字，它就會出現在這裡。';
 
   @override
-  String get myWordsActionFailed => '未能儲存，請再試一次。';
+  String get myWordsActionFailed => '沒有成功，請再試一次。';
 
   @override
   String get myWordsYouWrote => '你寫的';

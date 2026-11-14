@@ -80,8 +80,8 @@ class StudyFeatureGroups extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final group in StudyGroup.values)
-          if (studyFeatureGroups[group]!.any((f) => !exclude.contains(f))) ...[
+        for (final group in StudyGroup.values.where(
+            (g) => studyFeatureGroups[g]!.any((f) => !exclude.contains(f)))) ...[
           Padding(
             padding: const EdgeInsets.only(bottom: StudyHubMetrics.groupLabelGap),
             child: Text(
@@ -94,8 +94,7 @@ class StudyFeatureGroups extends ConsumerWidget {
             ),
           ),
           _Grid(children: [
-            for (final f in studyFeatureGroups[group]!)
-              if (!exclude.contains(f))
+            for (final f in studyFeatureGroups[group]!.where((f) => !exclude.contains(f)))
               Builder(builder: (context) {
                 final badge = badgeFor(f,
                     isVip: isVip,

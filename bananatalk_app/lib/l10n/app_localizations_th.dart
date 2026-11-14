@@ -12839,7 +12839,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String myWordsCardBoth(String words, String mistakes) {
-    return '$words $mistakes ที่ต้องดู';
+    return '$words และ $mistakes ที่ต้องดู';
   }
 
   @override
@@ -12873,7 +12873,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get myWordsKeep => 'เก็บไว้';
 
   @override
-  String get myWordsDismiss => 'ปิด';
+  String get myWordsDismiss => 'ซ่อน';
 
   @override
   String get myWordsGotIt => 'เข้าใจแล้ว';
@@ -12893,7 +12893,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get myWordsEmpty => 'ไม่มีอะไรรออยู่ ลองค้นหาคำในแชทแล้วคำนั้นจะแสดงที่นี่';
 
   @override
-  String get myWordsActionFailed => 'บันทึกไม่สำเร็จ ลองอีกครั้ง';
+  String get myWordsActionFailed => 'ไม่สำเร็จ ลองอีกครั้ง';
 
   @override
   String get myWordsYouWrote => 'คุณเขียนว่า';

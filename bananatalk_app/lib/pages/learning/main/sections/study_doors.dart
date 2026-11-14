@@ -16,7 +16,8 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// The hub's three doors (shown when `studyDoorsEnabled` is on): My words and
 /// mistakes, Talk, More. They look like the hub's other cards (same radius and
-/// padding as the vocab-packs card, the hub header's gradient).
+/// padding as the vocab-packs card); each gradient door has its own colours,
+/// dark enough for white text at 4.5:1 in either theme.
 
 /// The card shell the gradient doors share.
 class _GradientDoor extends StatelessWidget {
@@ -62,15 +63,20 @@ class _GradientDoor extends StatelessWidget {
           ),
           child: Row(
             children: [
+              // At least 52 square; grows with large text instead of
+              // clipping the emoji.
               Container(
-                width: 52,
-                height: 52,
-                alignment: Alignment.center,
+                constraints: const BoxConstraints(minWidth: 52, minHeight: 52),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(emoji, style: text.headlineSmall),
+                child: Center(
+                  widthFactor: 1,
+                  heightFactor: 1,
+                  child: Text(emoji, style: text.headlineSmall),
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(child: child),
@@ -82,18 +88,23 @@ class _GradientDoor extends StatelessWidget {
   }
 }
 
-/// "My words and mistakes": the counts of what the learner picked up in chats.
+/// "My words and mistakes": the counts of what the learner picked up in chats;
+/// with none, the words due for review; with nothing due either, the "will
+/// appear here" line, but only while capture (`studyFromChatsEnabled`) is on.
 /// Shows only the title while the numbers load or fail.
 class MyWordsDoorCard extends ConsumerWidget {
   const MyWordsDoorCard({super.key});
 
-  static const _gradient = [Color(0xFF0EA5E9), Color(0xFF14B8A6)];
+  // Its own (emerald), not the vocab-packs card's sky-to-teal. White text on
+  // either stop is above 4.5:1.
+  static const _gradient = [Color(0xFF047857), Color(0xFF065F46)];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context)!;
     final text = Theme.of(context).textTheme;
     final words = ref.watch(myWordsProvider).valueOrNull;
+    final capturing = ref.watch(studyFromChatsEnabledProvider);
     String? line;
     if (words != null) {
       final w = words.candidateCount;
@@ -105,7 +116,10 @@ class MyWordsDoorCard extends ConsumerWidget {
         ),
         (true, false) => l.myWordsCardOne(l.myWordsCountWords(w)),
         (false, true) => l.myWordsCardOne(l.myWordsCountMistakes(m)),
-        (false, false) => l.myWordsCardEmpty,
+        (false, false) when words.dueWords > 0 => l.myWordsDueCount(
+          words.dueWords,
+        ),
+        (false, false) => capturing ? l.myWordsCardEmpty : null,
       };
     }
     return _GradientDoor(
@@ -122,7 +136,7 @@ class MyWordsDoorCard extends ConsumerWidget {
         children: [
           Text(
             l.myWordsTitle,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: text.titleMedium?.copyWith(
               color: Colors.white,
@@ -198,7 +212,7 @@ class TalkDoorCard extends ConsumerWidget {
         children: [
           Text(
             l.studyDoorTalk,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: text.titleMedium?.copyWith(
               color: Colors.white,
@@ -233,7 +247,7 @@ class TalkDoorCard extends ConsumerWidget {
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                minimumSize: const Size(0, 36),
+                minimumSize: const Size(44, 44),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: () => openStudyFeature(
@@ -292,7 +306,7 @@ class MoreDoorRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   l.studyDoorMore,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,

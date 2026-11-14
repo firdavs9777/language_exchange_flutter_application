@@ -18,12 +18,16 @@ class MistakeRow extends StatelessWidget {
 
   final StudyMistakeItem mistake;
   final bool busy;
-  final VoidCallback onGotIt, onSayIt;
+  final VoidCallback onGotIt;
+
+  /// Null hides Say it (a mistake with no correction has nothing to say).
+  final VoidCallback? onSayIt;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final label = context.bodyMedium.copyWith(color: context.textMuted);
+    final hasCorrection = mistake.corrected.trim().isNotEmpty;
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -38,9 +42,11 @@ class MistakeRow extends StatelessWidget {
         children: [
           Text(l10n.myWordsYouWrote, style: label),
           Text(mistake.original, style: context.bodyMedium),
-          const SizedBox(height: 8),
-          Text(l10n.myWordsCorrection, style: label),
-          Text(mistake.corrected, style: context.titleMedium),
+          if (hasCorrection) ...[
+            const SizedBox(height: 8),
+            Text(l10n.myWordsCorrection, style: label),
+            Text(mistake.corrected, style: context.titleMedium),
+          ],
           if (mistake.explanation.isNotEmpty) ...[
             const SizedBox(height: 8),
             Text(
@@ -65,7 +71,8 @@ class MistakeRow extends StatelessWidget {
                   l10n.myWordsGotItProgress(mistake.successes),
                   style: label,
                 ),
-              TextButton(onPressed: onSayIt, child: Text(l10n.myWordsSayIt)),
+              if (hasCorrection && onSayIt != null)
+                TextButton(onPressed: onSayIt, child: Text(l10n.myWordsSayIt)),
             ],
           ),
         ],

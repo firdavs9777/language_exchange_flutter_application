@@ -100,4 +100,37 @@ void main() {
     expect(ru.myWordsCountWords(5), '5 слов');
     expect(ru.myWordsCountWords(21), '21 слово');
   });
+
+  test('Arabic counts use their own plural forms', () {
+    final ar = lookupAppLocalizations(const Locale('ar'));
+    expect(ar.myWordsCountWords(1), 'كلمة واحدة');
+    expect(ar.myWordsCountWords(2), 'كلمتان');
+    expect(ar.myWordsCountWords(3), '3 كلمات');
+    expect(ar.myWordsCountWords(11), '11 كلمة');
+    expect(ar.myWordsCountWords(100), '100 كلمة');
+    expect(ar.myWordsCountMistakes(2), 'خطآن');
+    expect(ar.myWordsCountMistakes(5), '5 أخطاء');
+    expect(ar.myWordsCountMistakes(11), '11 خطأً');
+    expect(ar.myWordsDueCount(2), 'كلمتان جاهزتان');
+    expect(ar.myWordsDueCount(11), '11 كلمة جاهزة');
+  });
+
+  test('wording fixes: Dismiss means hide, Thai joins the two parts, and the '
+      'failure line fits Dismiss and Got it too', () {
+    final en = lookupAppLocalizations(const Locale('en'));
+    expect(en.myWordsActionFailed, "That didn't work. Try again.");
+    expect(lookupAppLocalizations(const Locale('ja')).myWordsDismiss, '非表示');
+    final th = lookupAppLocalizations(const Locale('th'));
+    expect(th.myWordsDismiss, 'ซ่อน');
+    expect(th.myWordsCardBoth('A', 'B'), 'A และ B ที่ต้องดู');
+    // No locale keeps the old "didn't save" meaning in its own words.
+    for (final f in arbs.keys) {
+      final v = arbs[f]!['myWordsActionFailed'] as String;
+      for (final old in ['save', 'сохран', 'guard', 'enregistr', 'speicher',
+          'salv', 'simpan', 'kayded', 'lưu', '保存', '儲存', '저장', 'บันทึก',
+          'सहेज', 'حفظ', 'захира', 'nai-save']) {
+        expect(v.toLowerCase(), isNot(contains(old)), reason: '$f: $v');
+      }
+    }
+  });
 }

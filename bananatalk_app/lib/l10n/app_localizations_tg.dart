@@ -12923,7 +12923,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get myWordsEmpty => 'Чизе мунтазир нест. Дар чат калимаеро ҷустуҷӯ кунед, он дар ин ҷо пайдо мешавад.';
 
   @override
-  String get myWordsActionFailed => 'Захира нашуд. Бори дигар кӯшиш кунед.';
+  String get myWordsActionFailed => 'Нашуд. Бори дигар кӯшиш кунед.';
 
   @override
   String get myWordsYouWrote => 'Шумо навиштед';

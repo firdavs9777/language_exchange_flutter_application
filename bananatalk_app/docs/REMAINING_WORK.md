@@ -25,6 +25,8 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
   - [x] Fix round 1: refresh/failure races, restore position, no ref after await, safe refresh, stats-loading flash, due-row overflow
   - [ ] Native review of the 18 machine-drafted my-words locales; device QA of the screen
 - [x] Task 4: three doors on the hub (`MyWordsDoorCard`, `TalkDoorCard`, `MoreDoorRow`) and `StudyMoreScreen`, behind `studyDoorsEnabled` (flag off = today's hub, unchanged); `openStudyFeature` extracted from the grid; guide secondary action and pull-to-refresh follow the doors. Open: device look at the three cards (dark mode, small phones); 18 machine-drafted locales need native review
+- [x] Final review fixes: kept / dismissed / resolved rows no longer come back on reopen and the hub card count drops (myWordsProvider refetched after every action and on open); no "Nothing waiting" while the server holds more rows or a request is in flight; Say it picks the exact language variant (zh-TW before zh-CN); myWordsProvider reset on sign-out; retry/refresh/stats-loading states; due line on the card, "will appear here" only with capture on; empty correction hides Correction and Say it; My words card has its own colours (4.5:1); door titles wrap to 2 lines; Roleplay target 44; Arabic plural forms; ja/th/ko/id/tr Dismiss = hide; Thai card separator; failure line "That didn't work. Try again."
+  - [ ] Open: no badge on the Roleplay button; the hub switches layout when app-config arrives with doors on; nothing device-tested; native review of the 18 locales (incl. the strings changed here)
 - [ ] Task 5: whole-suite check and handoff
 
 ## 2. Owner — manual steps (in order)

@@ -12947,7 +12947,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get myWordsEmpty => 'No hay nada pendiente. Busca una palabra en un chat y aparecerá aquí.';
 
   @override
-  String get myWordsActionFailed => 'No se guardó. Inténtalo de nuevo.';
+  String get myWordsActionFailed => 'No funcionó. Inténtalo de nuevo.';
 
   @override
   String get myWordsYouWrote => 'Escribiste';

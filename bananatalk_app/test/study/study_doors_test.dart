@@ -37,8 +37,11 @@ import 'package:bananatalk_app/providers/provider_root/learning/progress_provide
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/feature_seen_store.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/services/study/study_tracker.dart';
+import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 
 const _pack = DailyPack(
   needsLanguage: false,
@@ -65,7 +68,7 @@ const _pack = DailyPack(
   ],
 );
 
-AppConfig _cfg({required bool doors}) => AppConfig(
+AppConfig _cfg({required bool doors, bool fromChats = false}) => AppConfig(
   minVersion: '0',
   latestVersion: '0',
   forceUpdate: false,
@@ -74,18 +77,51 @@ AppConfig _cfg({required bool doors}) => AppConfig(
   releaseNotes: '',
   studyHubEnabled: true,
   studyDoorsEnabled: doors,
+  studyFromChatsEnabled: fromChats,
 );
 
-MyWords _words(int candidates, int mistakes) => MyWords(
+MyWords _words(int candidates, int mistakes, {int due = 9}) => MyWords(
   candidateCount: candidates,
   mistakeCount: mistakes,
-  dueWords: 9,
+  dueWords: due,
   candidates: const [],
   mistakes: const [],
 );
 
-List<Override> _common({required bool doors, MyWords? words}) => [
-  appConfigProvider.overrideWith((ref) async => _cfg(doors: doors)),
+Community _freshUser() => Community(
+  id: 'me',
+  appleId: '',
+  googleId: '',
+  name: 'Me',
+  email: '',
+  mbti: '',
+  bloodType: '',
+  bio: '',
+  images: const [],
+  birth_day: '',
+  birth_month: '',
+  gender: '',
+  birth_year: '',
+  native_language: 'English',
+  language_to_learn: 'Korean',
+  imageUrls: const [],
+  createdAt: DateTime.now().subtract(const Duration(days: 1)).toIso8601String(),
+  version: 0,
+  followers: const [],
+  followings: const [],
+  location: Location.defaultLocation(),
+);
+
+/// [guide]: a first-week learner, so the hub's guide card shows.
+List<Override> _common({
+  required bool doors,
+  MyWords? words,
+  bool fromChats = false,
+  bool guide = false,
+}) => [
+  appConfigProvider.overrideWith(
+    (ref) async => _cfg(doors: doors, fromChats: fromChats),
+  ),
   dailyPackProvider.overrideWith((ref) async => _pack),
   learningProgressProvider.overrideWith(
     (ref) async => LearningProgress.fromJson({
@@ -96,7 +132,14 @@ List<Override> _common({required bool doors, MyWords? words}) => [
       'dailyGoal': 50,
     }),
   ),
-  userProvider.overrideWith((ref) => Completer<Community>().future),
+  if (guide) ...[
+    userProvider.overrideWith((ref) async => _freshUser()),
+    activationDoneProvider.overrideWith((ref) => Stream.value(const {})),
+    guideStateProvider(GuideSurface.aiStudy).overrideWith(
+      (ref) async => const GuideState(acted: false, timesShown: 0),
+    ),
+  ] else
+    userProvider.overrideWith((ref) => Completer<Community>().future),
   weakAreasProvider.overrideWith((ref) async => const <WeakArea>[]),
   tutorMemoryAndQuotasProvider.overrideWith(
     (ref) => Completer<({TutorMemory memory, Map<String, dynamic>? quotas})>()
@@ -121,13 +164,15 @@ Future<void> _pumpHub(
   WidgetTester t, {
   required bool doors,
   MyWords? words,
+  bool guide = false,
+  Size size = const Size(390, 3000),
 }) async {
-  t.view.physicalSize = const Size(390, 3000);
+  t.view.physicalSize = size;
   t.view.devicePixelRatio = 1;
   addTearDown(t.view.reset);
   await t.pumpWidget(
     ProviderScope(
-      overrides: _common(doors: doors, words: words),
+      overrides: _common(doors: doors, words: words, guide: guide),
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -139,13 +184,27 @@ Future<void> _pumpHub(
   await t.pump();
 }
 
-Future<void> _pumpDoor(WidgetTester t, Widget child, {MyWords? words}) async {
+Future<void> _pumpDoor(
+  WidgetTester t,
+  Widget child, {
+  MyWords? words,
+  bool fromChats = false,
+  ThemeData? theme,
+  double textScale = 1.0,
+}) async {
   await t.pumpWidget(
     ProviderScope(
-      overrides: _common(doors: true, words: words),
+      overrides: _common(doors: true, words: words, fromChats: fromChats),
       child: MaterialApp(
+        theme: theme,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: TextScaler.linear(textScale)),
+          child: child!,
+        ),
         home: Scaffold(body: SingleChildScrollView(child: child)),
       ),
     ),
@@ -158,6 +217,14 @@ Finder _tile(StudyFeature f) =>
     find.byWidgetPredicate((w) => w is StudyFeatureTile && w.feature == f);
 
 double _top(WidgetTester t, Finder f) => t.getRect(f).top;
+
+/// WCAG contrast ratio of text colour [a] (blended over [b]) on [b].
+double _contrast(Color a, Color b) {
+  final la = Color.alphaBlend(a, b).computeLuminance();
+  final lb = b.computeLuminance();
+  final hi = la > lb ? la : lb, lo = la > lb ? lb : la;
+  return (hi + 0.05) / (lo + 0.05);
+}
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -188,6 +255,24 @@ void main() {
       _top(t, order[4]),
     ];
     expect([...tops]..sort(), tops);
+    // The column's children, in order, exactly as before the doors.
+    final column = t.widget<Column>(
+      find
+          .ancestor(of: find.byType(ProgressCard), matching: find.byType(Column))
+          .first,
+    );
+    expect([for (final w in column.children) w.runtimeType], [
+      PageGuide,
+      TodayPackRow,
+      SizedBox,
+      VocabPacksCard,
+      SizedBox,
+      RecommendedTile,
+      SizedBox,
+      KeyedSubtree,
+      SizedBox,
+      ProgressCard,
+    ]);
     expect(find.byKey(StudyHub.groupsSectionKey), findsOneWidget);
     // The whole feature grid is there, tutor and roleplay included.
     for (final f in StudyFeature.values) {
@@ -221,7 +306,7 @@ void main() {
     (2, 1, '2 words, 1 mistake to look at'),
     (3, 0, '3 words to look at'),
     (0, 1, '1 mistake to look at'),
-    (0, 0, 'Words you look up in chats will appear here'),
+    (0, 0, '9 words are ready'),
   ]) {
     testWidgets('the my-words card with ${c.$1} words, ${c.$2} mistakes says '
         '"${c.$3}"', (t) async {
@@ -229,6 +314,129 @@ void main() {
       expect(find.text(c.$3), findsOneWidget);
     });
   }
+
+  testWidgets('nothing waiting and nothing due: the "will appear here" line '
+      'only with studyFromChatsEnabled on', (t) async {
+    await _pumpDoor(
+      t,
+      const MyWordsDoorCard(),
+      words: _words(0, 0, due: 0),
+      fromChats: true,
+    );
+    expect(
+      find.text('Words you look up in chats will appear here'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('nothing waiting, nothing due, switch off: the title alone', (
+    t,
+  ) async {
+    await _pumpDoor(t, const MyWordsDoorCard(), words: _words(0, 0, due: 0));
+    expect(find.text('My words and mistakes'), findsOneWidget);
+    expect(find.textContaining('appear here'), findsNothing);
+    expect(find.textContaining('ready'), findsNothing);
+  });
+
+  for (final brightness in Brightness.values) {
+    testWidgets('the my-words card has its own colours and readable text '
+        '(${brightness.name})', (t) async {
+      await _pumpDoor(
+        t,
+        const MyWordsDoorCard(),
+        words: _words(2, 1),
+        theme: ThemeData(brightness: brightness),
+      );
+      final ink = t.widget<Ink>(
+        find.descendant(
+          of: find.byType(MyWordsDoorCard),
+          matching: find.byType(Ink),
+        ),
+      );
+      final colors = (ink.decoration! as BoxDecoration).gradient!.colors;
+      // Not the vocab-packs card's gradient.
+      expect(colors, isNot([const Color(0xFF0EA5E9), const Color(0xFF14B8A6)]));
+      for (final text in [
+        'My words and mistakes',
+        '2 words, 1 mistake to look at',
+      ]) {
+        final style = t.widget<Text>(find.text(text)).style!;
+        for (final bg in colors) {
+          expect(
+            _contrast(style.color!, bg),
+            greaterThanOrEqualTo(4.5),
+            reason: '"$text" on $bg',
+          );
+        }
+      }
+    });
+  }
+
+  testWidgets('the my-words emoji box does not clip at text scale 1.3', (
+    t,
+  ) async {
+    await _pumpDoor(
+      t,
+      const MyWordsDoorCard(),
+      words: _words(2, 1),
+      textScale: 1.3,
+    );
+    expect(t.takeException(), isNull);
+    final emoji = find.text('📝');
+    final box = find
+        .ancestor(of: emoji, matching: find.byType(Container))
+        .first;
+    final e = t.getRect(emoji);
+    final b = t.getRect(box);
+    expect(b.top, lessThanOrEqualTo(e.top));
+    expect(b.bottom, greaterThanOrEqualTo(e.bottom));
+    expect(b.left, lessThanOrEqualTo(e.left));
+    expect(b.right, greaterThanOrEqualTo(e.right));
+  });
+
+  testWidgets('door titles may wrap to two lines', (t) async {
+    await _pumpDoor(
+      t,
+      const Column(children: [MyWordsDoorCard(), TalkDoorCard(), MoreDoorRow()]),
+      words: _words(2, 1),
+    );
+    for (final title in ['My words and mistakes', 'Talk', 'More ways to study']) {
+      expect(t.widget<Text>(find.text(title)).maxLines, 2, reason: title);
+    }
+  });
+
+  testWidgets('the Roleplay button is at least 44 tall', (t) async {
+    await _pumpDoor(t, const TalkDoorCard());
+    expect(
+      t.getSize(find.byKey(const Key('study-door-roleplay'))).height,
+      greaterThanOrEqualTo(44),
+    );
+  });
+
+  testWidgets('first week, doors off: the guide\'s "See all features" scrolls '
+      'to the feature grid', (t) async {
+    await _pumpHub(t, doors: false, guide: true, size: const Size(390, 800));
+    await t.pump();
+    final scrollable = t.state<ScrollableState>(
+      find.byType(Scrollable).first,
+    );
+    expect(scrollable.position.pixels, 0);
+    await t.tap(find.text('See all features'));
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 400));
+    expect(scrollable.position.pixels, greaterThan(0));
+    expect(find.byType(StudyMoreScreen), findsNothing);
+  });
+
+  testWidgets('first week, doors on: the guide\'s "See all features" opens '
+      'the More screen', (t) async {
+    await _pumpHub(t, doors: true, guide: true, words: _words(2, 1));
+    await t.pump();
+    await t.tap(find.text('See all features'));
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 400));
+    expect(find.byType(StudyMoreScreen), findsOneWidget);
+  });
 
   testWidgets('the my-words card shows only its title while loading', (
     t,

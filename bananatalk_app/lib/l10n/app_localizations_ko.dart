@@ -12873,7 +12873,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get myWordsKeep => '저장';
 
   @override
-  String get myWordsDismiss => '닫기';
+  String get myWordsDismiss => '숨기기';
 
   @override
   String get myWordsGotIt => '알겠어요';
@@ -12893,7 +12893,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get myWordsEmpty => '기다리는 항목이 없어요. 채팅에서 단어를 찾아보면 여기에 나타나요.';
 
   @override
-  String get myWordsActionFailed => '저장되지 않았어요. 다시 시도해 주세요.';
+  String get myWordsActionFailed => '잘 되지 않았어요. 다시 시도해 주세요.';
 
   @override
   String get myWordsYouWrote => '내가 쓴 문장';

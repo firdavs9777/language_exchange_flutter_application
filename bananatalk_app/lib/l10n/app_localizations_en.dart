@@ -12965,7 +12965,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myWordsEmpty => 'Nothing waiting. Look up a word in a chat and it will show up here.';
 
   @override
-  String get myWordsActionFailed => 'That didn\'t save. Try again.';
+  String get myWordsActionFailed => 'That didn\'t work. Try again.';
 
   @override
   String get myWordsYouWrote => 'You wrote';

@@ -296,24 +296,24 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                         ),
                     gap,
                     if (doorsOn) ...[
-                        const MyWordsDoorCard(),
-                        gap,
-                        const TalkDoorCard(),
-                        gap,
-                        const MoreDoorRow(),
+                      const MyWordsDoorCard(),
+                      gap,
+                      const TalkDoorCard(),
+                      gap,
+                      const MoreDoorRow(),
                     ] else ...[
-                        // Renders nothing until a weak area with enough attempts
-                        // exists.
-                        const VocabPacksCard(),
-                        gap,
-                        const RecommendedTile(),
-                        const SizedBox(height: StudyHubMetrics.groupGap),
-                        KeyedSubtree(
-                          key: _groupsKey,
-                          child: const StudyFeatureGroups(
-                            key: StudyHub.groupsSectionKey,
-                          ),
+                      // Renders nothing until a weak area with enough attempts
+                      // exists.
+                      const VocabPacksCard(),
+                      gap,
+                      const RecommendedTile(),
+                      const SizedBox(height: StudyHubMetrics.groupGap),
+                      KeyedSubtree(
+                        key: _groupsKey,
+                        child: const StudyFeatureGroups(
+                          key: StudyHub.groupsSectionKey,
                         ),
+                      ),
                     ],
                     // Always shown: its shortcuts (achievements, vocabulary,
                     // review) are the hub's only way to those screens.

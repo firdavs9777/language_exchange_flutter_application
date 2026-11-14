@@ -4854,7 +4854,7 @@
   "myWordsSayIt": "说出来",
   "myWordsReview": "复习",
   "myWordsEmpty": "暂无待办。在聊天中查一个单词，它就会出现在这里。",
-  "myWordsActionFailed": "未能保存，请重试。",
+  "myWordsActionFailed": "没有成功，请重试。",
   "myWordsYouWrote": "你写的",
   "myWordsCorrection": "修正",
   "studyDoorTalk": "对话",

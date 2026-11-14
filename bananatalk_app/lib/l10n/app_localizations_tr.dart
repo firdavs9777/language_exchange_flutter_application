@@ -12901,7 +12901,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get myWordsKeep => 'Tut';
 
   @override
-  String get myWordsDismiss => 'Kapat';
+  String get myWordsDismiss => 'Gizle';
 
   @override
   String get myWordsGotIt => 'Anladım';
@@ -12921,7 +12921,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get myWordsEmpty => 'Bekleyen bir şey yok. Bir sohbette bir kelimeye bak, burada görünecek.';
 
   @override
-  String get myWordsActionFailed => 'Kaydedilmedi. Tekrar dene.';
+  String get myWordsActionFailed => 'Olmadı. Tekrar dene.';
 
   @override
   String get myWordsYouWrote => 'Şunu yazdın';
