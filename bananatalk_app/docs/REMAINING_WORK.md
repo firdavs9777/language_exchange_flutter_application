@@ -776,7 +776,8 @@ Design: `docs/superpowers/specs/2026-11-14-ai-study-path-design.md`. Nothing bui
 - [ ] Owner: approve the design and the four decisions in its section 12 (free/paid line; store trial offers and regional prices; chat capture default and privacy forms; new free allowances on pronunciation and writing feedback). M
 - [x] Design approved 2026-11-14 (the four owner decisions in section 12 are still open; phase 1 needs none of them).
 - [x] Phase 1 backend plan written: `docs/superpowers/plans/2026-11-14-ai-study-plan-s1-backend.md` (8 tasks, backend branch `feat/ai-study-foundations`, not started).
-- [ ] Phase 1 app plan (S2) not written. M
+- [x] Phase 1 backend built on backend branch `feat/ai-study-foundations` (0ff108a, pushed 2026-11-14; being merged into local backend main).
+- [x] Phase 1 app plan written: `docs/superpowers/plans/2026-11-14-ai-study-plan-s2-app.md` (5 tasks, app branch `feat/ai-study-foundations-app`, not started).
 - [ ] Phase 2 plans: learner record, From your chats, Today's session, tutor context. L
 - [ ] Phase 3 plans: free/paid line, 7-day store trial incl. server-side trial state, reminder push. M
 - [ ] Content for Chinese, Korean, Japanese to B1 and check-your-level sets (authored outside the code plans). L
