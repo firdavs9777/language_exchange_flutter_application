@@ -779,7 +779,8 @@ Design: `docs/superpowers/specs/2026-11-14-ai-study-path-design.md`. Nothing bui
 - [x] Phase 1 backend built on backend branch `feat/ai-study-foundations` (0ff108a, pushed 2026-11-14; being merged into local backend main).
 - [x] Phase 1 app plan written: `docs/superpowers/plans/2026-11-14-ai-study-plan-s2-app.md` (5 tasks, app branch `feat/ai-study-foundations-app`, not started).
 - [ ] Second design (2026-11-14, owner's pick from a list of ideas): `docs/superpowers/specs/2026-11-14-ai-study-doors-recap-check-design.md` — three doors, after-chat recap, check before you send, say your own phrases. Awaiting approval and its three owner decisions. It replaces phase 2 with 2a, 2b, 2c.
-- [ ] Phase 2a plans: learner record, chat capture, My words and mistakes, three doors, Say it. L
+- [x] Phase 2a backend plan written: `docs/superpowers/plans/2026-11-14-ai-study-plan-s3-backend-2a.md` (6 tasks, backend branch `feat/ai-study-my-words`, not started; built on local backend main, which is not pushed).
+- [ ] Phase 2a app plan (S4): My words and mistakes screen, three doors, Say it. Not written. L
 - [ ] Phase 2b plans: check before you send, after-chat recap. L
 - [ ] Phase 2c plans: Today's three-step session, tutor context. M
 - [ ] Phase 3 plans: free/paid line, 7-day store trial incl. server-side trial state, reminder push. M
