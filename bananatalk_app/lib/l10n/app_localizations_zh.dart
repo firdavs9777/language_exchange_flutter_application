@@ -11377,6 +11377,11 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '从明天起，你的练习将调整为 $level。';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature是 VIP 功能';
   }
@@ -12792,6 +12797,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => '已看完';
+
+  @override
+  String get tutorConversationFull => '此对话已满。';
+
+  @override
+  String get tutorStartNewConversation => '开始新对话';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日还剩 $count 次对话',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24167,6 +24188,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '從明天起，你的練習將調整為 $level。';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature是 VIP 功能';
   }
@@ -25582,4 +25608,20 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyInsightCompletedMark => '已看完';
+
+  @override
+  String get tutorConversationFull => '此對話已滿。';
+
+  @override
+  String get tutorStartNewConversation => '開始新對話';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日還剩 $count 次對話',
+    );
+    return '$_temp0';
+  }
 }

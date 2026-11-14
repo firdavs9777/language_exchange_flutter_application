@@ -13,6 +13,18 @@ import 'package:bananatalk_app/models/ai/ai_quiz_model.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
 import 'package:bananatalk_app/models/ai/lesson_builder_model.dart';
 
+/// Weak areas from the response's `data`: a list (the old shape) or
+/// `{ weakAreas: [...] }` (what the server sends). Anything else, and
+/// entries that are not objects, give nothing rather than throwing.
+List<WeakArea> parseWeakAreas(dynamic data) {
+  final list = data is Map ? data['weakAreas'] : data;
+  if (list is! List) return <WeakArea>[];
+  return [
+    for (final e in list)
+      if (e is Map) WeakArea.fromJson(Map<String, dynamic>.from(e)),
+  ];
+}
+
 /// AI Service for all AI-powered features
 class AIService {
   /// How long to wait for an AI endpoint before giving up.
@@ -1162,14 +1174,7 @@ class AIService {
       }
 
       if (response.statusCode == 200) {
-        final listData = data['data'];
-        if (listData is! List) {
-          return {'success': true, 'data': <WeakArea>[]};
-        }
-        final weakAreas = listData
-            .map((e) => WeakArea.fromJson(e as Map<String, dynamic>))
-            .toList();
-        return {'success': true, 'data': weakAreas};
+        return {'success': true, 'data': parseWeakAreas(data['data'])};
       }
       return {'success': true, 'data': <WeakArea>[]};
     } catch (e) {

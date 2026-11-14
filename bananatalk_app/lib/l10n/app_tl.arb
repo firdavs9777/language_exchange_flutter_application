@@ -4376,6 +4376,7 @@
   "studyFullReport": "Buong ulat",
   "studyStreakDays": "{count} araw na streak",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "Simula bukas, lilipat ang iyong pagsasanay sa {level}.",
   "studyUpgradeLockedTitle": "Ang {feature} ay VIP feature",
   "studyUpgradeExhaustedTitle": "Naubos mo na ang {feature} ngayong araw",
   "studyUpgradeBenefitUnlimited": "Walang limitasyong AI practice araw-araw",
@@ -4791,5 +4792,8 @@
   "storyInsightReplies": "{count, plural, one{{count} sagot} other{{count} sagot}}",
   "storyInsightReactions": "{count, plural, one{{count} reaksyon} other{{count} reaksyon}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} ang tama ang sagot} other{{count} ang tama ang sagot}}",
-  "storyInsightCompletedMark": "Pinanood hanggang dulo"
+  "storyInsightCompletedMark": "Pinanood hanggang dulo",
+  "tutorConversationFull": "Puno na ang usapang ito.",
+  "tutorStartNewConversation": "Magsimula ng bagong usapan",
+  "tutorConversationsLeft": "{count, plural, other{{count} usapan na lang ngayong araw}}"
 }

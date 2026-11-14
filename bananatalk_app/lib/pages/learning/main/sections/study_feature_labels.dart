@@ -14,7 +14,6 @@ String studyFeatureTitle(AppLocalizations l, StudyFeature f) => switch (f) {
       StudyFeature.quizzes => l.studyTileQuizzes,
       StudyFeature.exam => l.studyTileExam,
       StudyFeature.lessons => l.studyTileLessons,
-      StudyFeature.challenges => l.studyTileChallenges,
       StudyFeature.leaderboard => l.studyTileLeaderboard,
     };
 
@@ -29,7 +28,6 @@ String studyFeatureDescription(AppLocalizations l, StudyFeature f) => switch (f)
       StudyFeature.quizzes => l.studyTileQuizzesDesc,
       StudyFeature.exam => l.studyTileExamDesc,
       StudyFeature.lessons => l.studyTileLessonsDesc,
-      StudyFeature.challenges => l.studyTileChallengesDesc,
       StudyFeature.leaderboard => l.studyTileLeaderboardDesc,
     };
 
@@ -44,7 +42,6 @@ IconData studyFeatureIcon(StudyFeature f) => switch (f) {
       StudyFeature.quizzes => Icons.quiz_rounded,
       StudyFeature.exam => Icons.school_rounded,
       StudyFeature.lessons => Icons.menu_book_rounded,
-      StudyFeature.challenges => Icons.flag_rounded,
       StudyFeature.leaderboard => Icons.leaderboard_rounded,
     };
 

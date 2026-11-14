@@ -3896,6 +3896,7 @@
   "studyFullReport": "Ҳисоботи пурра",
   "studyStreakDays": "Силсилаи {count} рӯз",
   "studyLevelShort": "Сат. {level}",
+  "studyLevelChanges": "Аз фардо машқи шумо ба сатҳи {level} мегузарад.",
   "studyUpgradeLockedTitle": "{feature} имкони VIP аст",
   "studyUpgradeExhaustedTitle": "Шумо {feature}-и имрӯзро истифода бурдед",
   "studyUpgradeBenefitUnlimited": "Машқи бемаҳдуди AI ҳар рӯз",
@@ -4311,5 +4312,8 @@
   "storyInsightReplies": "{count, plural, one{{count} ҷавоб} other{{count} ҷавоб}}",
   "storyInsightReactions": "{count, plural, one{{count} реаксия} other{{count} реаксия}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} дуруст ҷавоб дод} other{{count} дуруст ҷавоб доданд}}",
-  "storyInsightCompletedMark": "То охир тамошо шуд"
+  "storyInsightCompletedMark": "То охир тамошо шуд",
+  "tutorConversationFull": "Ин сӯҳбат пур шудааст.",
+  "tutorStartNewConversation": "Сӯҳбати нав оғоз кунед",
+  "tutorConversationsLeft": "{count, plural, other{Имрӯз {count} сӯҳбат боқӣ мондааст}}"
 }

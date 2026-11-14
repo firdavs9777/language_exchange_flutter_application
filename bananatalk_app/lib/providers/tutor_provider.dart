@@ -138,6 +138,8 @@ class TutorService {
       body: {'content': content},
     );
     if (!res.success || res.data == null) {
+      final qe = res.quotaError;
+      if (qe != null && qe.isHandledByChat) throw TutorSendRefused(qe.reason!);
       throw StateError(res.error ?? 'Failed to send message');
     }
     final body = _dataObj(res.data);
@@ -335,10 +337,23 @@ class PersonaRequiredException implements Exception {
 bool isPersonaRequired(String? code, String? message) =>
     code == 'PERSONA_REQUIRED' || (message ?? '').contains('Pick a persona');
 
+/// The server refused a tutor message with a 429 the chat answers itself
+/// ([reason] `conversation_full` or `conversation_starting`), not with the
+/// upgrade sheet.
+class TutorSendRefused implements Exception {
+  final String reason;
+  const TutorSendRefused(this.reason);
+  @override
+  String toString() => 'TutorSendRefused($reason)';
+}
+
 class TutorChatState {
   final TutorSession? session;
   final bool sending;
   final String? error;
+
+  /// Set when the last send was refused with `conversation_full`.
+  final bool conversationFull;
 
   /// The account has no persona yet; the screen opens the picker.
   final bool personaRequired;
@@ -347,13 +362,20 @@ class TutorChatState {
     this.sending = false,
     this.error,
     this.personaRequired = false,
+    this.conversationFull = false,
   });
 
-  TutorChatState copyWith({TutorSession? session, bool? sending, String? error}) =>
+  TutorChatState copyWith({
+    TutorSession? session,
+    bool? sending,
+    String? error,
+    bool conversationFull = false,
+  }) =>
       TutorChatState(
         session: session ?? this.session,
         sending: sending ?? this.sending,
         error: error,
+        conversationFull: conversationFull,
       );
 }
 
@@ -383,13 +405,27 @@ class TutorChatController extends StateNotifier<TutorChatState> {
   }
 
   Future<void> start() async {
+    // The conversation on screen, if any (a full one, when the learner asks
+    // for a new conversation). Ended on the server only once the new one has
+    // actually started, so its summary, XP and minutes are recorded; a failed
+    // start leaves it as it was.
+    final previous = state.session;
     try {
       final s = await _svc.startSession();
       _safeSet(TutorChatState(session: s));
+      // Not when the screen was left meanwhile: its dispose already ended it.
+      if (mounted && previous != null && previous.id != s.id) {
+        _endQuietly(previous.id);
+      }
     } on PersonaRequiredException {
       _safeSet(const TutorChatState(personaRequired: true));
     } catch (e) {
-      _safeSet(state.copyWith(error: e.toString()));
+      // A failed start leaves the old conversation in place, so a "full"
+      // notice stays until a new conversation has actually started.
+      _safeSet(state.copyWith(
+        error: e.toString(),
+        conversationFull: state.conversationFull,
+      ));
     }
   }
 
@@ -434,7 +470,18 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     _safeSet(state.copyWith(session: optimistic, sending: true, error: null));
 
     try {
-      final reply = await _svc.sendMessage(s.id, content);
+      TutorMessage reply;
+      try {
+        reply = await _svc.sendMessage(s.id, content);
+      } on TutorSendRefused catch (e) {
+        if (e.reason != 'conversation_starting') rethrow;
+        // Another request is still opening this conversation; the server
+        // asks for a retry after 2 seconds. Once, silently.
+        await Future<void>.delayed(const Duration(seconds: 2));
+        // The screen was left meanwhile: no second request, no state write.
+        if (!mounted) return false;
+        reply = await _svc.sendMessage(s.id, content);
+      }
       final updated = TutorSession(
         id: s.id,
         persona: s.persona,
@@ -455,6 +502,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         session: rollbackOnError ? s : null,
         sending: false,
         error: e.toString(),
+        conversationFull: e is TutorSendRefused && e.reason == 'conversation_full',
       ));
       return false;
     }
@@ -464,6 +512,14 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     final s = state.session;
     if (s == null) return;
     await _svc.endSession(s.id);
+  }
+
+  /// The same request as [end], for a session no longer on screen;
+  /// fire-and-forget, a failure is only logged.
+  void _endQuietly(String sessionId) {
+    Future<void>.sync(() => _svc.endSession(sessionId)).catchError((Object e) {
+      debugPrint('[tutor] ending the previous conversation failed: $e');
+    });
   }
 }
 

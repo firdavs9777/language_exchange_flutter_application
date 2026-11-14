@@ -11377,6 +11377,11 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Từ ngày mai, bài luyện tập của bạn chuyển sang $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature là tính năng VIP';
   }
@@ -12792,4 +12797,20 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Đã xem đến hết';
+
+  @override
+  String get tutorConversationFull => 'Cuộc trò chuyện này đã đầy.';
+
+  @override
+  String get tutorStartNewConversation => 'Bắt đầu cuộc trò chuyện mới';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hôm nay còn $count cuộc trò chuyện',
+    );
+    return '$_temp0';
+  }
 }

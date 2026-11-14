@@ -20702,6 +20702,12 @@ abstract class AppLocalizations {
   /// **'Lv {level}'**
   String studyLevelShort(int level);
 
+  /// One line shown when a level change applies from tomorrow. {level} is the new CEFR level, e.g. B2.
+  ///
+  /// In en, this message translates to:
+  /// **'From tomorrow your practice moves to {level}.'**
+  String studyLevelChanges(String level);
+
   /// No description provided for @studyUpgradeLockedTitle.
   ///
   /// In en, this message translates to:
@@ -23197,6 +23203,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watched to the end'**
   String get storyInsightCompletedMark;
+
+  /// Inline notice in the AI tutor chat when the conversation has reached its 10 learner messages
+  ///
+  /// In en, this message translates to:
+  /// **'This conversation is full.'**
+  String get tutorConversationFull;
+
+  /// Button next to the full-conversation notice; starts a new tutor conversation with the same persona
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new conversation'**
+  String get tutorStartNewConversation;
+
+  /// Pill in the AI tutor chat header and the AI Tutor tile badge on the study hub: how many of today's tutor conversations are left (each conversation holds 10 learner messages)
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} conversation left today} other{{count} conversations left today}}'**
+  String tutorConversationsLeft(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

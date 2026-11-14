@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/announcement.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
+import 'package:bananatalk_app/models/learning/learning_progress_model.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/vocab_packs_card.dart';
@@ -20,6 +21,7 @@ import 'package:bananatalk_app/providers/provider_root/learning/progress_provide
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/services/study/study_hub_cache.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -59,6 +61,77 @@ class _StudyHubState extends ConsumerState<StudyHub> {
 
   @visibleForTesting
   GlobalKey get groupsKey => _groupsKey;
+
+  /// True while a tap on the snapshot row waits for the real pack.
+  bool _openingCached = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Keep the saved first paint current: written whenever either live answer
+    // lands (a pack load, a station completion's refetch, a streak change).
+    ref.listenManual<AsyncValue<DailyPack>>(
+      dailyPackProvider,
+      (_, __) => _saveSnapshot(),
+      fireImmediately: true,
+    );
+    ref.listenManual<AsyncValue<LearningProgress?>>(
+      learningProgressProvider,
+      (_, __) => _saveSnapshot(),
+    );
+  }
+
+  /// Writes today's snapshot from the live values on screen; nothing until
+  /// both the pack and the progress have loaded for real.
+  void _saveSnapshot() {
+    final packAsync = ref.read(dailyPackProvider);
+    final progressAsync = ref.read(learningProgressProvider);
+    if (packAsync.isLoading || progressAsync.isLoading) return;
+    final pack = packAsync.valueOrNull;
+    final progress = progressAsync.valueOrNull;
+    if (pack == null || progress == null) return;
+    final cache = ref.read(studyHubCacheProvider);
+    // Taken before any await: a sign-out clear must stop this write.
+    final epoch = cache.epoch;
+    // Only the pack of the server's day now is worth painting on the next
+    // open. The server keys packs by UTC date, so compare with that, not with
+    // the device's date (which differs every evening west of UTC and every
+    // morning east of it).
+    if (pack.dateKey != cache.utcDateKey()) return;
+    final target =
+        ref.read(userProvider).valueOrNull?.language_to_learn ?? '';
+    final snapshot = StudyHubSnapshot(
+      dateKey: cache.todayKey(),
+      packDateKey: pack.dateKey,
+      language: target.isNotEmpty ? target : null,
+      level: packCefrLevel(pack),
+      streak: progress.currentStreak,
+      stationsDone: pack.doneCount,
+      stationsTotal: pack.stations.length,
+      savedAt: cache.now(),
+    );
+    () async {
+      final userId = await cache.signedInUserId();
+      if (userId != null) await cache.write(userId, snapshot, epoch: epoch);
+    }();
+  }
+
+  /// A tap on the snapshot row: the flow needs the real pack, so wait for it
+  /// and then do exactly what the live row does.
+  Future<void> _openCachedPack() async {
+    if (_openingCached) return;
+    setState(() => _openingCached = true);
+    try {
+      await ref.read(dailyPackProvider.future);
+    } catch (_) {
+      return;
+    } finally {
+      if (mounted) setState(() => _openingCached = false);
+    }
+    // Not if the learner has moved on to another screen meanwhile.
+    if (!mounted || ModalRoute.of(context)?.isCurrent != true) return;
+    _openPack();
+  }
 
   @override
   void dispose() {
@@ -119,6 +192,22 @@ class _StudyHubState extends ConsumerState<StudyHub> {
         !guideOn && spotlightItems(announcements, dismissed).isNotEmpty;
     final progress = ref.watch(learningProgressProvider).valueOrNull;
     final showAds = ref.watch(showAdsProvider);
+    // First paint only: the saved snapshot stands in while the live pack has
+    // never arrived (a reload keeps its previous value, so it never shows
+    // again once live data was seen).
+    final snapshot = _freshSnapshot(ref);
+    final packAsync = ref.watch(dailyPackProvider);
+    // Only while the pack request is still loading: a failed one shows what
+    // it showed before the snapshot existed.
+    final showSnapshot =
+        snapshot != null && packAsync.isLoading && !packAsync.hasValue;
+    final cachedRow = showSnapshot && snapshot.stationsTotal > 0
+        ? TodayPackSnapshotRow(
+            snapshot: snapshot,
+            onOpen: _openCachedPack,
+            waiting: _openingCached,
+          )
+        : null;
 
     // Re-tapping the AI Study tab (index 0) scrolls back to the top.
     ref.listen(tabReselectProvider, (_, next) {
@@ -177,10 +266,12 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                     ref
                         .watch(dailyPackProvider)
                         .when(
-                          loading: () => const SizedBox(
-                            height: StudyHubMetrics.todayRowHeight,
-                            child: Center(child: CircularProgressIndicator()),
-                          ),
+                          loading: () => cachedRow ??
+                              const SizedBox(
+                                height: StudyHubMetrics.todayRowHeight,
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              ),
                           error: (_, __) => const SizedBox.shrink(),
                           data: (pack) => TodayPackRow(
                             pack: pack,
@@ -304,7 +395,13 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                             maxHeight: double.infinity,
                             child: Opacity(
                               opacity: t,
-                              child: const _HeaderChips(),
+                              // Keyed by the UTC day (the pack's day) so a rebuild after
+                              // it rolls re-checks the saved snapshot's freshness.
+                              child: StudyHeaderChips(
+                                key: ValueKey(
+                                  ref.read(studyHubCacheProvider).utcDateKey(),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -320,30 +417,64 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   }
 }
 
-/// The pack's CEFR level for the header chip: what was served, else what
-/// was asked for; null unless it looks like A1–C2 (the server sends the bare
-/// code, as the hero card's fallback line shows).
+/// The pack's CEFR level for the header chip; null unless it looks like
+/// A1–C2 (the server sends the bare code). With the server's level switch on
+/// (`levelMeasured` present) the level in force is `requestedLevel`, else what
+/// was served; with it off, what was served, else what was asked for.
 @visibleForTesting
 String? packCefrLevel(DailyPack? pack) {
-  for (final raw in [pack?.servedLevel, pack?.requestedLevel]) {
+  final order = pack?.levelMeasured != null
+      ? [pack?.requestedLevel, pack?.servedLevel]
+      : [pack?.servedLevel, pack?.requestedLevel];
+  for (final raw in order) {
     final v = raw?.trim().toUpperCase();
     if (v != null && RegExp(r'^[ABC][12]$').hasMatch(v)) return v;
   }
   return null;
 }
 
+/// The saved snapshot while it is still fresh at this moment (the pack's UTC
+/// date and the age are re-checked on every build, so an app left open past
+/// the UTC day's end stops painting yesterday's values).
+StudyHubSnapshot? _freshSnapshot(WidgetRef ref) {
+  final snapshot = ref.watch(studyHubSnapshotProvider).valueOrNull;
+  if (snapshot == null) return null;
+  return ref.read(studyHubCacheProvider).isFresh(snapshot) ? snapshot : null;
+}
+
 /// Header line 2: streak, level and target language.
-class _HeaderChips extends ConsumerWidget {
-  const _HeaderChips();
+@visibleForTesting
+class StudyHeaderChips extends ConsumerWidget {
+  const StudyHeaderChips({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context)!;
     final progress = ref.watch(learningProgressProvider).valueOrNull;
-    final target = ref.watch(userProvider).valueOrNull?.language_to_learn ?? '';
-    final cefr = packCefrLevel(ref.watch(dailyPackProvider).valueOrNull);
+    final pack = ref.watch(dailyPackProvider).valueOrNull;
+    // The saved snapshot fills in only what the live answers have not
+    // delivered yet (first paint); live values always win.
+    // It stands in only while the matching live request is still loading;
+    // once that has failed or come back empty, the chip is as it always was.
+    final snapshot = _freshSnapshot(ref);
+    final packAsync = ref.watch(dailyPackProvider);
+    final packLoading = packAsync.isLoading && !packAsync.hasValue;
+    final progressAsync = ref.watch(learningProgressProvider);
+    final progressLoading = progressAsync.isLoading && !progressAsync.hasValue;
+    final liveTarget =
+        ref.watch(userProvider).valueOrNull?.language_to_learn ?? '';
+    var target = liveTarget;
+    if (target.isEmpty && packLoading) target = snapshot?.language ?? '';
+    // The cached level belongs to the cached language only.
+    final cefr = pack != null
+        ? packCefrLevel(pack)
+        : (packLoading && snapshot != null && snapshot.language == target
+            ? snapshot.level
+            : null);
+    final streak = progress?.currentStreak ??
+        (progressLoading ? snapshot?.streak : null);
     final chips = <String>[
-      if (progress != null) l.studyStreakDays(progress.currentStreak),
+      if (streak != null) l.studyStreakDays(streak),
       if (progress != null) l.studyLevelShort(progress.level),
       // Spec §3: target language + CEFR level, one chip.
       if (target.isNotEmpty) cefr == null ? target : '$target · $cefr',

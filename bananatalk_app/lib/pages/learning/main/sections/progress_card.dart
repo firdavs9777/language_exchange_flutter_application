@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/learning_progress_model.dart';
-import 'package:bananatalk_app/pages/learning/achievements/achievements_screen.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub_metrics.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/srs_dashboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
@@ -184,8 +183,6 @@ class ProgressCard extends StatelessWidget {
             runSpacing: 8,
             children: [
               shortcut(Icons.insights_rounded, l.studyFullReport, const Color(0xFF7C3AED), onFullReport),
-              shortcut(Icons.emoji_events_rounded, l.achievements, const Color(0xFFEAB308),
-                  () => _go(context, const AchievementsScreen())),
               shortcut(Icons.menu_book_rounded, l.vocabulary, const Color(0xFF2563EB),
                   () => _go(context, const VocabularyScreen())),
               shortcut(Icons.replay_rounded, l.review, const Color(0xFF10B981),

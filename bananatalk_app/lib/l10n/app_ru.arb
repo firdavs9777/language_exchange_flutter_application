@@ -4433,6 +4433,7 @@
   "studyFullReport": "Полный отчёт",
   "studyStreakDays": "Серия: {count} дн.",
   "studyLevelShort": "Ур. {level}",
+  "studyLevelChanges": "Со следующего дня ваша практика переходит на уровень {level}.",
   "studyUpgradeLockedTitle": "{feature} — функция VIP",
   "studyUpgradeExhaustedTitle": "Вы использовали {feature} на сегодня",
   "studyUpgradeBenefitUnlimited": "Безлимитная ИИ-практика каждый день",
@@ -4848,5 +4849,8 @@
   "storyInsightReplies": "{count, plural, few{{count} ответа} many{{count} ответов} one{{count} ответ} other{{count} ответа}}",
   "storyInsightReactions": "{count, plural, few{{count} реакции} many{{count} реакций} one{{count} реакция} other{{count} реакции}}",
   "storyInsightQuizCorrect": "{count, plural, few{{count} ответили правильно} many{{count} ответили правильно} one{{count} ответил правильно} other{{count} ответили правильно}}",
-  "storyInsightCompletedMark": "Досмотрено до конца"
+  "storyInsightCompletedMark": "Досмотрено до конца",
+  "tutorConversationFull": "Этот разговор заполнен.",
+  "tutorStartNewConversation": "Начать новый разговор",
+  "tutorConversationsLeft": "{count, plural, one{Сегодня остался {count} разговор} few{Сегодня осталось {count} разговора} many{Сегодня осталось {count} разговоров} other{Сегодня осталось {count} разговора}}"
 }

@@ -481,7 +481,7 @@ class ApiClient {
         // Step 13A: two flavors — daily quota exhaustion vs standard rate limit.
         if (body['error'] == 'quota_exceeded') {
           final qe = QuotaError.fromJson(Map<String, dynamic>.from(body));
-          onQuotaExceeded?.call(qe);
+          if (!qe.isHandledByChat) onQuotaExceeded?.call(qe);
           return build(
             success: false,
             error: qe.message,
@@ -922,12 +922,24 @@ class QuotaError {
   final String message;
   final bool upgradeAvailable;
 
+  /// Why the server refused (`daily_conversations`, `conversation_full`,
+  /// `conversation_starting`, `vip_required`, ...); null from servers that
+  /// send none.
+  final String? reason;
+
   const QuotaError({
     required this.feature,
     required this.resetAt,
     required this.message,
     required this.upgradeAvailable,
+    this.reason,
   });
+
+  /// Refusals the tutor chat answers inline (a notice, or a silent retry).
+  /// The global upgrade sheet must stay closed for these: upgrading does not
+  /// lift them.
+  bool get isHandledByChat =>
+      reason == 'conversation_full' || reason == 'conversation_starting';
 
   factory QuotaError.fromJson(Map<String, dynamic> j) => QuotaError(
         feature: j['feature']?.toString() ?? 'unknown',
@@ -936,6 +948,7 @@ class QuotaError {
             : null,
         message: j['message']?.toString() ?? '',
         upgradeAvailable: j['upgradeAvailable'] == true,
+        reason: j['reason'] is String ? j['reason'] as String : null,
       );
 }
 

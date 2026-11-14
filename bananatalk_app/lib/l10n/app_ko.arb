@@ -4424,6 +4424,7 @@
   "studyFullReport": "전체 리포트",
   "studyStreakDays": "{count}일 연속",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "내일부터 연습이 {level}(으)로 바뀝니다.",
   "studyUpgradeLockedTitle": "{feature}은(는) VIP 기능이에요",
   "studyUpgradeExhaustedTitle": "오늘의 {feature}을(를) 모두 사용했어요",
   "studyUpgradeBenefitUnlimited": "매일 무제한 AI 연습",
@@ -4839,5 +4840,8 @@
   "storyInsightReplies": "{count, plural, other{답장 {count}개}}",
   "storyInsightReactions": "{count, plural, other{반응 {count}개}}",
   "storyInsightQuizCorrect": "{count, plural, other{정답 {count}명}}",
-  "storyInsightCompletedMark": "끝까지 시청함"
+  "storyInsightCompletedMark": "끝까지 시청함",
+  "tutorConversationFull": "이 대화는 가득 찼어요.",
+  "tutorStartNewConversation": "새 대화 시작하기",
+  "tutorConversationsLeft": "{count, plural, other{오늘 대화 {count}회 남음}}"
 }

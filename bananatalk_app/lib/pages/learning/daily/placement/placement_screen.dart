@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/daily/widgets/check_question.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Eight questions, one screen each, to set a starting level.
@@ -31,7 +32,12 @@ class PlacementScreen extends StatefulWidget {
   final Future<Map<String, dynamic>> Function(List<int>)? submit;
   final VoidCallback? onFinished;
 
-  const PlacementScreen({super.key, this.load, this.submit, this.onFinished});
+  /// Called as soon as the level check is saved, before the result shows, so
+  /// the caller can refetch what the new level changes.
+  final VoidCallback? onLevelSet;
+
+  const PlacementScreen(
+      {super.key, this.load, this.submit, this.onFinished, this.onLevelSet});
 
   @override
   State<PlacementScreen> createState() => _PlacementScreenState();
@@ -58,6 +64,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
     if (_started) return;
     _started = true;
     _locale = placementLocaleTag(Localizations.localeOf(context));
+    studyLog(StudyEvent.levelCheckStarted);
     _loadQuestions();
   }
 
@@ -86,6 +93,16 @@ class _PlacementScreenState extends State<PlacementScreen> {
       // 400 on every retry.
       final result = await submitter(
           _answers.take(_questions?.length ?? _answers.length).toList());
+      final level = '${result['level'] ?? ''}';
+      studyLog(StudyEvent.levelCheckFinished,
+          detail: level.isEmpty ? null : level);
+      // The level is saved now: a failing callback must not turn this into
+      // the submit-failed state, whose retry would send the answers again.
+      try {
+        widget.onLevelSet?.call();
+      } catch (e) {
+        debugPrint('[placement] onLevelSet failed: $e');
+      }
       if (mounted) setState(() => _result = result);
     } catch (_) {
       // Stay on the last question with the answers kept, and offer a retry.

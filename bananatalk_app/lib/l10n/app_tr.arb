@@ -4615,6 +4615,7 @@
   "studyFullReport": "Tam rapor",
   "studyStreakDays": "{count} günlük seri",
   "studyLevelShort": "Sv {level}",
+  "studyLevelChanges": "Yarından itibaren pratiğiniz {level} seviyesine geçiyor.",
   "studyUpgradeLockedTitle": "{feature} bir VIP özelliğidir",
   "studyUpgradeExhaustedTitle": "Bugünkü {feature} hakkını kullandın",
   "studyUpgradeBenefitUnlimited": "Her gün sınırsız yapay zekâ pratiği",
@@ -5030,5 +5031,8 @@
   "storyInsightReplies": "{count, plural, one{{count} yanıt} other{{count} yanıt}}",
   "storyInsightReactions": "{count, plural, one{{count} tepki} other{{count} tepki}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} kişi doğru yanıtladı} other{{count} kişi doğru yanıtladı}}",
-  "storyInsightCompletedMark": "Sonuna kadar izlendi"
+  "storyInsightCompletedMark": "Sonuna kadar izlendi",
+  "tutorConversationFull": "Bu sohbet doldu.",
+  "tutorStartNewConversation": "Yeni sohbet başlat",
+  "tutorConversationsLeft": "{count, plural, other{Bugün {count} sohbet kaldı}}"
 }

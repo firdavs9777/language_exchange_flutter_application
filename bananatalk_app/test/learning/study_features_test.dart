@@ -15,15 +15,15 @@ TutorQuotaInfo q({int used = 0, int? cap = 10, bool unlimited = false, int bonus
     );
 
 WeakArea area(String name, double acc, int attempts) => WeakArea(
-    name: name, category: 'grammar', accuracy: acc, attempts: attempts, recommendation: '');
+    name: name, category: 'quiz', accuracy: acc, attempts: attempts, recommendation: '');
 
 void main() {
   group('catalogue', () {
-    test('12 unique tiles in spec order', () {
+    test('11 unique tiles in spec order', () {
       expect(studyFeatureOrder, [
         StudyFeature.tutor, StudyFeature.roleplay, StudyFeature.story, StudyFeature.photo,
         StudyFeature.speak, StudyFeature.review, StudyFeature.writing, StudyFeature.quizzes,
-        StudyFeature.exam, StudyFeature.lessons, StudyFeature.challenges, StudyFeature.leaderboard,
+        StudyFeature.exam, StudyFeature.lessons, StudyFeature.leaderboard,
       ]);
       expect(studyFeatureOrder.toSet().length, StudyFeature.values.length);
     });

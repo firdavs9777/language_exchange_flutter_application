@@ -11394,6 +11394,11 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Yarından itibaren pratiğiniz $level seviyesine geçiyor.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature bir VIP özelliğidir';
   }
@@ -12817,4 +12822,20 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Sonuna kadar izlendi';
+
+  @override
+  String get tutorConversationFull => 'Bu sohbet doldu.';
+
+  @override
+  String get tutorStartNewConversation => 'Yeni sohbet başlat';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Bugün $count sohbet kaldı',
+    );
+    return '$_temp0';
+  }
 }

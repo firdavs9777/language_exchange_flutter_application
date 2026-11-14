@@ -86,16 +86,29 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       return;
     }
     _controller.clear();
-    await notifier.send(text);
+    final ok = await notifier.send(text, rollbackOnError: true);
     if (!mounted) return;
-    final err = ref.read(tutorChatControllerProvider).error;
-    if (err != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(friendlyErrorMessage(AppLocalizations.of(context)!, err)))),
-      );
+    if (!ok) {
+      // Put the text back so the learner can retry; their message is not
+      // left in the list without a reply.
+      if (_controller.text.trim().isEmpty) _controller.text = text;
+      _showSendFailed();
+      return;
     }
     _scrollToBottom();
     _maybeSpeakLatestReply();
+  }
+
+  /// The chat's failed state. `conversation_full` / `conversation_starting`
+  /// no longer open the upgrade sheet (they are not about a plan), so they
+  /// get the same snackbar as any other failure, with a plain message.
+  void _showSendFailed() {
+    final l10n = AppLocalizations.of(context)!;
+    final err = ref.read(tutorChatControllerProvider).error ?? '';
+    final message = err.startsWith('TutorSendRefused')
+        ? l10n.failedToSendMessage
+        : l10n.aiRoleplaySendFailed(friendlyErrorMessage(l10n, err));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _toggleRecord() async {
@@ -116,7 +129,15 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       if (!mounted) return;
       setState(() => _transcribing = false);
       if (text != null && text.trim().isNotEmpty) {
-        await ref.read(tutorChatControllerProvider.notifier).send(text.trim());
+        final ok = await ref
+            .read(tutorChatControllerProvider.notifier)
+            .send(text.trim(), rollbackOnError: true);
+        if (!mounted) return;
+        if (!ok) {
+          _controller.text = text.trim();
+          _showSendFailed();
+          return;
+        }
         _scrollToBottom();
         _maybeSpeakLatestReply();
       }

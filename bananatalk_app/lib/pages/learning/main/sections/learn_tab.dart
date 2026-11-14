@@ -578,17 +578,21 @@ Future<void> openDailyPack(BuildContext context, WidgetRef ref, DailyPack pack) 
 }
 
 /// Open the placement test, then refresh the pack it levels.
-Future<void> openPlacement(BuildContext context, WidgetRef ref) {
-  return Navigator.of(context)
-      .push(AppPageRoute(builder: (_) => const PlacementScreen()))
-      .then((_) {
-    if (!context.mounted) return;
-    // The level the whole pack is built from just
-    // changed, so the pack and the mastery summary are
-    // both stale.
+Future<void> openPlacement(BuildContext context, WidgetRef ref,
+    {@visibleForTesting Widget Function(VoidCallback onLevelSet)? screen}) {
+  // A level check takes effect at once, so the pack and the mastery summary
+  // are refetched once, as soon as it is saved — before the learner is back
+  // on the hub. Leaving without a saved check changes nothing, so there is no
+  // second refetch on return.
+  void onLevelSet() {
     ref.invalidate(dailyPackProvider);
     ref.invalidate(masteryProvider);
-  });
+  }
+
+  return Navigator.of(context).push(AppPageRoute(
+      builder: (_) => screen != null
+          ? screen(onLevelSet)
+          : PlacementScreen(onLevelSet: onLevelSet)));
 }
 
 /// Open "Your progress".
@@ -604,7 +608,12 @@ void openProgress(BuildContext context, WidgetRef ref) {
       builder: (_) => MasteryScreen(
         mastery: ref.read(masteryProvider).valueOrNull,
         onRetakePlacement: () => Navigator.of(context).push(
-          AppPageRoute(builder: (_) => const PlacementScreen()),
+          AppPageRoute(
+            builder: (_) => PlacementScreen(onLevelSet: () {
+              ref.invalidate(dailyPackProvider);
+              ref.invalidate(masteryProvider);
+            }),
+          ),
         ),
         onOpenWeeklyReport: () => Navigator.of(context).push(
           AppPageRoute(

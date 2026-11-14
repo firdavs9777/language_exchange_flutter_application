@@ -4403,6 +4403,7 @@
   "studyFullReport": "詳しいレポート",
   "studyStreakDays": "{count}日連続",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "明日から練習は{level}に変わります。",
   "studyUpgradeLockedTitle": "{feature}はVIP機能です",
   "studyUpgradeExhaustedTitle": "今日の{feature}を使い切りました",
   "studyUpgradeBenefitUnlimited": "毎日AI練習が無制限",
@@ -4818,5 +4819,8 @@
   "storyInsightReplies": "{count, plural, other{返信 {count}件}}",
   "storyInsightReactions": "{count, plural, other{リアクション {count}件}}",
   "storyInsightQuizCorrect": "{count, plural, other{正解 {count}人}}",
-  "storyInsightCompletedMark": "最後まで視聴"
+  "storyInsightCompletedMark": "最後まで視聴",
+  "tutorConversationFull": "この会話は上限に達しました。",
+  "tutorStartNewConversation": "新しい会話を始める",
+  "tutorConversationsLeft": "{count, plural, other{今日の会話はあと{count}回}}"
 }

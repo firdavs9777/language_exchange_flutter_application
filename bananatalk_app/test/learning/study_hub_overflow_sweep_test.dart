@@ -195,7 +195,7 @@ List<Override> _hubOverrides() => [
       weakAreasProvider.overrideWith((ref) async => [
             WeakArea(
               name: 'Past perfect continuous with irregular verbs',
-              category: 'grammar',
+              category: 'quiz',
               accuracy: 0.31,
               attempts: 12,
               recommendation: '',
@@ -261,7 +261,7 @@ void main() {
           expect(find.byType(RecommendedTile), findsOneWidget);
           expect(find.textContaining('Past perfect'), findsOneWidget);
           expect(find.byType(ProgressCard), findsOneWidget);
-          expect(find.byType(StudyFeatureTile), findsNWidgets(12));
+          expect(find.byType(StudyFeatureTile), findsNWidgets(11));
         });
       });
     }

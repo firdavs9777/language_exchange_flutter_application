@@ -11486,6 +11486,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'ابتداءً من الغد ينتقل تدريبك إلى المستوى $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature ميزة VIP';
   }
@@ -12948,4 +12953,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'شوهدت حتى النهاية';
+
+  @override
+  String get tutorConversationFull => 'هذه المحادثة ممتلئة.';
+
+  @override
+  String get tutorStartNewConversation => 'ابدأ محادثة جديدة';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count محادثة متبقية اليوم',
+      many: '$count محادثة متبقية اليوم',
+      few: '$count محادثات متبقية اليوم',
+      two: 'محادثتان متبقيتان اليوم',
+      one: 'محادثة واحدة متبقية اليوم',
+      zero: 'لا محادثات متبقية اليوم',
+    );
+    return '$_temp0';
+  }
 }

@@ -4433,6 +4433,7 @@
   "studyFullReport": "Informe completo",
   "studyStreakDays": "Racha de {count} días",
   "studyLevelShort": "Nv {level}",
+  "studyLevelChanges": "Desde mañana tu práctica pasa al nivel {level}.",
   "studyUpgradeLockedTitle": "{feature} es una función VIP",
   "studyUpgradeExhaustedTitle": "Ya usaste {feature} de hoy",
   "studyUpgradeBenefitUnlimited": "Práctica con IA ilimitada cada día",
@@ -4848,5 +4849,8 @@
   "storyInsightReplies": "{count, plural, one{{count} respuesta} other{{count} respuestas}}",
   "storyInsightReactions": "{count, plural, one{{count} reacción} other{{count} reacciones}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} acertó} other{{count} acertaron}}",
-  "storyInsightCompletedMark": "Vista hasta el final"
+  "storyInsightCompletedMark": "Vista hasta el final",
+  "tutorConversationFull": "Esta conversación está llena.",
+  "tutorStartNewConversation": "Iniciar una conversación nueva",
+  "tutorConversationsLeft": "{count, plural, one{Queda {count} conversación hoy} other{Quedan {count} conversaciones hoy}}"
 }

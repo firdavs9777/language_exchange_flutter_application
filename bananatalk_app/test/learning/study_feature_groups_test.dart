@@ -135,13 +135,13 @@ Widget harness({
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('renders three groups and twelve tiles', (tester) async {
+  testWidgets('renders three groups and eleven tiles', (tester) async {
     await tester.pumpWidget(harness(pushed: []));
     await tester.pumpAndSettle();
     expect(find.text('TALK'), findsOneWidget);
     expect(find.text('PRACTICE'), findsOneWidget);
     expect(find.text('PREPARE & COMPETE'), findsOneWidget);
-    expect(find.byType(InkWell), findsNWidgets(12));
+    expect(find.byType(InkWell), findsNWidgets(11));
   });
 
   testWidgets('at most three NEW badges', (tester) async {
@@ -165,7 +165,7 @@ void main() {
     );
     await tester.pumpWidget(harness(quota: quota, pushed: pushed));
     await tester.pumpAndSettle();
-    expect(find.text('0 left'), findsOneWidget);
+    expect(find.text('0 conversations left today'), findsOneWidget);
     await tester.tap(find.text('AI Tutor'));
     await tester.pumpAndSettle();
     expect(pushed, isEmpty);
@@ -188,8 +188,8 @@ void main() {
     );
     await tester.pumpWidget(harness(quota: quota, pushed: pushed));
     await tester.pumpAndSettle();
-    expect(find.text('0 left'), findsNothing);
-    expect(find.text('2 left'), findsOneWidget);
+    expect(find.text('0 conversations left today'), findsNothing);
+    expect(find.text('2 conversations left today'), findsOneWidget);
     await tester.tap(find.text('AI Tutor'));
     await tester.pumpAndSettle();
     expect(find.text("You've used today's AI Tutor"), findsNothing);

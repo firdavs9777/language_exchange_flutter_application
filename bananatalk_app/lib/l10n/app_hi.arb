@@ -4419,6 +4419,7 @@
   "studyFullReport": "पूरी रिपोर्ट",
   "studyStreakDays": "{count} दिन की स्ट्रीक",
   "studyLevelShort": "लेवल {level}",
+  "studyLevelChanges": "कल से आपका अभ्यास {level} पर चला जाएगा।",
   "studyUpgradeLockedTitle": "{feature} एक VIP फ़ीचर है",
   "studyUpgradeExhaustedTitle": "आपने आज का {feature} इस्तेमाल कर लिया",
   "studyUpgradeBenefitUnlimited": "हर दिन असीमित AI अभ्यास",
@@ -4834,5 +4835,8 @@
   "storyInsightReplies": "{count, plural, one{{count} जवाब} other{{count} जवाब}}",
   "storyInsightReactions": "{count, plural, one{{count} रिएक्शन} other{{count} रिएक्शन}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} ने सही जवाब दिया} other{{count} ने सही जवाब दिया}}",
-  "storyInsightCompletedMark": "अंत तक देखा"
+  "storyInsightCompletedMark": "अंत तक देखा",
+  "tutorConversationFull": "यह बातचीत पूरी हो चुकी है।",
+  "tutorStartNewConversation": "नई बातचीत शुरू करें",
+  "tutorConversationsLeft": "{count, plural, one{आज {count} बातचीत बची है} other{आज {count} बातचीत बची हैं}}"
 }

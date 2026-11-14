@@ -112,6 +112,9 @@ class AppConfig {
   /// Paywall funnel events (`POST purchases/paywall-events`); off by default.
   final bool paywallEventsEnabled;
 
+  /// AI Study events (`POST study/events`); off by default.
+  final bool studyEventsEnabled;
+
   /// Offer engine (`GET offers`); off by default.
   final bool offerEngineEnabled;
 
@@ -175,6 +178,7 @@ class AppConfig {
     this.matchesLayoutEnabled = false,
     this.communityFastListEnabled = false,
     this.paywallEventsEnabled = false,
+    this.studyEventsEnabled = false,
     this.offerEngineEnabled = false,
     this.referralsEnabled = false,
     this.boostsEnabled = false,
@@ -218,6 +222,7 @@ class AppConfig {
       // `is bool`, not `as bool?`: a non-bool value must read as off, not throw.
       communityFastListEnabled: json['communityFastListEnabled'] == true,
       paywallEventsEnabled: json['paywallEventsEnabled'] == true,
+      studyEventsEnabled: json['studyEventsEnabled'] == true,
       offerEngineEnabled: json['offerEngineEnabled'] == true,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,

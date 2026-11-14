@@ -11397,6 +11397,11 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Аз фардо машқи шумо ба сатҳи $level мегузарад.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature имкони VIP аст';
   }
@@ -12819,4 +12824,20 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'То охир тамошо шуд';
+
+  @override
+  String get tutorConversationFull => 'Ин сӯҳбат пур шудааст.';
+
+  @override
+  String get tutorStartNewConversation => 'Сӯҳбати нав оғоз кунед';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Имрӯз $count сӯҳбат боқӣ мондааст',
+    );
+    return '$_temp0';
+  }
 }

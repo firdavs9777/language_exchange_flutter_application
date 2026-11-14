@@ -11377,6 +11377,11 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'ตั้งแต่พรุ่งนี้ การฝึกของคุณจะเปลี่ยนเป็น $level';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature เป็นฟีเจอร์ VIP';
   }
@@ -12792,4 +12797,20 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'ดูจนจบแล้ว';
+
+  @override
+  String get tutorConversationFull => 'การสนทนานี้เต็มแล้ว';
+
+  @override
+  String get tutorStartNewConversation => 'เริ่มการสนทนาใหม่';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'วันนี้เหลือการสนทนา $count ครั้ง',
+    );
+    return '$_temp0';
+  }
 }

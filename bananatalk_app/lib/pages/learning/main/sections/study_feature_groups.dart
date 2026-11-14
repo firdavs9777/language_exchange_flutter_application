@@ -10,7 +10,6 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/tutor_chat_screen.dart';
-import 'package:bananatalk_app/pages/learning/challenges/challenges_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_study_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
@@ -27,6 +26,7 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/feature_seen_store.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/study/study_upgrade_sheet.dart';
 
@@ -41,7 +41,6 @@ Widget destinationFor(StudyFeature f) => switch (f) {
       StudyFeature.quizzes => const AIQuizScreen(),
       StudyFeature.exam => const ExamStudyScreen(),
       StudyFeature.lessons => const LessonsScreen(),
-      StudyFeature.challenges => const ChallengesScreen(),
       StudyFeature.leaderboard => const LeaderboardScreen(),
     };
 
@@ -112,6 +111,11 @@ class StudyFeatureGroups extends ConsumerWidget {
 
   Future<void> _onTap(BuildContext context, WidgetRef ref, StudyFeature f, TileBadge? badge) async {
     AnalyticsService.instance.studyTileTap(feature: f.slug, badge: badge?.analyticsName);
+    // A lock or an exhausted allowance puts a sheet in front of the feature.
+    final blocked = badge?.kind == TileBadgeKind.locked ||
+        badge?.kind == TileBadgeKind.exhausted;
+    studyLog(StudyEvent.featureOpened,
+        kind: f.slug, detail: blocked ? badge?.analyticsName : null);
     // The tile may be gone when markSeen resolves; `ref` would throw then,
     // so invalidate through the container captured now.
     final container = ProviderScope.containerOf(context, listen: false);

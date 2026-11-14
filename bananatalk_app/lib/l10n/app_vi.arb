@@ -4403,6 +4403,7 @@
   "studyFullReport": "Báo cáo đầy đủ",
   "studyStreakDays": "Chuỗi {count} ngày",
   "studyLevelShort": "Cấp {level}",
+  "studyLevelChanges": "Từ ngày mai, bài luyện tập của bạn chuyển sang {level}.",
   "studyUpgradeLockedTitle": "{feature} là tính năng VIP",
   "studyUpgradeExhaustedTitle": "Bạn đã dùng hết {feature} hôm nay",
   "studyUpgradeBenefitUnlimited": "Luyện tập với AI không giới hạn mỗi ngày",
@@ -4818,5 +4819,8 @@
   "storyInsightReplies": "{count, plural, other{{count} phản hồi}}",
   "storyInsightReactions": "{count, plural, other{{count} lượt phản ứng}}",
   "storyInsightQuizCorrect": "{count, plural, other{{count} người trả lời đúng}}",
-  "storyInsightCompletedMark": "Đã xem đến hết"
+  "storyInsightCompletedMark": "Đã xem đến hết",
+  "tutorConversationFull": "Cuộc trò chuyện này đã đầy.",
+  "tutorStartNewConversation": "Bắt đầu cuộc trò chuyện mới",
+  "tutorConversationsLeft": "{count, plural, other{Hôm nay còn {count} cuộc trò chuyện}}"
 }

@@ -4433,6 +4433,7 @@
   "studyFullReport": "التقرير الكامل",
   "studyStreakDays": "سلسلة {count} يوم",
   "studyLevelShort": "المستوى {level}",
+  "studyLevelChanges": "ابتداءً من الغد ينتقل تدريبك إلى المستوى {level}.",
   "studyUpgradeLockedTitle": "{feature} ميزة VIP",
   "studyUpgradeExhaustedTitle": "استخدمت {feature} لهذا اليوم",
   "studyUpgradeBenefitUnlimited": "تدرّب بالذكاء الاصطناعي بلا حدود كل يوم",
@@ -4848,5 +4849,8 @@
   "storyInsightReplies": "{count, plural, zero{لا ردود} two{ردان} few{{count} ردود} many{{count} ردًا} one{رد واحد} other{{count} رد}}",
   "storyInsightReactions": "{count, plural, zero{لا تفاعلات} two{تفاعلان} few{{count} تفاعلات} many{{count} تفاعلًا} one{تفاعل واحد} other{{count} تفاعل}}",
   "storyInsightQuizCorrect": "{count, plural, zero{لم يُجب أحد بشكل صحيح} two{أجاب اثنان بشكل صحيح} few{أجاب {count} بشكل صحيح} many{أجاب {count} بشكل صحيح} one{أجاب واحد بشكل صحيح} other{أجاب {count} بشكل صحيح}}",
-  "storyInsightCompletedMark": "شوهدت حتى النهاية"
+  "storyInsightCompletedMark": "شوهدت حتى النهاية",
+  "tutorConversationFull": "هذه المحادثة ممتلئة.",
+  "tutorStartNewConversation": "ابدأ محادثة جديدة",
+  "tutorConversationsLeft": "{count, plural, zero{لا محادثات متبقية اليوم} one{محادثة واحدة متبقية اليوم} two{محادثتان متبقيتان اليوم} few{{count} محادثات متبقية اليوم} many{{count} محادثة متبقية اليوم} other{{count} محادثة متبقية اليوم}}"
 }

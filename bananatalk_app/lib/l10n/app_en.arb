@@ -7919,6 +7919,15 @@
       }
     }
   },
+  "studyLevelChanges": "From tomorrow your practice moves to {level}.",
+  "@studyLevelChanges": {
+    "description": "One line shown when a level change applies from tomorrow. {level} is the new CEFR level, e.g. B2.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "studyUpgradeLockedTitle": "{feature} is a VIP feature",
   "@studyUpgradeLockedTitle": {
     "placeholders": {
@@ -8921,5 +8930,22 @@
   "storyInsightCompletedMark": "Watched to the end",
   "@storyInsightCompletedMark": {
     "description": "Small mark and screen-reader label on a viewer who watched the story to the end"
+  },
+  "tutorConversationFull": "This conversation is full.",
+  "tutorStartNewConversation": "Start a new conversation",
+  "@tutorConversationFull": {
+    "description": "Inline notice in the AI tutor chat when the conversation has reached its 10 learner messages"
+  },
+  "@tutorStartNewConversation": {
+    "description": "Button next to the full-conversation notice; starts a new tutor conversation with the same persona"
+  },
+  "tutorConversationsLeft": "{count, plural, one{{count} conversation left today} other{{count} conversations left today}}",
+  "@tutorConversationsLeft": {
+    "description": "Pill in the AI tutor chat header and the AI Tutor tile badge on the study hub: how many of today's tutor conversations are left (each conversation holds 10 learner messages)",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -11853,6 +11853,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Со следующего дня ваша практика переходит на уровень $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature — функция VIP';
   }
@@ -13312,4 +13317,23 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Досмотрено до конца';
+
+  @override
+  String get tutorConversationFull => 'Этот разговор заполнен.';
+
+  @override
+  String get tutorStartNewConversation => 'Начать новый разговор';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Сегодня осталось $count разговора',
+      many: 'Сегодня осталось $count разговоров',
+      few: 'Сегодня осталось $count разговора',
+      one: 'Сегодня остался $count разговор',
+    );
+    return '$_temp0';
+  }
 }

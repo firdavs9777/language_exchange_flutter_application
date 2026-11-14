@@ -51,6 +51,14 @@ final paywallEventsEnabledProvider = Provider<bool>((ref) {
       );
 });
 
+/// Server's AI Study event switch; same shape as [paywallEventsEnabledProvider].
+final studyEventsEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.studyEventsEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
 /// Server's offer-engine switch; same shape as [paywallEventsEnabledProvider].
 final offerEngineEnabledProvider = Provider<bool>((ref) {
   return ref.watch(appConfigProvider).maybeWhen(

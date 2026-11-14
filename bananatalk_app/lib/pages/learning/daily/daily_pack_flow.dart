@@ -13,6 +13,8 @@ import 'package:bananatalk_app/pages/learning/daily/widgets/day_complete_sheet.d
 import 'package:bananatalk_app/pages/learning/daily/widgets/station_rail.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/review_prompt_service.dart';
+import 'package:bananatalk_app/services/study/study_hub_cache.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -69,6 +71,11 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
   bool _reviewAsked = false;
   StationResult? _last;
 
+  /// The latest level change a completion reported today (applies from
+  /// tomorrow), and the one the current step's result shows.
+  LevelChange? _levelChange;
+  LevelChange? _stepLevelChange;
+
   @override
   void initState() {
     super.initState();
@@ -86,6 +93,24 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     _index = _outstanding.isEmpty
         ? 0
         : widget.initialIndex.clamp(0, _outstanding.length - 1);
+    studyLog(StudyEvent.sessionStarted, language: widget.pack.language);
+    if (_outstanding.isEmpty) {
+      _logSessionFinished();
+    } else {
+      _logStepStarted();
+    }
+  }
+
+  bool _finishLogged = false;
+
+  void _logStepStarted() => studyLog(StudyEvent.stepStarted,
+      language: widget.pack.language, kind: _outstanding[_index].kind);
+
+  /// Once per flow: the day-complete sheet is what the learner sees next.
+  void _logSessionFinished() {
+    if (_finishLogged) return;
+    _finishLogged = true;
+    studyLog(StudyEvent.sessionFinished, language: widget.pack.language);
   }
 
   Future<StationResult> _submit(
@@ -108,17 +133,38 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     // A station finished is a lesson done; idempotent after the first.
     if (widget.submit == null) {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
+      // Keep the tab's saved first paint ("2/4") current even if the app is
+      // closed before the hub refetches.
+      StudyHubCache()
+          .recordStationCompleted(
+              stationsRemaining: result.stationsRemaining.length)
+          .ignore();
     }
     _last = result;
+    if (result.levelChange != null) {
+      _levelChange = result.levelChange;
+      if (mounted) setState(() => _stepLevelChange = result.levelChange);
+    }
+    studyLog(StudyEvent.stepFinished,
+        language: widget.pack.language,
+        kind: station,
+        // An unscored station (total 0) has no score to report.
+        score: result.total > 0 ? result.score : null,
+        total: result.total > 0 ? result.total : null);
     return result;
   }
 
   void _advance() {
     if (_index + 1 < _outstanding.length && !(_last?.packComplete ?? false)) {
-      setState(() => _index += 1);
+      setState(() {
+        _index += 1;
+        _stepLevelChange = null;
+      });
+      _logStepStarted();
       return;
     }
     setState(() => _finished = true);
+    _logSessionFinished();
     if (_last?.packComplete ?? false) _maybeAskForReview();
   }
 
@@ -211,6 +257,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
                 themeTopic: widget.pack.theme?.topic != null
                     ? context.packTopic(widget.pack.theme!.topic)
                     : null,
+                levelChangeTo: _levelChange?.to,
                 onClose: _exit,
               ),
             ),
@@ -247,6 +294,11 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
                 currentIndex: widget.pack.stations.indexOf(station),
               ),
             ),
+            if (_stepLevelChange != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
+                child: LevelChangeLine(level: _stepLevelChange!.to),
+              ),
             Expanded(child: _stationBody(station)),
           ],
         ),

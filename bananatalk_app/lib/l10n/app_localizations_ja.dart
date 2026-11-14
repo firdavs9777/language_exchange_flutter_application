@@ -11377,6 +11377,11 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '明日から練習は$levelに変わります。';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$featureはVIP機能です';
   }
@@ -12792,4 +12797,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => '最後まで視聴';
+
+  @override
+  String get tutorConversationFull => 'この会話は上限に達しました。';
+
+  @override
+  String get tutorStartNewConversation => '新しい会話を始める';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日の会話はあと$count回',
+    );
+    return '$_temp0';
+  }
 }

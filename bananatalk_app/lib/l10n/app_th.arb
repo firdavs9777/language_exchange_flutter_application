@@ -4403,6 +4403,7 @@
   "studyFullReport": "รายงานฉบับเต็ม",
   "studyStreakDays": "ต่อเนื่อง {count} วัน",
   "studyLevelShort": "เลเวล {level}",
+  "studyLevelChanges": "ตั้งแต่พรุ่งนี้ การฝึกของคุณจะเปลี่ยนเป็น {level}",
   "studyUpgradeLockedTitle": "{feature} เป็นฟีเจอร์ VIP",
   "studyUpgradeExhaustedTitle": "คุณใช้ {feature} ของวันนี้ครบแล้ว",
   "studyUpgradeBenefitUnlimited": "ฝึกกับ AI ได้ไม่จำกัดทุกวัน",
@@ -4818,5 +4819,8 @@
   "storyInsightReplies": "{count, plural, other{ตอบกลับ {count} รายการ}}",
   "storyInsightReactions": "{count, plural, other{รีแอคชัน {count} รายการ}}",
   "storyInsightQuizCorrect": "{count, plural, other{ตอบถูก {count} คน}}",
-  "storyInsightCompletedMark": "ดูจนจบแล้ว"
+  "storyInsightCompletedMark": "ดูจนจบแล้ว",
+  "tutorConversationFull": "การสนทนานี้เต็มแล้ว",
+  "tutorStartNewConversation": "เริ่มการสนทนาใหม่",
+  "tutorConversationsLeft": "{count, plural, other{วันนี้เหลือการสนทนา {count} ครั้ง}}"
 }

@@ -11403,6 +11403,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'कल से आपका अभ्यास $level पर चला जाएगा।';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature एक VIP फ़ीचर है';
   }
@@ -12830,4 +12835,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'अंत तक देखा';
+
+  @override
+  String get tutorConversationFull => 'यह बातचीत पूरी हो चुकी है।';
+
+  @override
+  String get tutorStartNewConversation => 'नई बातचीत शुरू करें';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आज $count बातचीत बची हैं',
+      one: 'आज $count बातचीत बची है',
+    );
+    return '$_temp0';
+  }
 }

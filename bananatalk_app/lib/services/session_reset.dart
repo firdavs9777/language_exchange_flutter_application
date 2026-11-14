@@ -53,6 +53,7 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -198,6 +199,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Queued paywall events are dropped on sign-out (dispose clears the
   // queue), so none is sent under the next account.
   'paywallTrackerProvider': paywallTrackerProvider,
+  // Same for queued AI Study events.
+  'studyTrackerProvider': studyTrackerProvider,
   // The signed-in user's server offer; the next user starts with none (its
   // expiry timer is cancelled when it is disposed).
   'offersProvider': offersProvider,
@@ -256,6 +259,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'achievementsProvider': achievementsProvider,
   'challengesProvider': challengesProvider,
   'dailyPackProvider': dailyPackProvider,
+  // The signed-in user's saved first paint of the AI Study tab.
+  'studyHubSnapshotProvider': studyHubSnapshotProvider,
   'masteryProvider': masteryProvider,
   'weeklyReportProvider': weeklyReportProvider,
   'xpLeaderboardProvider': xpLeaderboardProvider,
@@ -324,11 +329,13 @@ const Set<String> kAppScopedProviderNames = {
   'hashtagsEnabledProvider', // derived from appConfigProvider
   'communityFastListEnabledProvider', // derived from appConfigProvider
   'paywallEventsEnabledProvider', // derived from appConfigProvider
+  'studyEventsEnabledProvider', // derived from appConfigProvider
   'offerEngineEnabledProvider', // derived from appConfigProvider
   'offersClockProvider', // the wall clock (a test seam)
   // Stateless: every entry is keyed by user id, and sign-out clears them
   // (AuthService._clearAuthData).
   'communityFirstPageCacheProvider',
+  'studyHubCacheProvider', // same: keyed by user id, cleared on sign-out
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',

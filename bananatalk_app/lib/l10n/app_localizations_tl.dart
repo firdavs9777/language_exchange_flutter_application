@@ -11396,6 +11396,11 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Simula bukas, lilipat ang iyong pagsasanay sa $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return 'Ang $feature ay VIP feature';
   }
@@ -12823,4 +12828,20 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Pinanood hanggang dulo';
+
+  @override
+  String get tutorConversationFull => 'Puno na ang usapang ito.';
+
+  @override
+  String get tutorStartNewConversation => 'Magsimula ng bagong usapan';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count usapan na lang ngayong araw',
+    );
+    return '$_temp0';
+  }
 }
