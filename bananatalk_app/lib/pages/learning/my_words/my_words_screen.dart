@@ -24,14 +24,21 @@ class MyWordsScreen extends ConsumerStatefulWidget {
 }
 
 class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
-  // Local copy of the provider's rows, so a row can leave at once and come
-  // back if the request fails.
+  // The provider's rows, in server order. Rows with a request in flight or
+  // already done are hidden, not removed, so a refresh can neither bring a
+  // row back nor duplicate it, and a failure puts it back in its own place.
   MyWords? _source;
   List<WordCandidate> _candidates = [];
   List<StudyMistakeItem> _mistakes = [];
 
+  // Ids hidden from the lists: removal in flight or confirmed.
+  final Set<String> _hidden = {};
+
   // Ids with a request in flight: a second tap sends nothing.
   final Set<String> _busy = {};
+
+  // Latest "got it" count per mistake, over whatever a refresh returns.
+  final Map<String, int> _progress = {};
 
   @override
   void initState() {
@@ -44,42 +51,41 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
     _source = data;
     _candidates = List.of(data.candidates);
     _mistakes = List.of(data.mistakes);
-    _busy.clear();
   }
 
-  void _failed() {
-    if (!mounted) return;
-    final messenger = ScaffoldMessenger.of(context);
-    messenger.hideCurrentSnackBar();
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.myWordsActionFailed),
-      ),
-    );
-  }
+  List<WordCandidate> get _visibleCandidates => [
+    for (final c in _candidates)
+      if (!_hidden.contains(c.id)) c,
+  ];
 
-  /// Keep or dismiss: the row leaves now and returns to its place on failure.
+  List<StudyMistakeItem> get _visibleMistakes => [
+    for (final m in _mistakes)
+      if (!_hidden.contains(m.id)) m,
+  ];
+
+  /// Keep or dismiss: the row leaves now and comes back on failure.
   Future<void> _removeCandidate(
     WordCandidate c,
     Future<void> Function(MyWordsApi api) call, {
     bool isKeep = false,
   }) async {
     if (!_busy.add(c.id)) return;
-    final index = _candidates.indexWhere((x) => x.id == c.id);
-    if (index < 0) {
-      _busy.remove(c.id);
-      return;
-    }
-    setState(() => _candidates.removeAt(index));
+    // Taken before the await: the screen may be gone when the answer lands.
+    final api = ref.read(myWordsApiProvider);
+    final container = ProviderScope.containerOf(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final failedText = AppLocalizations.of(context)!.myWordsActionFailed;
+    setState(() => _hidden.add(c.id));
     try {
-      await call(ref.read(myWordsApiProvider));
-      if (isKeep) ref.invalidate(vocabularyStatsProvider);
+      await call(api);
+      if (isKeep) container.invalidate(vocabularyStatsProvider);
     } catch (_) {
-      if (!mounted) return;
-      setState(() {
-        _candidates.insert(index.clamp(0, _candidates.length), c);
-      });
-      _failed();
+      _hidden.remove(c.id);
+      if (mounted) {
+        setState(() {});
+        messenger.hideCurrentSnackBar();
+        messenger.showSnackBar(SnackBar(content: Text(failedText)));
+      }
     } finally {
       _busy.remove(c.id);
     }
@@ -87,29 +93,19 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
 
   Future<void> _gotIt(StudyMistakeItem m) async {
     if (!_busy.add(m.id)) return;
+    final api = ref.read(myWordsApiProvider);
+    final messenger = ScaffoldMessenger.of(context);
+    final failedText = AppLocalizations.of(context)!.myWordsActionFailed;
     setState(() {});
     try {
-      final r = await ref.read(myWordsApiProvider).gotIt(m.id);
-      if (!mounted) return;
-      setState(() {
-        final i = _mistakes.indexWhere((x) => x.id == m.id);
-        if (i < 0) return;
-        if (r.resolved) {
-          _mistakes.removeAt(i);
-        } else {
-          _mistakes[i] = StudyMistakeItem(
-            id: m.id,
-            original: m.original,
-            corrected: m.corrected,
-            explanation: m.explanation,
-            source: m.source,
-            language: m.language,
-            successes: r.successes,
-          );
-        }
-      });
+      final r = await api.gotIt(m.id);
+      _progress[m.id] = r.successes;
+      if (r.resolved) _hidden.add(m.id);
     } catch (_) {
-      _failed();
+      if (mounted) {
+        messenger.hideCurrentSnackBar();
+        messenger.showSnackBar(SnackBar(content: Text(failedText)));
+      }
     } finally {
       _busy.remove(m.id);
       if (mounted) setState(() {});
@@ -139,8 +135,10 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final async = ref.watch(myWordsProvider);
-    final due = ref.watch(vocabularyStatsProvider(null)).value?.dueToday ?? 0;
-    final data = async.value;
+    final stats = ref.watch(vocabularyStatsProvider(null));
+    final due = stats.valueOrNull?.dueToday ?? 0;
+    final statsLoading = stats.isLoading && stats.valueOrNull == null;
+    final data = async.valueOrNull;
     if (data != null) _adopt(data);
 
     Widget body;
@@ -169,12 +167,19 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
         child: CircularProgressIndicator(color: AppColors.primary),
       );
     } else {
-      final empty = _candidates.isEmpty && _mistakes.isEmpty && due <= 0;
+      final candidates = _visibleCandidates;
+      final mistakes = _visibleMistakes;
+      final empty =
+          candidates.isEmpty && mistakes.isEmpty && due <= 0 && !statsLoading;
       body = RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(vocabularyStatsProvider);
           ref.invalidate(myWordsProvider);
-          await ref.read(myWordsProvider.future);
+          try {
+            await ref.read(myWordsProvider.future);
+          } catch (_) {
+            // A failed refresh keeps the rows on screen.
+          }
         },
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -191,9 +196,9 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
                   ),
                 ),
               ),
-            if (_candidates.isNotEmpty) ...[
+            if (candidates.isNotEmpty) ...[
               _heading(l10n.myWordsFromChats),
-              for (final c in _candidates)
+              for (final c in candidates)
                 CandidateRow(
                   key: ValueKey('candidate-${c.id}'),
                   candidate: c,
@@ -208,12 +213,14 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
                   onSayIt: () => _sayIt(c.text, c.language),
                 ),
             ],
-            if (_mistakes.isNotEmpty) ...[
+            if (mistakes.isNotEmpty) ...[
               _heading(l10n.myWordsMistakes),
-              for (final m in _mistakes)
+              for (final m in mistakes)
                 MistakeRow(
                   key: ValueKey('mistake-${m.id}'),
-                  mistake: m,
+                  mistake: _progress.containsKey(m.id)
+                      ? _withSuccesses(m, _progress[m.id]!)
+                      : m,
                   busy: _busy.contains(m.id),
                   onGotIt: () => _gotIt(m),
                   onSayIt: () => _sayIt(m.corrected, m.language),
@@ -221,27 +228,21 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
             ],
             if (due > 0) ...[
               _heading(l10n.myWordsToReview),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l10n.myWordsDueCount(due),
-                      style: context.bodyMedium,
+              Text(l10n.myWordsDueCount(due), style: context.bodyMedium),
+              const SizedBox(height: 8),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).push(
+                    AppPageRoute(
+                      builder: (_) => const VocabularyReviewScreen(),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                    ),
-                    onPressed: () => Navigator.of(context).push(
-                      AppPageRoute(
-                        builder: (_) => const VocabularyReviewScreen(),
-                      ),
-                    ),
-                    child: Text(l10n.myWordsReview),
-                  ),
-                ],
+                  child: Text(l10n.myWordsReview),
+                ),
               ),
             ],
           ],
@@ -255,3 +256,14 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
     );
   }
 }
+
+StudyMistakeItem _withSuccesses(StudyMistakeItem m, int successes) =>
+    StudyMistakeItem(
+      id: m.id,
+      original: m.original,
+      corrected: m.corrected,
+      explanation: m.explanation,
+      source: m.source,
+      language: m.language,
+      successes: successes,
+    );

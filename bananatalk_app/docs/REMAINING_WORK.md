@@ -22,6 +22,8 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - [x] Task 1: both app-config flags, MyWordsApi, models, myWordsProvider, 24 strings in 19 locales (the 18 non-English machine-drafted; need native review)
 - [x] Task 2: "Say it" on the pronunciation screen — `PronunciationScreen` takes `initialText` / `initialLanguage` / `ownSentence`; sends `source: 'own'` while the text is unchanged; language falls back to the caller's base code
 - [x] Task 3: "My words and mistakes" screen (keep / dismiss, got it, say it) — `lib/pages/learning/my_words/`; not linked from anywhere yet
+  - [x] Fix round 1: refresh/failure races, restore position, no ref after await, safe refresh, stats-loading flash, due-row overflow
+  - [ ] Native review of the 18 machine-drafted my-words locales; device QA of the screen
 - [x] Task 4: three doors on the hub (`MyWordsDoorCard`, `TalkDoorCard`, `MoreDoorRow`) and `StudyMoreScreen`, behind `studyDoorsEnabled` (flag off = today's hub, unchanged); `openStudyFeature` extracted from the grid; guide secondary action and pull-to-refresh follow the doors. Open: device look at the three cards (dark mode, small phones); 18 machine-drafted locales need native review
 - [ ] Task 5: whole-suite check and handoff
 
