@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart';
 import 'package:bananatalk_app/pages/settings/blocked_users_screen.dart';
 import 'package:bananatalk_app/pages/settings/language_settings_screen.dart';
 import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -144,9 +145,10 @@ class AppShellDrawer extends ConsumerWidget {
               iconColor: const Color(0xFFFFA000),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  AppPageRoute(builder: (_) => const VipPlansScreen()),
+                  PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'app_shell_drawer'),
+                  route: PaywallRoute.app,
                 );
               },
             ),

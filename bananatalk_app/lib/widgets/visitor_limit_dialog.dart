@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/visitor_upgrade_screen.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 class VisitorLimitDialog extends StatelessWidget {
   final String userId;
@@ -135,11 +136,10 @@ class VisitorLimitDialog extends StatelessWidget {
                     color: Colors.amber[700]!,
                     onTap: () {
                       Navigator.of(context).pop(false);
-                      Navigator.push(
+                      openVipPlans<void>(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => VipPlansScreen(userId: userId),
-                        ),
+                        PaywallFlow.start(PaywallPlacement.other, detail: 'visitor_limit_dialog'),
+                        userId: userId,
                       );
                     },
                   ),

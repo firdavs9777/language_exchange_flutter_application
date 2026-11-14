@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
@@ -15,7 +17,6 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -172,9 +173,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   void _showVipPrompt() {
     final user = ref.read(userProvider).valueOrNull;
-    Navigator.push(
+    openVipPlans<void>(
       context,
-      AppPageRoute(builder: (_) => VipPlansScreen(userId: user?.id)),
+      PaywallFlow.start(PaywallPlacement.countryFilter),
+      userId: user?.id,
+      route: PaywallRoute.app,
     );
   }
 

@@ -1,6 +1,7 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/profile/profile_completion.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -198,9 +199,8 @@ class _VipStatusCard extends StatelessWidget {
             Navigator.push(
               context,
               AppPageRoute(
-                builder: (_) => isVip
-                    ? VipStatusScreen(userId: user.id)
-                    : VipPlansScreen(userId: user.id),
+                // Free users never reach this card (they get _VipUpsellCard).
+                builder: (_) => VipStatusScreen(userId: user.id),
               ),
             );
           },
@@ -336,9 +336,11 @@ class _VipUpsellCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    void open() => Navigator.push(
+    void open() => openVipPlans<void>(
           context,
-          AppPageRoute(builder: (_) => VipPlansScreen(userId: user.id)),
+          PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'profile_highlights'),
+          userId: user.id,
+          route: PaywallRoute.app,
         );
     Widget perk(IconData icon, String text) => Padding(
           padding: const EdgeInsets.only(top: 6),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Gold gradient "VIP" pill with a small red "Up" badge — the standard
 /// entry-point CTA for the upgrade flow used across the top-level app
@@ -37,9 +38,10 @@ class VipUpPill extends ConsumerWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap ??
-              () => Navigator.push(
+              () => openVipPlans<void>(
                     context,
-                    AppPageRoute(builder: (_) => const VipPlansScreen()),
+                    PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'vip_up_pill'),
+                    route: PaywallRoute.app,
                   ),
           borderRadius: BorderRadius.circular(14),
           child: Stack(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 /// A widget that overlays a lock on non-VIP features
 /// Shows the feature with reduced opacity and a lock icon overlay
@@ -288,11 +289,9 @@ class VipUpgradeSheet extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.push(
+                  openVipPlans<void>(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => const VipPlansScreen(),
-                    ),
+                    PaywallFlow.start(PaywallPlacement.studyLock, detail: 'ai_tools_tab'),
                   );
                 },
                 style: ElevatedButton.styleFrom(

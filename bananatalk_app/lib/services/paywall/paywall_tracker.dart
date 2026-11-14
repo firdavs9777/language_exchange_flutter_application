@@ -113,9 +113,14 @@ final paywallTrackerProvider = Provider<PaywallTracker>((ref) {
   return tracker;
 });
 
+/// Test seam: sees every [paywallLog] call, whatever the flag says.
+@visibleForTesting
+void Function(PaywallFlow flow, String action, String? detail)? paywallLogSpy;
+
 /// Fire-and-forget entry point for any surface. Never throws.
 void paywallLog(PaywallFlow flow, String action, {String? detail}) {
   try {
+    paywallLogSpy?.call(flow, action, detail);
     appProviderContainer
         .read(paywallTrackerProvider)
         .log(flow, action, detail: detail);

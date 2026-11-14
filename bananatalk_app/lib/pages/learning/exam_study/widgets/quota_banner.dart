@@ -1,7 +1,7 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/exam_essay_quota.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -99,8 +99,10 @@ class QuotaBanner extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           TextButton(
-            onPressed: () => Navigator.of(context).push(
-              AppPageRoute(builder: (_) => const VipPlansScreen()),
+            onPressed: () => openVipPlans<void>(
+              context,
+              PaywallFlow.start(PaywallPlacement.tutorQuota, detail: 'QuotaBanner'),
+              route: PaywallRoute.app,
             ),
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,

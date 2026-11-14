@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// "Unlock N for 💎X" — the coins à-la-carte CTA added as a SECOND action
 /// beside "Go VIP" in the 3 limit surfaces (translation, tutor 429,
@@ -182,9 +182,11 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
             FilledButton(
               onPressed: () {
                 Navigator.pop(dialogContext);
-                Navigator.push(
+                openCoinShop<void>(
                   context,
-                  AppPageRoute(builder: (_) => const CoinShopScreen()),
+                  PaywallFlow.start(PaywallPlacement.notEnoughCoins,
+                      detail: widget.featureKey),
+                  route: PaywallRoute.app,
                 );
               },
               child: Text(l10n.getMoreCoins),
@@ -200,9 +202,11 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
         action: SnackBarAction(
           label: l10n.getMoreCoins,
           onPressed: () {
-            Navigator.push(
+            openCoinShop<void>(
               context,
-              AppPageRoute(builder: (_) => const CoinShopScreen()),
+              PaywallFlow.start(PaywallPlacement.notEnoughCoins,
+                  detail: widget.featureKey),
+              route: PaywallRoute.app,
             );
           },
         ),

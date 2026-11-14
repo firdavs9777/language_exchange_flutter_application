@@ -19,6 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'dart:async';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 
 class VipPaymentScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -28,11 +29,15 @@ class VipPaymentScreen extends ConsumerStatefulWidget {
   /// through Play (never a second subscription).
   final bool isPlanSwitch;
 
+  /// The upsell flow this purchase belongs to (carried from the plans screen).
+  final PaywallFlow? flow;
+
   const VipPaymentScreen({
     Key? key,
     required this.userId,
     required this.plan,
     this.isPlanSwitch = false,
+    this.flow,
   }) : super(key: key);
 
   @override

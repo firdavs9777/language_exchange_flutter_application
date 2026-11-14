@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/pages/community/partners/retry_pause.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
@@ -13,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart' show placemarkFromCoordinates;
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
@@ -312,9 +313,11 @@ class _NearbyPartnersViewState extends ConsumerState<NearbyPartnersView> {
   /// searching the capped radius.
   void _openVipForRadius() {
     HapticFeedback.selectionClick();
-    Navigator.push(
+    openVipPlans<void>(
       context,
-      AppPageRoute(builder: (_) => VipPlansScreen(userId: _userId)),
+      PaywallFlow.start(PaywallPlacement.nearbyRadius),
+      userId: _userId,
+      route: PaywallRoute.app,
     );
   }
 

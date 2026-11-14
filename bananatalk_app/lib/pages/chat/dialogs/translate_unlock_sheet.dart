@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Bottom sheet shown when in-conversation auto-translate hits its daily
 /// cap. Offers the à-la-carte coin unlock for the `translation` catalog key.
@@ -49,9 +49,11 @@ Future<bool> showTranslateUnlockSheet(BuildContext context) async {
               ),
               onPressed: () {
                 Navigator.pop(ctx, false);
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  AppPageRoute(builder: (_) => const VipPlansScreen(userId: '')),
+                  PaywallFlow.start(PaywallPlacement.translationCap, detail: 'chat_sheet'),
+                  userId: '',
+                  route: PaywallRoute.app,
                 );
               },
             ),

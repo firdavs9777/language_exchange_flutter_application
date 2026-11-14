@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/widgets/visitor_limit_dialog.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 
 class FeatureGate {
@@ -172,11 +173,10 @@ class FeatureGate {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.push(
+              openVipPlans<void>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const VipPlansScreen(userId: ''),
-                ),
+                PaywallFlow.start(PaywallPlacement.other, detail: 'feature_gate'),
+                userId: '',
               );
             },
             child: Text(l10n.upgradeToVip),
@@ -272,13 +272,10 @@ class FeatureGate {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
+              openVipPlans<void>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const VipPlansScreen(
-                    userId: '', // You'll need to pass the actual userId
-                  ),
-                ),
+                PaywallFlow.start(PaywallPlacement.other, detail: 'feature_gate'),
+                userId: '', // You'll need to pass the actual userId
               );
             },
             child: Text(

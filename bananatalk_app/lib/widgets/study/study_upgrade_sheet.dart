@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_feature_labels.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_features.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
 enum StudyUpgradeReason { locked, exhausted }
@@ -96,7 +96,13 @@ class _StudyUpgradeSheet extends ConsumerWidget {
                     .studyUpgradeUnlock(feature: feature.slug, method: 'vip');
                 final nav = Navigator.of(context);
                 nav.pop(false);
-                nav.push(AppPageRoute(builder: (_) => const VipPlansScreen()));
+                openVipPlans<void>(
+                  context,
+                  PaywallFlow.start(PaywallPlacement.studyLock,
+                      detail: feature.slug),
+                  route: PaywallRoute.app,
+                  navigator: nav,
+                );
               },
               child: Text(l.studyUpgradeGetVip),
             ),

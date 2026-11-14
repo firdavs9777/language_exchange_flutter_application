@@ -14,6 +14,8 @@ import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -32,7 +34,10 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 ///      repurchasable. A failed verify leaves the purchase un-consumed so
 ///      the store can retry or refund it.
 class CoinShopScreen extends ConsumerStatefulWidget {
-  const CoinShopScreen({super.key});
+  const CoinShopScreen({super.key, this.flow});
+
+  /// The upsell flow that opened the shop; null is reported as `other`.
+  final PaywallFlow? flow;
 
   @override
   ConsumerState<CoinShopScreen> createState() => _CoinShopScreenState();
@@ -60,6 +65,10 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   @override
   void initState() {
     super.initState();
+    paywallLog(
+      widget.flow ?? PaywallFlow.start(PaywallPlacement.other),
+      PaywallAction.shopViewed,
+    );
     // Coins can change outside this device (an admin grant, a purchase on
     // another device); show the server's balance, not the session's cache.
     WidgetsBinding.instance.addPostFrameCallback((_) {

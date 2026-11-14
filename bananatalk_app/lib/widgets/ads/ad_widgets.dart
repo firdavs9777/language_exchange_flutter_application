@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -369,9 +369,10 @@ class RemoveAdsButton extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () => Navigator.push(
+        onPressed: () => openVipPlans<void>(
           context,
-          AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
+          PaywallFlow.start(PaywallPlacement.adRemoval),
+          route: PaywallRoute.app,
         ),
         child: Text(AppLocalizations.of(context)!.vipRemoveAds),
       ),

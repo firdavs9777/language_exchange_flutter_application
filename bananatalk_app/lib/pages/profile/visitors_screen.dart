@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -13,7 +15,6 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/utils/language_names.dart';
@@ -338,9 +339,11 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.push(
+              onPressed: () => openVipPlans<void>(
                 context,
-                AppPageRoute(builder: (_) => const VipPlansScreen(userId: '')),
+                PaywallFlow.start(PaywallPlacement.visitorList, detail: 'unlock_banner'),
+                userId: '',
+                route: PaywallRoute.app,
               ),
               child: Text(l10n.goVip),
             ),
@@ -358,6 +361,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
         ? _maskedCount!
         : maskedLocal;
     return MaskedPersonTile(
+      placement: PaywallPlacement.visitorList,
       count: count,
       title: l10n.visitorsMaskedTitle(count),
       body: (cost) => cost != null

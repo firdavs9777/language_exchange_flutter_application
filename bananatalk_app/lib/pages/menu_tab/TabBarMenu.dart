@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/pages/menu_tab/lazy_tab.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
@@ -15,7 +17,6 @@ import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/services/launch_candidates.dart';
 import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
-import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/services/camera_recovery.dart';
@@ -239,9 +240,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _openPromoDestination(PromoType promo) {
     switch (promo) {
       case PromoType.coins:
-        Navigator.push(
+        openCoinShop<void>(
           context,
-          AppPageRoute(builder: (_) => const CoinShopScreen()),
+          PaywallFlow.start(PaywallPlacement.coinEntry, detail: 'menu'),
+          route: PaywallRoute.app,
         );
       case PromoType.rooms:
         ref.read(communityPendingSubTabProvider.notifier).state =

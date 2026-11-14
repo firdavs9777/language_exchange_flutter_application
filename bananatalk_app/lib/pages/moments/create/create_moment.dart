@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/utils/caption_language.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
@@ -1701,6 +1702,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               context: context,
               error: e,
               userId: userId,
+              placement: PaywallPlacement.momentCap,
             );
           } catch (err) {
             debugPrint('Error handling limit error: $err');

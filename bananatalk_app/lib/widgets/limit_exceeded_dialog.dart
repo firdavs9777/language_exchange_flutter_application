@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
@@ -84,6 +85,34 @@ String limitTypeDescription(AppLocalizations l10n, String limitType) {
       return l10n.waveLimitBody;
     default:
       return l10n.limitDescDefault;
+  }
+}
+
+/// The paywall placement for a daily-limit surface.
+String paywallPlacementForLimit(String limitType) {
+  switch (limitType.toLowerCase()) {
+    case 'moment':
+    case 'moments':
+      return PaywallPlacement.momentCap;
+    case 'comment':
+    case 'comments':
+      return PaywallPlacement.commentCap;
+    case 'story':
+    case 'stories':
+      return PaywallPlacement.storyCap;
+    case 'message':
+    case 'messages':
+    case 'dm':
+      return PaywallPlacement.dmCap;
+    case 'profile':
+    case 'profileview':
+    case 'profileviews':
+      return PaywallPlacement.profileViewCap;
+    case 'wave':
+    case 'waves':
+      return PaywallPlacement.waveCap;
+    default:
+      return PaywallPlacement.other;
   }
 }
 
@@ -446,11 +475,13 @@ class LimitExceededDialog extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            Navigator.push(
+            openVipPlans<void>(
               context,
-              MaterialPageRoute(
-                builder: (context) => VipPlansScreen(userId: userId),
+              PaywallFlow.start(
+                paywallPlacementForLimit(limitType),
+                detail: limitType,
               ),
+              userId: userId,
             );
           },
           style: ElevatedButton.styleFrom(

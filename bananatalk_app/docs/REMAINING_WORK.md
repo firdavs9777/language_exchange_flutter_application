@@ -739,7 +739,7 @@ P2 cleanup
 ## Monetization offers app (Plan D2, branch feat/monetization-offers-app)
 
 - [x] Task 1: `paywallEventsEnabled` / `offerEngineEnabled` flags + providers, `PaywallFlow`, batched in-memory `PaywallTracker`, `PaywallApi`, `paywallLog` (nothing calls it yet; flags off = no request)
-- [ ] Task 2
+- [x] Task 2: `openVipPlans` / `openCoinShop` (`lib/services/paywall/paywall_navigation.dart`) open the VIP screen and coin shop from every site (logs cta_*, screens log plans_viewed / shop_viewed); source-scan test keeps it that way
 - [ ] Task 3
 - [ ] Task 4
 - [ ] Task 5

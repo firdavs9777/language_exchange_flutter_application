@@ -9,6 +9,8 @@ import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/vip_plan_switch.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -53,7 +55,11 @@ int? vipSavingsPercent({
 class VipPlansScreen extends ConsumerStatefulWidget {
   final String? userId;
 
-  const VipPlansScreen({Key? key, this.userId}) : super(key: key);
+  /// The upsell flow that opened this screen; null (a direct push) is
+  /// reported as placement `other`.
+  final PaywallFlow? flow;
+
+  const VipPlansScreen({Key? key, this.userId, this.flow}) : super(key: key);
 
   @override
   ConsumerState<VipPlansScreen> createState() => _VipPlansScreenState();
@@ -64,10 +70,13 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   bool _switchDefaultApplied = false;
   bool _isIOS = Platform.isIOS;
   bool _isAndroid = Platform.isAndroid;
+  late final PaywallFlow _flow;
 
   @override
   void initState() {
     super.initState();
+    _flow = widget.flow ?? PaywallFlow.start(PaywallPlacement.other);
+    paywallLog(_flow, PaywallAction.plansViewed);
     // Initialize store based on platform (initializeStore already loads products)
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
@@ -781,6 +790,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                       userId: userId,
                       plan: selectedPlan!,
                       isPlanSwitch: switching,
+                      flow: _flow,
                     ),
                   ),
                 );

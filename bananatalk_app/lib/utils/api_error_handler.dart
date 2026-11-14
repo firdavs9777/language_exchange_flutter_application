@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 class ApiErrorHandler {
   /// Handle limit exceeded error (429)
@@ -9,6 +10,7 @@ class ApiErrorHandler {
     required BuildContext context,
     required dynamic error,
     String? userId,
+    String placement = PaywallPlacement.other,
   }) async {
     // Server text when there is any; otherwise the app's own localized
     // fallback is shown in the dialog.
@@ -103,11 +105,10 @@ class ApiErrorHandler {
             onPressed: () {
               Navigator.pop(context);
               if (userId != null) {
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => VipPlansScreen(userId: userId),
-                  ),
+                  PaywallFlow.start(placement, detail: 'api_error'),
+                  userId: userId,
                 );
               }
             },

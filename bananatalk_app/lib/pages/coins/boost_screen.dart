@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/boost.dart';
-import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/services/boost_api_client.dart';
@@ -144,9 +145,10 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
       if (!mounted) return;
       switch (e.error) {
         case BoostError.insufficientCoins:
-          Navigator.push(
+          openCoinShop<void>(
             context,
-            AppPageRoute<void>(builder: (_) => const CoinShopScreen()),
+            PaywallFlow.start(PaywallPlacement.boost),
+            route: PaywallRoute.app,
           );
         case BoostError.alreadyBoosted:
           await _load();

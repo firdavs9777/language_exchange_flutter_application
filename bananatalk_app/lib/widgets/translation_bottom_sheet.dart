@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 
@@ -383,11 +384,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.push(
+                        openVipPlans<void>(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) => const VipPlansScreen(),
-                          ),
+                          PaywallFlow.start(PaywallPlacement.translationCap, detail: 'bottom_sheet'),
                         );
                       },
                       style: ElevatedButton.styleFrom(

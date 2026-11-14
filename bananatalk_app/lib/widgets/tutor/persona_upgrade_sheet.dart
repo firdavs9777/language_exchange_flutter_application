@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -96,9 +97,9 @@ class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
               onPressed: () {
                 AnalyticsService.instance.paywallCtaTapped(chipName: triggerChip);
                 Navigator.pop(context);
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  MaterialPageRoute(builder: (_) => const VipPlansScreen()),
+                  PaywallFlow.start(PaywallPlacement.tutorQuota, detail: 'PersonaUpgradeSheet'),
                 );
               },
               child: Text(

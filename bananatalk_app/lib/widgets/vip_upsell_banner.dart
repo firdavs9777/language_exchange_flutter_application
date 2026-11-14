@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Banner shown when viewing a VIP user's profile
@@ -40,9 +41,9 @@ class VipUpsellBanner extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            Navigator.push(
+            openVipPlans<void>(
               context,
-              MaterialPageRoute(builder: (_) => const VipPlansScreen()),
+              PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'profile_banner'),
             );
           },
           borderRadius: BorderRadius.circular(16),
@@ -142,9 +143,9 @@ class VipPromoCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap ??
               () {
-                Navigator.push(
+                openVipPlans<void>(
                   context,
-                  MaterialPageRoute(builder: (_) => const VipPlansScreen()),
+                  PaywallFlow.start(PaywallPlacement.other, detail: 'VipPromoCard'),
                 );
               },
           borderRadius: BorderRadius.circular(12),

@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
+import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,6 @@ import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
@@ -576,9 +577,10 @@ class _Empty extends StatelessWidget {
               ),
               TextButton.icon(
                 key: const Key('matches-empty-vip'),
-                onPressed: () => Navigator.push(
+                onPressed: () => openVipPlans<void>(
                   context,
-                  AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
+                  PaywallFlow.start(PaywallPlacement.matchesEmpty, detail: 'vip_button'),
+                  route: PaywallRoute.app,
                 ),
                 icon: const Icon(Icons.workspace_premium_rounded, size: 18),
                 label: Text(l10n.vipMoreMatchesCta),
