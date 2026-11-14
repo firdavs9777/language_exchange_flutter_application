@@ -18,6 +18,8 @@ import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
 import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/pages/vip/vip_price.dart';
+import 'package:bananatalk_app/services/store_price_cache.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -75,7 +77,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     // Coins can change outside this device (an admin grant, a purchase on
     // another device); show the server's balance, not the session's cache.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) refreshCoinBalance(ref);
+      if (!mounted) return;
+      refreshCoinBalance(ref);
+      // A failed or empty product answer from an earlier visit is asked
+      // again once, not kept.
+      retryEmptyProductQuery(ref, isIOS: _isIOS, isAndroid: _isAndroid);
     });
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
@@ -624,7 +630,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     const accent = Color(0xFF1E88E5);
     final productId = pack.productId(_isIOS);
     final product = _storeProduct(ref, productId);
-    final priceText = product?.price ?? '\$${pack.usdPrice.toStringAsFixed(2)}';
+    final saved = ref.watch(savedStorePricesProvider).valueOrNull?[productId];
+    final priceText =
+        product?.price ?? saved?.price ?? '\$${pack.usdPrice.toStringAsFixed(2)}';
     final isBusy = _purchasingPackId == pack.id;
     final isBestValue = pack.id == 'large';
 

@@ -6,12 +6,13 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_price.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
+import 'package:bananatalk_app/services/store_price_cache.dart';
 
 /// The plans screen showed the store price (₩14,000) and the payment screen
 /// one tap later the USD constant ($3.99), 2026-10-18. Both read one helper.
 void main() {
   Future<String> priceWith(WidgetTester tester, List<ProductDetails> products,
-      {bool isIOS = true}) async {
+      {bool isIOS = true, SavedPrice? saved}) async {
     late String text;
     await tester.pumpWidget(ProviderScope(
       overrides: [
@@ -20,7 +21,8 @@ void main() {
       ],
       child: MaterialApp(
         home: Consumer(builder: (context, ref, _) {
-          text = vipPriceText(ref, VipPlan.monthly, isIOS: isIOS, isAndroid: !isIOS);
+          text = vipPriceText(ref, VipPlan.monthly,
+              isIOS: isIOS, isAndroid: !isIOS, saved: saved);
           return Text(text);
         }),
       ),
@@ -44,6 +46,21 @@ void main() {
   });
 
   testWidgets('no store answer yet: the USD list price', (tester) async {
+    expect(await priceWith(tester, const []), '\$3.99');
+  });
+
+  const saved = SavedPrice(price: '₩5,500', currencyCode: 'KRW', rawPrice: 5500);
+
+  testWidgets('vipPriceText prefers store over saved', (tester) async {
+    expect(await priceWith(tester, [monthly(true)], saved: saved), '₩14,000');
+  });
+
+  testWidgets('vipPriceText: no store answer, the saved price', (tester) async {
+    expect(await priceWith(tester, const [], saved: saved), '₩5,500');
+  });
+
+  testWidgets('vipPriceText: neither store nor saved, the plan fallback',
+      (tester) async {
     expect(await priceWith(tester, const []), '\$3.99');
   });
 }

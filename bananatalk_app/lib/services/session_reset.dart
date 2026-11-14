@@ -298,6 +298,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
 /// objects whose identity other code holds on to.
 const Set<String> kAppScopedProviderNames = {
   'themeProvider', // device appearance
+  'savedStorePricesProvider', // last store prices of this phone, device-level
   'languageProvider', // app UI language
   'apiClientProvider', // ApiClient() singleton; its token cache is cleared
   'clubsV2ApiProvider', // stateless GatheringApiClient over that singleton

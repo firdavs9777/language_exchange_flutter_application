@@ -59,7 +59,20 @@ class VipPlansScreen extends ConsumerStatefulWidget {
   /// reported as placement `other`.
   final PaywallFlow? flow;
 
-  const VipPlansScreen({Key? key, this.userId, this.flow}) : super(key: key);
+  /// Test seam: the platform whose store this screen reads (the host
+  /// platform when null).
+  @visibleForTesting
+  final bool? debugIsIOS;
+  @visibleForTesting
+  final bool? debugIsAndroid;
+
+  const VipPlansScreen({
+    Key? key,
+    this.userId,
+    this.flow,
+    this.debugIsIOS,
+    this.debugIsAndroid,
+  }) : super(key: key);
 
   @override
   ConsumerState<VipPlansScreen> createState() => _VipPlansScreenState();
@@ -68,8 +81,8 @@ class VipPlansScreen extends ConsumerStatefulWidget {
 class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   VipPlan? selectedPlan;
   bool _switchDefaultApplied = false;
-  bool _isIOS = Platform.isIOS;
-  bool _isAndroid = Platform.isAndroid;
+  late final bool _isIOS = widget.debugIsIOS ?? Platform.isIOS;
+  late final bool _isAndroid = widget.debugIsAndroid ?? Platform.isAndroid;
   late final PaywallFlow _flow;
 
   @override
@@ -83,29 +96,27 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     } else if (_isAndroid) {
       AndroidPurchaseService.initializeStore();
     }
+    // A failed or empty product answer left from an earlier visit is asked
+    // again once, not kept.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      retryEmptyProductQuery(ref, isIOS: _isIOS, isAndroid: _isAndroid);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show loading state while products are loading on iOS or Android
+    // No full-screen spinner: the plans draw at once from the store's answer
+    // when there is one, else the saved prices, else the list prices, and
+    // rebuild when the store answers (vipStoreProduct watches the provider).
+    // Only a failed query is shown as the retry state.
     if (_isIOS || _isAndroid) {
       final productsAsync = _isIOS
           ? ref.watch(iosProductsProvider)
           : ref.watch(androidProductsProvider);
-      return productsAsync.when(
-        data: (products) => _buildContent(),
-        loading: () => Scaffold(
-          backgroundColor: context.scaffoldBackground,
-          appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.upgradeToVIP, style: context.titleLarge),
-            backgroundColor: context.surfaceColor,
-            elevation: 0,
-          ),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        error: (error, stack) => Scaffold(
+      if (productsAsync.hasError && !productsAsync.isLoading) {
+        final error = productsAsync.error!;
+        return Scaffold(
           backgroundColor: context.scaffoldBackground,
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.upgradeToVIP, style: context.titleLarge),
@@ -144,8 +155,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               ),
             ),
           ),
-        ),
-      );
+        );
+      }
     }
 
     return _buildContent();
@@ -436,7 +447,9 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
     // Use store price when available, otherwise fall back to the plan const.
     final product = _storeProduct(plan);
-    final priceText = vipPriceText(ref, plan, isIOS: _isIOS, isAndroid: _isAndroid);
+    final saved = vipSavedPrice(ref, plan, isIOS: _isIOS);
+    final priceText = vipPriceText(ref, plan,
+        isIOS: _isIOS, isAndroid: _isAndroid, saved: saved);
     final months = plan == VipPlan.monthly
         ? 1
         : plan == VipPlan.quarterly
@@ -444,10 +457,14 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             : 12;
     // Both from the store's own price + currency; hidden when the store
     // details are missing rather than guessed in USD.
-    final perMonthText = vipPerMonthPrice(product, months);
+    // The store product, else the price saved from an earlier launch.
+    final figures = product ?? saved?.toProductDetails(plan.productId(_isIOS));
+    final perMonthText = vipPerMonthPrice(figures, months);
     final savingsPct = vipSavingsPercent(
-      plan: product,
-      monthly: _storeProduct(VipPlan.monthly),
+      plan: figures,
+      monthly: _storeProduct(VipPlan.monthly) ??
+          vipSavedPrice(ref, VipPlan.monthly, isIOS: _isIOS)
+              ?.toProductDetails(VipPlan.monthly.productId(_isIOS)),
       months: months,
     );
     final l10n = AppLocalizations.of(context)!;
