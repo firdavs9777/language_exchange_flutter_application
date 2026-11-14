@@ -8947,5 +8947,77 @@
         "type": "int"
       }
     }
-  }
+  },
+  "myWordsTitle": "My words and mistakes",
+  "myWordsCountWords": "{count, plural, =1{1 word} other{{count} words}}",
+  "@myWordsCountWords": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myWordsCountMistakes": "{count, plural, =1{1 mistake} other{{count} mistakes}}",
+  "@myWordsCountMistakes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myWordsCardBoth": "{words}, {mistakes} to look at",
+  "@myWordsCardBoth": {
+    "description": "Study hub card subtitle: the word count and mistake count strings joined, e.g. \"3 words, 2 mistakes to look at\"",
+    "placeholders": {
+      "words": {
+        "type": "String"
+      },
+      "mistakes": {
+        "type": "String"
+      }
+    }
+  },
+  "myWordsCardOne": "{items} to look at",
+  "@myWordsCardOne": {
+    "description": "Study hub card subtitle when only one of words or mistakes is present; items is a count string such as \"3 words\"",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "myWordsCardEmpty": "Words you look up in chats will appear here",
+  "myWordsFromChats": "From your chats",
+  "myWordsMistakes": "Mistakes",
+  "myWordsToReview": "Words to review",
+  "myWordsDueCount": "{count, plural, =1{1 word is ready} other{{count} words are ready}}",
+  "@myWordsDueCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myWordsKeep": "Keep",
+  "myWordsDismiss": "Dismiss",
+  "myWordsGotIt": "Got it",
+  "myWordsGotItProgress": "{done} of 3",
+  "@myWordsGotItProgress": {
+    "description": "Progress on a mistake: how many of the 3 successful practices are done",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "myWordsSayIt": "Say it",
+  "myWordsReview": "Review",
+  "myWordsEmpty": "Nothing waiting. Look up a word in a chat and it will show up here.",
+  "myWordsActionFailed": "That didn't work. Try again.",
+  "myWordsYouWrote": "You wrote",
+  "myWordsCorrection": "Correction",
+  "studyDoorTalk": "Talk",
+  "studyDoorTalkSubtitle": "Practise speaking with your tutor",
+  "studyDoorRoleplay": "Roleplay",
+  "studyDoorMore": "More ways to study"
 }

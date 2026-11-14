@@ -12813,4 +12813,103 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => '내 단어와 실수';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '실수 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes 확인하기';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items 확인하기';
+  }
+
+  @override
+  String get myWordsCardEmpty => '채팅에서 찾아본 단어가 여기에 나타나요';
+
+  @override
+  String get myWordsFromChats => '내 채팅에서';
+
+  @override
+  String get myWordsMistakes => '실수';
+
+  @override
+  String get myWordsToReview => '복습할 단어';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어 $count개를 복습할 수 있어요',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => '저장';
+
+  @override
+  String get myWordsDismiss => '숨기기';
+
+  @override
+  String get myWordsGotIt => '알겠어요';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '3개 중 $done개';
+  }
+
+  @override
+  String get myWordsSayIt => '말해 보기';
+
+  @override
+  String get myWordsReview => '복습';
+
+  @override
+  String get myWordsEmpty => '기다리는 항목이 없어요. 채팅에서 단어를 찾아보면 여기에 나타나요.';
+
+  @override
+  String get myWordsActionFailed => '잘 되지 않았어요. 다시 시도해 주세요.';
+
+  @override
+  String get myWordsYouWrote => '내가 쓴 문장';
+
+  @override
+  String get myWordsCorrection => '교정';
+
+  @override
+  String get studyDoorTalk => '말하기';
+
+  @override
+  String get studyDoorTalkSubtitle => '튜터와 말하기를 연습해 보세요';
+
+  @override
+  String get studyDoorRoleplay => '롤플레이';
+
+  @override
+  String get studyDoorMore => '더 많은 학습 방법';
 }

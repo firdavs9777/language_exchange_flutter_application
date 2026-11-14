@@ -48,7 +48,15 @@ Widget destinationFor(StudyFeature f) => switch (f) {
 /// then the persona picker for Talk tiles without a persona, then the
 /// destination.
 class StudyFeatureGroups extends ConsumerWidget {
-  const StudyFeatureGroups({super.key, this.navigate});
+  const StudyFeatureGroups({
+    super.key,
+    this.navigate,
+    this.exclude = const {},
+  });
+
+  /// Features left out of the grid (the doors hub shows tutor and roleplay as
+  /// its Talk door). A group left with no features is not drawn.
+  final Set<StudyFeature> exclude;
 
   /// Test seam; defaults to pushing an [AppPageRoute].
   final void Function(BuildContext context, Widget destination)? navigate;
@@ -72,7 +80,8 @@ class StudyFeatureGroups extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final group in StudyGroup.values) ...[
+        for (final group in StudyGroup.values.where(
+            (g) => studyFeatureGroups[g]!.any((f) => !exclude.contains(f)))) ...[
           Padding(
             padding: const EdgeInsets.only(bottom: StudyHubMetrics.groupLabelGap),
             child: Text(
@@ -85,7 +94,7 @@ class StudyFeatureGroups extends ConsumerWidget {
             ),
           ),
           _Grid(children: [
-            for (final f in studyFeatureGroups[group]!)
+            for (final f in studyFeatureGroups[group]!.where((f) => !exclude.contains(f)))
               Builder(builder: (context) {
                 final badge = badgeFor(f,
                     isVip: isVip,
@@ -109,43 +118,61 @@ class StudyFeatureGroups extends ConsumerWidget {
     );
   }
 
-  Future<void> _onTap(BuildContext context, WidgetRef ref, StudyFeature f, TileBadge? badge) async {
-    AnalyticsService.instance.studyTileTap(feature: f.slug, badge: badge?.analyticsName);
-    // A lock or an exhausted allowance puts a sheet in front of the feature.
-    final blocked = badge?.kind == TileBadgeKind.locked ||
-        badge?.kind == TileBadgeKind.exhausted;
-    studyLog(StudyEvent.featureOpened,
-        kind: f.slug, detail: blocked ? badge?.analyticsName : null);
-    // The tile may be gone when markSeen resolves; `ref` would throw then,
-    // so invalidate through the container captured now.
-    final container = ProviderScope.containerOf(context, listen: false);
-    FeatureSeenStore.markSeen(f.slug).then((_) => container.invalidate(featureSeenProvider));
+  Future<void> _onTap(BuildContext context, WidgetRef ref, StudyFeature f, TileBadge? badge) =>
+      openStudyFeature(context, ref, f, badge: badge, navigate: navigate);
+}
 
-    if (badge?.kind == TileBadgeKind.locked) {
-      await showStudyUpgradeSheet(context, feature: f, reason: StudyUpgradeReason.locked);
-      return;
-    }
-    if (badge?.kind == TileBadgeKind.exhausted) {
-      final unlocked = await showStudyUpgradeSheet(context,
-          feature: f, reason: StudyUpgradeReason.exhausted);
-      if (!unlocked || !context.mounted) return;
-    }
-    if (!context.mounted) return;
-    _open(context, ref, f);
-  }
+/// What a tap on a feature does: analytics, the study event, the badge-gated
+/// sheet (lock or exhausted allowance), then the persona picker for Talk
+/// features without a persona, then the destination. Shared by the grid tiles
+/// and the Talk door. [badge] is the tile's badge (null: no gating).
+Future<void> openStudyFeature(
+  BuildContext context,
+  WidgetRef ref,
+  StudyFeature f, {
+  TileBadge? badge,
+  void Function(BuildContext context, Widget destination)? navigate,
+}) async {
+  AnalyticsService.instance.studyTileTap(feature: f.slug, badge: badge?.analyticsName);
+  // A lock or an exhausted allowance puts a sheet in front of the feature.
+  final blocked = badge?.kind == TileBadgeKind.locked ||
+      badge?.kind == TileBadgeKind.exhausted;
+  studyLog(StudyEvent.featureOpened,
+      kind: f.slug, detail: blocked ? badge?.analyticsName : null);
+  // The tile may be gone when markSeen resolves; `ref` would throw then,
+  // so invalidate through the container captured now.
+  final container = ProviderScope.containerOf(context, listen: false);
+  FeatureSeenStore.markSeen(f.slug).then((_) => container.invalidate(featureSeenProvider));
 
-  void _open(BuildContext context, WidgetRef ref, StudyFeature f) {
-    final push = navigate ??
-        (BuildContext c, Widget w) => Navigator.push(c, AppPageRoute(builder: (_) => w));
-    var dest = destinationFor(f);
-    // Talk tiles need a persona; the picker forwards to the chosen feature
-    // (same rule as the old _TutorModeChips._open).
-    if (f.group == StudyGroup.talk &&
-        ref.read(tutorMemoryProvider).valueOrNull?.persona == null) {
-      dest = PersonaPickerScreen(destinationAfterPick: dest);
-    }
-    push(context, dest);
+  if (badge?.kind == TileBadgeKind.locked) {
+    await showStudyUpgradeSheet(context, feature: f, reason: StudyUpgradeReason.locked);
+    return;
   }
+  if (badge?.kind == TileBadgeKind.exhausted) {
+    final unlocked = await showStudyUpgradeSheet(context,
+        feature: f, reason: StudyUpgradeReason.exhausted);
+    if (!unlocked || !context.mounted) return;
+  }
+  if (!context.mounted) return;
+  _openDestination(context, ref, f, navigate);
+}
+
+void _openDestination(
+  BuildContext context,
+  WidgetRef ref,
+  StudyFeature f,
+  void Function(BuildContext context, Widget destination)? navigate,
+) {
+  final push = navigate ??
+      (BuildContext c, Widget w) => Navigator.push(c, AppPageRoute(builder: (_) => w));
+  var dest = destinationFor(f);
+  // Talk tiles need a persona; the picker forwards to the chosen feature
+  // (same rule as the old _TutorModeChips._open).
+  if (f.group == StudyGroup.talk &&
+      ref.read(tutorMemoryProvider).valueOrNull?.persona == null) {
+    dest = PersonaPickerScreen(destinationAfterPick: dest);
+  }
+  push(context, dest);
 }
 
 /// 2-column grid with fixed gaps; rows size to their tallest tile so text

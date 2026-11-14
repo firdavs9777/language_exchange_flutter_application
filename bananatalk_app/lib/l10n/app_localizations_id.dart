@@ -12824,4 +12824,103 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'Kata dan kesalahanku';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kesalahan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes untuk dilihat';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items untuk dilihat';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Kata yang kamu cari di obrolan akan muncul di sini';
+
+  @override
+  String get myWordsFromChats => 'Dari obrolanmu';
+
+  @override
+  String get myWordsMistakes => 'Kesalahan';
+
+  @override
+  String get myWordsToReview => 'Kata untuk diulas';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata siap',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Simpan';
+
+  @override
+  String get myWordsDismiss => 'Sembunyikan';
+
+  @override
+  String get myWordsGotIt => 'Mengerti';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done dari 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Ucapkan';
+
+  @override
+  String get myWordsReview => 'Ulas';
+
+  @override
+  String get myWordsEmpty => 'Tidak ada yang menunggu. Cari kata di obrolan dan kata itu akan muncul di sini.';
+
+  @override
+  String get myWordsActionFailed => 'Itu tidak berhasil. Coba lagi.';
+
+  @override
+  String get myWordsYouWrote => 'Kamu menulis';
+
+  @override
+  String get myWordsCorrection => 'Koreksi';
+
+  @override
+  String get studyDoorTalk => 'Bicara';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Latihan berbicara dengan tutormu';
+
+  @override
+  String get studyDoorRoleplay => 'Bermain peran';
+
+  @override
+  String get studyDoorMore => 'Cara belajar lainnya';
 }

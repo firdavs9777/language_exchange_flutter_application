@@ -45,6 +45,7 @@ import 'package:bananatalk_app/providers/provider_root/learning/challenges_provi
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/leaderboard_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/lessons_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/my_words_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/quizzes_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
@@ -288,6 +289,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'dueReviewsProvider': dueReviewsProvider,
   'vocabularyStatsProvider': vocabularyStatsProvider,
   'vocabularyReviewProvider': vocabularyReviewProvider,
+  // The signed-in learner's words and mistakes (loaded with their token).
+  'myWordsProvider': myWordsProvider,
   // Exam study (progress + plan are per user; the content refetches cheaply)
   'examStudyServiceProvider': examStudyServiceProvider,
   'examLanguagesProvider': examLanguagesProvider,
@@ -330,6 +333,9 @@ const Set<String> kAppScopedProviderNames = {
   'communityFastListEnabledProvider', // derived from appConfigProvider
   'paywallEventsEnabledProvider', // derived from appConfigProvider
   'studyEventsEnabledProvider', // derived from appConfigProvider
+  'studyFromChatsEnabledProvider', // derived from appConfigProvider
+  'studyDoorsEnabledProvider', // derived from appConfigProvider
+  'myWordsApiProvider', // stateless, over the ApiClient singleton
   'offerEngineEnabledProvider', // derived from appConfigProvider
   'offersClockProvider', // the wall clock (a test seam)
   // Stateless: every entry is keyed by user id, and sign-out clears them

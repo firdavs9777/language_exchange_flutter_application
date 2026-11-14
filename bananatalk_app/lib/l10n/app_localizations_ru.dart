@@ -13336,4 +13336,112 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'Мои слова и ошибки';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count слова',
+      many: '$count слов',
+      few: '$count слова',
+      one: '$count слово',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ошибки',
+      many: '$count ошибок',
+      few: '$count ошибки',
+      one: '$count ошибка',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes для просмотра';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items для просмотра';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Слова, которые вы посмотрите в чатах, появятся здесь';
+
+  @override
+  String get myWordsFromChats => 'Из ваших чатов';
+
+  @override
+  String get myWordsMistakes => 'Ошибки';
+
+  @override
+  String get myWordsToReview => 'Слова для повторения';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count слова готовы',
+      many: '$count слов готовы',
+      few: '$count слова готовы',
+      one: '$count слово готово',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Оставить';
+
+  @override
+  String get myWordsDismiss => 'Скрыть';
+
+  @override
+  String get myWordsGotIt => 'Понятно';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done из 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Произнесите';
+
+  @override
+  String get myWordsReview => 'Повторить';
+
+  @override
+  String get myWordsEmpty => 'Ничего не ждёт. Посмотрите слово в чате, и оно появится здесь.';
+
+  @override
+  String get myWordsActionFailed => 'Не получилось. Попробуйте ещё раз.';
+
+  @override
+  String get myWordsYouWrote => 'Вы написали';
+
+  @override
+  String get myWordsCorrection => 'Исправление';
+
+  @override
+  String get studyDoorTalk => 'Говорить';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Тренируйте речь с репетитором';
+
+  @override
+  String get studyDoorRoleplay => 'Ролевая игра';
+
+  @override
+  String get studyDoorMore => 'Другие способы учиться';
 }

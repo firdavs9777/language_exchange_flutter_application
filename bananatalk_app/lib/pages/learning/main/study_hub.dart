@@ -9,19 +9,23 @@ import 'package:bananatalk_app/pages/learning/main/sections/progress_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/vocab_packs_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/recommended_tile.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/spotlight_carousel.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/study_doors.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_feature_groups.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/today_pack_row.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub_metrics.dart';
+import 'package:bananatalk_app/pages/learning/main/study_more_screen.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/my_words_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/services/study/study_hub_cache.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -163,12 +167,20 @@ class _StudyHubState extends ConsumerState<StudyHub> {
     );
   }
 
+  /// The guide's secondary action when the doors are on: the grid is gone
+  /// from the hub, so "see all features" opens the More screen.
+  void _openMore() => Navigator.push(
+    context,
+    AppPageRoute(builder: (_) => const StudyMoreScreen()),
+  );
+
   Future<void> _refresh() async {
     ref.invalidate(learningProgressProvider);
     ref.invalidate(dailyPackProvider);
     ref.invalidate(weakAreasProvider);
     ref.invalidate(tutorMemoryAndQuotasProvider);
     ref.invalidate(vocabularyStatsProvider(null));
+    ref.invalidate(myWordsProvider);
   }
 
   @override
@@ -192,6 +204,7 @@ class _StudyHubState extends ConsumerState<StudyHub> {
         !guideOn && spotlightItems(announcements, dismissed).isNotEmpty;
     final progress = ref.watch(learningProgressProvider).valueOrNull;
     final showAds = ref.watch(showAdsProvider);
+    final doorsOn = ref.watch(studyDoorsEnabledProvider);
     // First paint only: the saved snapshot stands in while the live pack has
     // never arrived (a reload keeps its previous value, so it never shows
     // again once live data was seen).
@@ -257,7 +270,7 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                       ctaLabel: l.guideStudyHubCta,
                       onCta: _openPack,
                       secondaryLabel: l.guideStudyHubSecondary,
-                      onSecondary: _scrollToGroups,
+                      onSecondary: doorsOn ? _openMore : _scrollToGroups,
                       padding: const EdgeInsets.only(
                         bottom: StudyHubMetrics.tileGap,
                       ),
@@ -282,18 +295,26 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                           ),
                         ),
                     gap,
-                    // Renders nothing until a weak area with enough attempts
-                    // exists.
-                    const VocabPacksCard(),
-                    gap,
-                    const RecommendedTile(),
-                    const SizedBox(height: StudyHubMetrics.groupGap),
-                    KeyedSubtree(
-                      key: _groupsKey,
-                      child: const StudyFeatureGroups(
-                        key: StudyHub.groupsSectionKey,
+                    if (doorsOn) ...[
+                      const MyWordsDoorCard(),
+                      gap,
+                      const TalkDoorCard(),
+                      gap,
+                      const MoreDoorRow(),
+                    ] else ...[
+                      // Renders nothing until a weak area with enough attempts
+                      // exists.
+                      const VocabPacksCard(),
+                      gap,
+                      const RecommendedTile(),
+                      const SizedBox(height: StudyHubMetrics.groupGap),
+                      KeyedSubtree(
+                        key: _groupsKey,
+                        child: const StudyFeatureGroups(
+                          key: StudyHub.groupsSectionKey,
+                        ),
                       ),
-                    ),
+                    ],
                     // Always shown: its shortcuts (achievements, vocabulary,
                     // review) are the hub's only way to those screens.
                     const SizedBox(height: StudyHubMetrics.groupGap),

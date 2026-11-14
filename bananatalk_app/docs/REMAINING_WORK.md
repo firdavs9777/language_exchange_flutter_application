@@ -17,6 +17,19 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - All new server flags are still off (dark); see the backend file for the flag table.
 - fix/moments-stories-audit merged into main (2026-10-16, web-parity P2-1); its device rows are in docs/audits/2026-10-16-web-parity/moments.md.
 
+### AI Study phase 2a app (Plan S4) — branch feat/ai-study-my-words-app, dark behind studyFromChatsEnabled / studyDoorsEnabled
+
+- [x] Task 1: both app-config flags, MyWordsApi, models, myWordsProvider, 24 strings in 19 locales (the 18 non-English machine-drafted; need native review)
+- [x] Task 2: "Say it" on the pronunciation screen — `PronunciationScreen` takes `initialText` / `initialLanguage` / `ownSentence`; sends `source: 'own'` while the text is unchanged; language falls back to the caller's base code
+- [x] Task 3: "My words and mistakes" screen (keep / dismiss, got it, say it) — `lib/pages/learning/my_words/`; not linked from anywhere yet
+  - [x] Fix round 1: refresh/failure races, restore position, no ref after await, safe refresh, stats-loading flash, due-row overflow
+  - [ ] Native review of the 18 machine-drafted my-words locales; device QA of the screen
+- [x] Task 4: three doors on the hub (`MyWordsDoorCard`, `TalkDoorCard`, `MoreDoorRow`) and `StudyMoreScreen`, behind `studyDoorsEnabled` (flag off = today's hub, unchanged); `openStudyFeature` extracted from the grid; guide secondary action and pull-to-refresh follow the doors. Open: device look at the three cards (dark mode, small phones); 18 machine-drafted locales need native review
+- [x] Final review fixes: kept / dismissed / resolved rows no longer come back on reopen and the hub card count drops (myWordsProvider refetched after every action and on open); no "Nothing waiting" while the server holds more rows or a request is in flight; Say it picks the exact language variant (zh-TW before zh-CN); myWordsProvider reset on sign-out; retry/refresh/stats-loading states; due line on the card, "will appear here" only with capture on; empty correction hides Correction and Say it; My words card has its own colours (4.5:1); door titles wrap to 2 lines; Roleplay target 44; Arabic plural forms; ja/th/ko/id/tr Dismiss = hide; Thai card separator; failure line "That didn't work. Try again."
+  - [ ] Open: no badge on the Roleplay button; the hub switches layout when app-config arrives with doors on; nothing device-tested; native review of the 18 locales (incl. the strings changed here)
+- [x] Task 5: whole-suite check and handoff — full `flutter test` 4369 passed, analyze 1119 issues / 0 errors / 3 pre-existing test warnings; handoff `docs/releases/ai-study-my-words-app-handoff.md` (switch order, device checklist, 24 keys for native review)
+  - [ ] Open (owner): device checklist in the handoff §4 before either switch; release build with this branch, then `STUDY_FROM_CHATS_ENABLED` → `STUDY_DOORS_ENABLED`; native review of the 18 locales; no badge on Roleplay; hub layout switch when app-config arrives with doors on
+
 ## 2. Owner — manual steps (in order)
 
 1. Release build 2.7.0 (10580) on the keystore MacBook: `2.7.0-handoff.md` §1–§2 (`flutter build appbundle`, JDK 17 flag).

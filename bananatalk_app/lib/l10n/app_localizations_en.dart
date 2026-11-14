@@ -12882,4 +12882,106 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'My words and mistakes';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words',
+      one: '1 word',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mistakes',
+      one: '1 mistake',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes to look at';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items to look at';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Words you look up in chats will appear here';
+
+  @override
+  String get myWordsFromChats => 'From your chats';
+
+  @override
+  String get myWordsMistakes => 'Mistakes';
+
+  @override
+  String get myWordsToReview => 'Words to review';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words are ready',
+      one: '1 word is ready',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Keep';
+
+  @override
+  String get myWordsDismiss => 'Dismiss';
+
+  @override
+  String get myWordsGotIt => 'Got it';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done of 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Say it';
+
+  @override
+  String get myWordsReview => 'Review';
+
+  @override
+  String get myWordsEmpty => 'Nothing waiting. Look up a word in a chat and it will show up here.';
+
+  @override
+  String get myWordsActionFailed => 'That didn\'t work. Try again.';
+
+  @override
+  String get myWordsYouWrote => 'You wrote';
+
+  @override
+  String get myWordsCorrection => 'Correction';
+
+  @override
+  String get studyDoorTalk => 'Talk';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Practise speaking with your tutor';
+
+  @override
+  String get studyDoorRoleplay => 'Roleplay';
+
+  @override
+  String get studyDoorMore => 'More ways to study';
 }

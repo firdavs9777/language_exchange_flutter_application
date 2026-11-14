@@ -12813,4 +12813,103 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'Từ và lỗi của tôi';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count từ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lỗi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes cần xem';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items cần xem';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Những từ bạn tra trong cuộc trò chuyện sẽ xuất hiện ở đây';
+
+  @override
+  String get myWordsFromChats => 'Từ các cuộc trò chuyện của bạn';
+
+  @override
+  String get myWordsMistakes => 'Lỗi';
+
+  @override
+  String get myWordsToReview => 'Từ cần ôn';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count từ đã sẵn sàng',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Giữ lại';
+
+  @override
+  String get myWordsDismiss => 'Bỏ qua';
+
+  @override
+  String get myWordsGotIt => 'Đã hiểu';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done/3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Nói thử';
+
+  @override
+  String get myWordsReview => 'Ôn tập';
+
+  @override
+  String get myWordsEmpty => 'Chưa có gì đang chờ. Hãy tra một từ trong cuộc trò chuyện và nó sẽ xuất hiện ở đây.';
+
+  @override
+  String get myWordsActionFailed => 'Không được. Hãy thử lại.';
+
+  @override
+  String get myWordsYouWrote => 'Bạn đã viết';
+
+  @override
+  String get myWordsCorrection => 'Sửa lỗi';
+
+  @override
+  String get studyDoorTalk => 'Nói chuyện';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Luyện nói với gia sư của bạn';
+
+  @override
+  String get studyDoorRoleplay => 'Nhập vai';
+
+  @override
+  String get studyDoorMore => 'Thêm cách học';
 }

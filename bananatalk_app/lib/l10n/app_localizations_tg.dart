@@ -12840,4 +12840,106 @@ class AppLocalizationsTg extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'Калимаҳо ва хатоҳои ман';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count калима',
+      one: '1 калима',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count хато',
+      one: '1 хато',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes барои дидан';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items барои дидан';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Калимаҳое, ки дар чатҳо ҷустуҷӯ мекунед, дар ин ҷо пайдо мешаванд';
+
+  @override
+  String get myWordsFromChats => 'Аз чатҳои шумо';
+
+  @override
+  String get myWordsMistakes => 'Хатоҳо';
+
+  @override
+  String get myWordsToReview => 'Калимаҳо барои такрор';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count калима омода аст',
+      one: '1 калима омода аст',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Нигоҳ доштан';
+
+  @override
+  String get myWordsDismiss => 'Рад кардан';
+
+  @override
+  String get myWordsGotIt => 'Фаҳмидам';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done аз 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Бигӯед';
+
+  @override
+  String get myWordsReview => 'Такрор кардан';
+
+  @override
+  String get myWordsEmpty => 'Чизе мунтазир нест. Дар чат калимаеро ҷустуҷӯ кунед, он дар ин ҷо пайдо мешавад.';
+
+  @override
+  String get myWordsActionFailed => 'Нашуд. Бори дигар кӯшиш кунед.';
+
+  @override
+  String get myWordsYouWrote => 'Шумо навиштед';
+
+  @override
+  String get myWordsCorrection => 'Ислоҳ';
+
+  @override
+  String get studyDoorTalk => 'Гуфтугӯ';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Гуфтугӯро бо мураббии худ машқ кунед';
+
+  @override
+  String get studyDoorRoleplay => 'Нақшбозӣ';
+
+  @override
+  String get studyDoorMore => 'Роҳҳои бештари омӯзиш';
 }

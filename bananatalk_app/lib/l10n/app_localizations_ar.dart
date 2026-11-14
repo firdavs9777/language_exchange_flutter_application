@@ -12974,4 +12974,118 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'كلماتي وأخطائي';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count كلمة',
+      many: '$count كلمة',
+      few: '$count كلمات',
+      two: 'كلمتان',
+      one: 'كلمة واحدة',
+      zero: 'لا كلمات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count خطأ',
+      many: '$count خطأً',
+      few: '$count أخطاء',
+      two: 'خطآن',
+      one: 'خطأ واحد',
+      zero: 'لا أخطاء',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words، $mistakes للمراجعة';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items للمراجعة';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'ستظهر هنا الكلمات التي تبحث عنها في المحادثات';
+
+  @override
+  String get myWordsFromChats => 'من محادثاتك';
+
+  @override
+  String get myWordsMistakes => 'الأخطاء';
+
+  @override
+  String get myWordsToReview => 'كلمات للمراجعة';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count كلمة جاهزة',
+      many: '$count كلمة جاهزة',
+      few: '$count كلمات جاهزة',
+      two: 'كلمتان جاهزتان',
+      one: 'كلمة واحدة جاهزة',
+      zero: 'لا كلمات جاهزة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'احتفظ';
+
+  @override
+  String get myWordsDismiss => 'تجاهل';
+
+  @override
+  String get myWordsGotIt => 'فهمت';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done من 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'انطقها';
+
+  @override
+  String get myWordsReview => 'راجع';
+
+  @override
+  String get myWordsEmpty => 'لا شيء بانتظارك. ابحث عن كلمة في محادثة وستظهر هنا.';
+
+  @override
+  String get myWordsActionFailed => 'لم ينجح ذلك. حاول مرة أخرى.';
+
+  @override
+  String get myWordsYouWrote => 'كتبتَ';
+
+  @override
+  String get myWordsCorrection => 'التصحيح';
+
+  @override
+  String get studyDoorTalk => 'تحدّث';
+
+  @override
+  String get studyDoorTalkSubtitle => 'تدرّب على التحدث مع معلمك';
+
+  @override
+  String get studyDoorRoleplay => 'لعب الأدوار';
+
+  @override
+  String get studyDoorMore => 'طرق أخرى للدراسة';
 }

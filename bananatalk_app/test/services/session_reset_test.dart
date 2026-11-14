@@ -9,6 +9,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/my_words_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
@@ -71,6 +72,8 @@ void main() {
       myVisitorStatsProvider,
       notificationSettingsProvider,
       wavesUnreadProvider,
+      // Loaded with the user's token: the next account must not see them.
+      myWordsProvider,
     ]) {
       expect(invalidated.any((i) => identical(i, p)), isTrue, reason: '$p');
     }
