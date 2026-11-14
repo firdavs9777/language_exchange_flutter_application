@@ -583,7 +583,9 @@ class _Empty extends ConsumerWidget {
                   }
                   Navigator.push(
                     context,
-                    AppPageRoute<void>(builder: (_) => const BoostScreen()),
+                    AppPageRoute<void>(
+                      builder: (_) => BoostScreen(flow: offerFlow),
+                    ),
                   );
                 },
                 icon: const Icon(Icons.rocket_launch_rounded, size: 18),

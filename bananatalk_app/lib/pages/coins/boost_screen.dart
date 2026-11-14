@@ -45,7 +45,12 @@ Boost? lastEndedBoost(List<Boost> history, DateTime now) {
 /// progress (time used, impressions by place, tips). After it ends, the last
 /// result is shown with "Boost again". Reached only behind `boostsEnabled`.
 class BoostScreen extends ConsumerStatefulWidget {
-  const BoostScreen({super.key});
+  const BoostScreen({super.key, this.flow});
+
+  /// The flow of the surface that opened this screen (an engine offer).
+  /// When given, this screen's own events go on it instead of a new flow,
+  /// so a boost bought here counts for that offer.
+  final PaywallFlow? flow;
 
   @override
   ConsumerState<BoostScreen> createState() => _BoostScreenState();
@@ -60,8 +65,9 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
   String? _message;
   Timer? _tick;
 
-  /// One flow per opening of the screen.
-  final PaywallFlow _flow = PaywallFlow.start(PaywallPlacement.boost);
+  /// One flow per opening of the screen (the opener's, when it gave one).
+  late final PaywallFlow _flow =
+      widget.flow ?? PaywallFlow.start(PaywallPlacement.boost);
 
   @override
   void initState() {
@@ -158,6 +164,7 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
             PaywallFlow(
               placement: PaywallPlacement.notEnoughCoins,
               flowId: _flow.flowId,
+              offerId: _flow.offerId,
               detail: 'boost',
             ),
             route: PaywallRoute.app,

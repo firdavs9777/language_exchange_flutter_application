@@ -186,6 +186,7 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
           builder: (_) => ProfileVisitorsScreen(
             userId: myId,
             fetchVisitors: widget.fetchVisitors,
+            flow: offerFlow,
           ),
         ),
       );

@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/offers/offer.dart';
 import 'package:bananatalk_app/services/offers/offers_api.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dart';
 
 /// The `GET offers` client (stateless over the ApiClient singleton).
 final offersApiProvider = Provider<OffersApi>((ref) => OffersApi());
@@ -38,20 +40,30 @@ class OffersNotifier extends StateNotifier<Offer?> {
   DateTime? _lastFetch;
   Timer? _expiry;
 
+  /// Bumped per request; only the newest request's answer is applied.
+  int _seq = 0;
+
   /// At most one request per [minInterval] unless [force]. Never throws. A
-  /// failed, non-200 or malformed answer clears the offer.
+  /// failed, non-200 or malformed answer clears the offer. An answer that
+  /// lands after a newer request was started is ignored.
   Future<void> refresh({bool force = false}) async {
+    var seq = -1;
     try {
+      // The expiry timer may not have advanced while the device slept: drop
+      // a lapsed offer now rather than when the answer arrives.
+      final current = state;
+      if (current != null && !current.isValid(_now())) _set(null);
       if (!_enabled()) return;
       final at = _now();
       final last = _lastFetch;
       if (!force && last != null && at.difference(last) < minInterval) return;
       _lastFetch = at;
+      seq = ++_seq;
       final offer = await _api.fetch();
-      if (mounted) _set(offer);
+      if (mounted && seq == _seq) _set(offer);
     } catch (e) {
       debugPrint('[offers] refresh failed: $e');
-      if (mounted) _set(null);
+      if (mounted && (seq == -1 || seq == _seq)) _set(null);
     }
   }
 
@@ -155,10 +167,13 @@ void resetOfferProcessStateForTest() {
   _shownOfferIds.clear();
 }
 
-/// Wraps a surface drawn for an engine offer: after the frame it is first
-/// laid out (and whenever the offer changes) logs `shown` via
-/// [reportOfferShown]. Never logs from build.
-class OfferShownReporter extends StatefulWidget {
+/// Wraps a surface drawn for an engine offer and logs `shown` (via
+/// [reportOfferShown], so once per offer id per process) only once the
+/// surface can be seen: its route is the current one and, when it sits in a
+/// top-level tab, that tab is the selected one. Top-level tabs stay mounted
+/// while hidden, so being built is not being seen. Re-checked whenever the
+/// route, the selected tab or the offer changes. Never logs from build.
+class OfferShownReporter extends ConsumerStatefulWidget {
   const OfferShownReporter({
     super.key,
     required this.flow,
@@ -169,30 +184,41 @@ class OfferShownReporter extends StatefulWidget {
   final Widget child;
 
   @override
-  State<OfferShownReporter> createState() => _OfferShownReporterState();
+  ConsumerState<OfferShownReporter> createState() =>
+      _OfferShownReporterState();
 }
 
-class _OfferShownReporterState extends State<OfferShownReporter> {
-  @override
-  void initState() {
-    super.initState();
-    _schedule();
-  }
+class _OfferShownReporterState extends ConsumerState<OfferShownReporter> {
+  bool _scheduled = false;
 
-  @override
-  void didUpdateWidget(OfferShownReporter oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.flow.offerId != widget.flow.offerId) _schedule();
-  }
+  /// The top-level tab this surface lives in (the tab wrapper TabsScreen
+  /// puts around every page), or null on a pushed route.
+  int? _owningTab() =>
+      context.findAncestorWidgetOfExactType<TabReselectScrollToTop>()?.tab;
 
-  void _schedule() {
+  void _scheduleIfVisible(bool visible) {
+    if (!visible || _scheduled) return;
+    _scheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) reportOfferShown(widget.flow);
+      _scheduled = false;
+      if (!mounted) return;
+      final tab = _owningTab();
+      final tabSelected = tab == null || ref.read(selectedTabProvider) == tab;
+      final routeCurrent = ModalRoute.of(context)?.isCurrent ?? true;
+      if (tabSelected && routeCurrent) reportOfferShown(widget.flow);
     });
   }
 
   @override
-  Widget build(BuildContext context) => widget.child;
+  Widget build(BuildContext context) {
+    final tab = _owningTab();
+    // Watching here rebuilds on a tab switch; ModalRoute.of rebuilds when
+    // the route stops or starts being the current one.
+    final tabSelected = tab == null || ref.watch(selectedTabProvider) == tab;
+    final routeCurrent = ModalRoute.of(context)?.isCurrent ?? true;
+    _scheduleIfVisible(tabSelected && routeCurrent);
+    return widget.child;
+  }
 }
 
 /// Fire-and-forget refresh after a purchase or unlock succeeded: what the

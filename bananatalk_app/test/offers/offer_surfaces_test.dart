@@ -6,18 +6,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/models/boost.dart';
+import 'package:bananatalk_app/models/coin_transaction.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/boost_api_client.dart';
+import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/offers/offer.dart';
 import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
@@ -37,6 +41,42 @@ class _BoostClient implements BoostApiClient {
   @override
   Future<List<Boost>> getHistory() async => const [];
 }
+
+class _BuyingBoostClient implements BoostApiClient {
+  Boost? active;
+  @override
+  Future<Boost> purchaseProfileBoost() async => active = Boost(
+    id: 'b1',
+    kind: 'profile',
+    startsAt: DateTime.now(),
+    endsAt: DateTime.now().add(const Duration(hours: 23)),
+    impressions: 0,
+    coinsSpent: 150,
+    status: 'active',
+  );
+  @override
+  Future<Boost?> getActive() async => active;
+  @override
+  Future<List<Boost>> getHistory() async => const [];
+}
+
+class _CoinApi extends CoinApiClient {
+  @override
+  Future<ApiResponse> unlock(String featureKey) async =>
+      ApiResponse(success: true, statusCode: 200);
+  @override
+  Future<int> getBalance() async => 500;
+}
+
+final List<Override> _coinOverrides = [
+  coinApiClientProvider.overrideWithValue(_CoinApi()),
+  coinUnlockCatalogProvider.overrideWith(
+    (ref) async => const {
+      'who_waved': CoinUnlockEntry(featureKey: 'who_waved', cost: 60, grant: 1),
+    },
+  ),
+  coinBalanceProvider.overrideWith((ref) async => 500),
+];
 
 AppConfig _cfg({bool engine = false}) => AppConfig(
   minVersion: '0',
@@ -215,6 +255,88 @@ void main() {
       expect(find.byType(ProfileVisitorsScreen), findsOneWidget);
       expect(logged, isEmpty);
     });
+  });
+
+  group('offer flow carried into the next screen', () {
+    Future<Map<String, dynamic>> maskedFetch({
+      required String userId,
+      int limit = 20,
+      int page = 1,
+      bool reveal = false,
+      bool seen = false,
+    }) async => {
+      'success': true,
+      'count': 2,
+      'visitors': [
+        {'revealed': false, 'lastVisit': '2026-11-14T08:00:00.000Z'},
+        {'revealed': false, 'lastVisit': '2026-11-14T07:00:00.000Z'},
+      ],
+      'maskedCount': 2,
+    };
+
+    testWidgets(
+      'recall card offer: unlocking visitors logs unlock_succeeded on the offer flow',
+      (tester) async {
+        await tester.pumpWidget(
+          host(
+            VisitorRecallCard(fetchVisitors: maskedFetch),
+            gates: {OfferSurface.visitorRecall: _show(OfferSurface.visitorRecall)},
+            extra: _coinOverrides,
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('2 people visited your profile'));
+        await tester.pumpAndSettle();
+        expect(find.byType(ProfileVisitorsScreen), findsOneWidget);
+        await tester.tap(find.text('💎60'));
+        await tester.pumpAndSettle();
+        final unlock = logged.singleWhere((l) => l.action == 'unlock_succeeded');
+        expect(unlock.flow.flowId, 'flow-1');
+        expect(unlock.flow.offerId, 'offer-1');
+        for (final l in logged) {
+          expect(l.flow.flowId, 'flow-1', reason: l.action);
+        }
+      },
+    );
+
+    testWidgets(
+      'matches empty offer: a boost bought there logs unlock_succeeded on the offer flow',
+      (tester) async {
+        await tester.pumpWidget(
+          host(
+            const MatchesTab(),
+            gates: {
+              OfferSurface.matchesEmpty: _show(
+                OfferSurface.matchesEmpty,
+                lead: OfferLead.coins,
+              ),
+            },
+            extra: [
+              dailyMatchesProvider.overrideWith(
+                (ref) async => DailyMatchesResult.fromJson({'matches': []}),
+              ),
+              boostApiClientProvider.overrideWithValue(_BuyingBoostClient()),
+              ..._coinOverrides,
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('matches-empty-boost')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.tap(find.byKey(const ValueKey('boost_confirm')));
+        await tester.pump();
+        await tester.pump();
+        final unlock = logged.singleWhere((l) => l.action == 'unlock_succeeded');
+        expect(unlock.flow.flowId, 'flow-1');
+        expect(unlock.flow.offerId, 'offer-1');
+        for (final l in logged) {
+          expect(l.flow.flowId, 'flow-1', reason: l.action);
+        }
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(const Duration(seconds: 5));
+      },
+    );
   });
 
   group('profile banner and moments chip', () {

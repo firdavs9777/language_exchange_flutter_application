@@ -11,7 +11,10 @@ class OffersApi {
 
   /// The current offer, or null for none, a failure or a malformed answer.
   Future<Offer?> fetch() async {
-    final res = await _client.get(Endpoints.offersURL, deduplicate: true);
+    // Never shared: ApiClient dedupe would hand a forced refresh the
+    // in-flight (or just-finished) pre-purchase answer, or another
+    // account's answer.
+    final res = await _client.get(Endpoints.offersURL, deduplicate: false);
     return offerFromResponse(res);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,12 +15,40 @@ class _FakeApi implements OffersApi {
   Offer? next;
   Object? error;
 
+  /// When set, each fetch waits for its own completer (in call order).
+  List<Completer<Offer?>>? pending;
+
   @override
   Future<Offer?> fetch() async {
     calls++;
     if (error != null) throw error!;
+    final p = pending;
+    if (p != null) {
+      final c = Completer<Offer?>();
+      p.add(c);
+      return c.future;
+    }
     return next;
   }
+}
+
+class _RecordingClient implements ApiClient {
+  _RecordingClient(this.dedupes);
+  final List<bool> dedupes;
+
+  @override
+  Future<ApiResponse> get(
+    String endpoint, {
+    Map<String, String>? queryParams,
+    bool requiresAuth = true,
+    bool deduplicate = true,
+  }) async {
+    dedupes.add(deduplicate);
+    return ApiResponse(success: false, statusCode: 404);
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 final _flag = StateProvider<bool>((ref) => false);
@@ -111,6 +141,52 @@ void main() {
     now = now.add(const Duration(minutes: 2));
     await n.refresh();
     expect(api.calls, 3);
+  });
+
+  test('a slow unforced refresh that lands after a forced one does not replace it',
+      () async {
+    container = make();
+    addTearDown(container.dispose);
+    final n = container.read(offersProvider.notifier);
+    api.pending = [];
+    final slow = n.refresh(); // started first (e.g. on resume)
+    final forced = n.refresh(force: true); // after a purchase
+    expect(api.pending!.length, 2);
+    api.pending![1].complete(null); // the purchase removed the offer
+    await forced;
+    expect(container.read(offersProvider), isNull);
+    api.pending![0].complete(_offer(id: 'pre-purchase'));
+    await slow;
+    expect(container.read(offersProvider), isNull,
+        reason: 'the older answer must not overwrite the newer one');
+  });
+
+  test('resume drops an offer past validUntil before the refresh answers',
+      () async {
+    container = make();
+    addTearDown(container.dispose);
+    final n = container.read(offersProvider.notifier);
+    api.next = _offer(validFor: const Duration(hours: 1));
+    await n.refresh();
+    expect(gate(OfferSurface.momentsChip), isA<OfferGateShow>());
+    // The device slept: the expiry timer did not advance, the clock did.
+    now = _t0.add(const Duration(hours: 9));
+    api.pending = [];
+    final pending = n.refresh(); // what the resume hook calls
+    expect(container.read(offersProvider), isNull);
+    expect(gate(OfferSurface.momentsChip), isA<OfferGateHidden>());
+    api.pending!.single.complete(null);
+    await pending;
+  });
+
+  test('the offers request is not deduplicated', () {
+    // ApiClient dedupe shares an in-flight or just-finished answer by URL,
+    // so a forced refresh could get the pre-purchase offer (or another
+    // account's answer).
+    final calls = <bool>[];
+    final client = _RecordingClient(calls);
+    OffersApi(client).fetch();
+    expect(calls, [false]);
   });
 
   test('a failed or malformed answer leaves every gate Hidden and does not throw',

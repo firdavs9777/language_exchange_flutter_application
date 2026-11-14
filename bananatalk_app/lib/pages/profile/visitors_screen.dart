@@ -35,10 +35,16 @@ class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   /// Injectable for tests; defaults to the live service.
   final VisitorsFetcher fetchVisitors;
 
+  /// The flow of the surface that opened this screen (an engine offer).
+  /// When given, this screen's own events go on it instead of a new flow,
+  /// so an unlock here counts for that offer.
+  final PaywallFlow? flow;
+
   const ProfileVisitorsScreen({
     Key? key,
     required this.userId,
     this.fetchVisitors = ProfileVisitorService.getProfileVisitors,
+    this.flow,
   }) : super(key: key);
 
   @override
@@ -78,7 +84,8 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
     final hasMasked =
         _locked > 0 || _visitors.any((v) => v['revealed'] == false);
     if (!hasMasked && visitorsUnlockLeft(_revealUntil) == null) return;
-    _paywallFlow = PaywallFlow.start(PaywallPlacement.visitorList);
+    _paywallFlow =
+        widget.flow ?? PaywallFlow.start(PaywallPlacement.visitorList);
     paywallLog(_paywallFlow!, PaywallAction.shown);
   }
 
