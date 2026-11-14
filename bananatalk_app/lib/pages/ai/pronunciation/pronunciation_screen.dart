@@ -22,9 +22,42 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/study/study_vip_lock.dart';
 
+/// 'own' only while the field still holds the sentence the caller supplied.
+String pronunciationSource({
+  String? initialText,
+  required String currentText,
+  required bool ownSentence,
+}) {
+  if (ownSentence &&
+      initialText != null &&
+      currentText.trim() == initialText.trim()) {
+    return 'own';
+  }
+  return 'practice';
+}
+
+/// The language in [languages] matching [code] on its base code, or null.
+Language? languageForInitialCode(List<Language> languages, String? code) {
+  if (code == null || code.isEmpty) return null;
+  final base = code.split('-').first.toLowerCase();
+  for (final l in languages) {
+    if (l.code.split('-').first.toLowerCase() == base) return l;
+  }
+  return null;
+}
+
 /// Pronunciation Practice Screen
 class PronunciationScreen extends ConsumerStatefulWidget {
-  const PronunciationScreen({super.key});
+  const PronunciationScreen({
+    super.key,
+    this.initialText,
+    this.initialLanguage,
+    this.ownSentence = false,
+  });
+
+  final String? initialText;
+  final String? initialLanguage;
+  final bool ownSentence;
 
   @override
   ConsumerState<PronunciationScreen> createState() =>
@@ -56,7 +89,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
   @override
   void initState() {
     super.initState();
-    _textController.text = _sampleTexts[0];
+    _textController.text = widget.initialText ?? _sampleTexts[0];
     _fetchLanguages();
   }
 
@@ -95,9 +128,13 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   l.name.toLowerCase() == 'english',
             );
           }
-          _selectedLanguage = defaultIdx != -1
-              ? _languages[defaultIdx]
-              : (_languages.isNotEmpty ? _languages.first : null);
+          _selectedLanguage = languageForInitialCode(
+                _languages,
+                widget.initialLanguage,
+              ) ??
+              (defaultIdx != -1
+                  ? _languages[defaultIdx]
+                  : (_languages.isNotEmpty ? _languages.first : null));
         });
       } else {
         setState(() {
@@ -327,6 +364,11 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       File(path),
       text,
       langCode,
+      source: pronunciationSource(
+        initialText: widget.initialText,
+        currentText: text,
+        ownSentence: widget.ownSentence,
+      ),
     );
 
     if (!mounted) return;

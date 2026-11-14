@@ -24,6 +24,8 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - [ ] Task 3: study-hub card for it
 - [ ] Task 4: hub doors (Talk, Roleplay, More)
 - [ ] Task 5: "Say it" pronunciation (`source: 'own'`) and final QA
+  - [x] Plan task 2 (done): `PronunciationScreen` accepts `initialText` / `initialLanguage` / `ownSentence`; sends `source: 'own'` while the text is unchanged. No callers yet.
+  - [ ] "Say it" callers (mistakes / my-words rows) and final QA
 
 ## 2. Owner — manual steps (in order)
 
