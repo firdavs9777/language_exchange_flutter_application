@@ -5,15 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/learning/main/legacy_study_hub.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
-import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_overlay.dart';
 import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
 import 'package:bananatalk_app/pages/learning/main/study_tab_opened_reporter.dart';
 import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 
-/// The AI Study tab. Owns the streak / level-up / achievement celebration
+/// The AI Study tab. Owns the streak / level-up celebration
 /// listeners and renders [StudyHub] or, while `studyHubEnabled` is off,
 /// [LegacyStudyHub] (spec 2026-10-13 §10).
 class LearningMain extends ConsumerStatefulWidget {
@@ -31,10 +29,6 @@ class LearningMain extends ConsumerStatefulWidget {
 class _LearningMainState extends ConsumerState<LearningMain> {
   int? _previousStreak;
   int? _previousLevel;
-  // Tracks achievement IDs already shown this session to avoid re-triggering
-  // the overlay. There is no server-side mark-seen API, so this is
-  // client-side only; unseen achievements will re-fire on the next cold start.
-  final Set<String> _seenAchievementIds = {};
 
   /// Which page this mount shows. Decided once and never changed, so the
   /// page cannot swap under the user (see [StudyHubFlagCache]): from the
@@ -113,34 +107,6 @@ class _LearningMainState extends ConsumerState<LearningMain> {
           previousLevel: _previousLevel,
         );
         _previousLevel = newLevel;
-      });
-    });
-
-    ref.listen(achievementsProvider, (previous, next) {
-      next.whenData((achievements) async {
-        // Find achievements that are newly unlocked and not yet shown
-        final newlyUnlocked = achievements
-            .where((a) => a.isUnlocked && !_seenAchievementIds.contains(a.id))
-            .toList();
-
-        if (newlyUnlocked.isEmpty) return;
-
-        // Mark all as seen immediately to prevent duplicate triggers
-        for (final a in newlyUnlocked) {
-          _seenAchievementIds.add(a.id);
-        }
-
-        // Show overlays sequentially; guard each iteration with context.mounted
-        for (final a in newlyUnlocked) {
-          if (!context.mounted) break;
-          await AchievementUnlockOverlay.show(
-            context,
-            name: a.name,
-            description: a.description,
-          );
-        }
-        // NOTE: No server-side markAchievementsSeen API exists. Overlays are
-        // deduplicated within the session via _seenAchievementIds only.
       });
     });
 

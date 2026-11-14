@@ -128,12 +128,14 @@ Future<void> pump(
   // to the flag itself: a returning user whose phone already knows it.
   bool? cached,
   bool noCache = false,
+  List<Override> extraOverrides = const [],
 }) async {
   StudyHubFlagCache.lastKnown = noCache ? null : (cached ?? on);
   await t.pumpWidget(
     ProviderScope(
       overrides: [
         ..._overrides,
+        ...extraOverrides,
         learningProgressProvider.overrideWith(
           (ref) async => noProgress ? null : _progress,
         ),
@@ -193,13 +195,26 @@ void main() {
     expect(find.byType(StudyHub), findsNothing);
   });
 
+  testWidgets('opening the tab does not request achievements', (t) async {
+    var requests = 0;
+    await pump(t, true, extraOverrides: [
+      achievementsProvider.overrideWith((ref) async {
+        requests++;
+        return const <Achievement>[];
+      }),
+    ]);
+    await t.pump(const Duration(seconds: 1));
+    expect(requests, 0);
+  });
+
   testWidgets('no progress yet: the progress card still shows its shortcuts', (
     t,
   ) async {
     await pump(t, true, noProgress: true);
     await t.scrollUntilVisible(find.text('Full report'), 200);
     expect(find.text('Your progress'), findsOneWidget);
-    expect(find.text('Achievements'), findsOneWidget);
+    expect(find.text('Achievements'), findsNothing);
+    expect(find.text('Vocabulary'), findsOneWidget);
   });
 
   group('cold start: page chosen once per launch from the remembered flag', () {

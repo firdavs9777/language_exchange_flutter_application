@@ -12842,4 +12842,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Vista fino alla fine';
+
+  @override
+  String get tutorConversationFull => 'Questa conversazione è piena.';
+
+  @override
+  String get tutorStartNewConversation => 'Inizia una nuova conversazione';
 }

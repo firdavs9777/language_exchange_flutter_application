@@ -12792,4 +12792,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => '끝까지 시청함';
+
+  @override
+  String get tutorConversationFull => '이 대화는 가득 찼어요.';
+
+  @override
+  String get tutorStartNewConversation => '새 대화 시작하기';
 }

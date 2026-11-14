@@ -12860,4 +12860,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Watched to the end';
+
+  @override
+  String get tutorConversationFull => 'This conversation is full.';
+
+  @override
+  String get tutorStartNewConversation => 'Start a new conversation';
 }

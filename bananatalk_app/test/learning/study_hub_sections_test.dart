@@ -208,7 +208,7 @@ void main() {
           child: ProgressCard(progress: null, onFullReport: () => tapped = true))));
       expect(find.text('Your progress'), findsOneWidget);
       expect(find.text('–'), findsWidgets);
-      expect(find.text('Achievements'), findsOneWidget);
+      expect(find.text('Achievements'), findsNothing);
       await t.tap(find.text('Full report'));
       expect(tapped, isTrue);
     });

@@ -4834,5 +4834,7 @@
   "storyInsightReplies": "{count, plural, one{{count} जवाब} other{{count} जवाब}}",
   "storyInsightReactions": "{count, plural, one{{count} रिएक्शन} other{{count} रिएक्शन}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} ने सही जवाब दिया} other{{count} ने सही जवाब दिया}}",
-  "storyInsightCompletedMark": "अंत तक देखा"
+  "storyInsightCompletedMark": "अंत तक देखा",
+  "tutorConversationFull": "यह बातचीत पूरी हो चुकी है।",
+  "tutorStartNewConversation": "नई बातचीत शुरू करें"
 }

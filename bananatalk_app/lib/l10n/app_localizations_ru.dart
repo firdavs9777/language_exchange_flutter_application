@@ -13312,4 +13312,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Досмотрено до конца';
+
+  @override
+  String get tutorConversationFull => 'Этот разговор заполнен.';
+
+  @override
+  String get tutorStartNewConversation => 'Начать новый разговор';
 }

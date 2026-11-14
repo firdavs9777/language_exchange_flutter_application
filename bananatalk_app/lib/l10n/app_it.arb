@@ -5058,5 +5058,7 @@
   "storyInsightReplies": "{count, plural, one{{count} risposta} other{{count} risposte}}",
   "storyInsightReactions": "{count, plural, one{{count} reazione} other{{count} reazioni}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} risposta corretta} other{{count} risposte corrette}}",
-  "storyInsightCompletedMark": "Vista fino alla fine"
+  "storyInsightCompletedMark": "Vista fino alla fine",
+  "tutorConversationFull": "Questa conversazione è piena.",
+  "tutorStartNewConversation": "Inizia una nuova conversazione"
 }

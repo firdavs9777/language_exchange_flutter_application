@@ -22,6 +22,6 @@ void main() {
 
   test('unreadable storage -> everything seen (no NEW badges)', () async {
     final seen = await FeatureSeenStore.readSeen(prefs: () async => throw Exception('io'));
-    expect(seen.length, 12);
+    expect(seen.length, 11);
   });
 }

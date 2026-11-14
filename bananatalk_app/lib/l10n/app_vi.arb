@@ -4818,5 +4818,7 @@
   "storyInsightReplies": "{count, plural, other{{count} phản hồi}}",
   "storyInsightReactions": "{count, plural, other{{count} lượt phản ứng}}",
   "storyInsightQuizCorrect": "{count, plural, other{{count} người trả lời đúng}}",
-  "storyInsightCompletedMark": "Đã xem đến hết"
+  "storyInsightCompletedMark": "Đã xem đến hết",
+  "tutorConversationFull": "Cuộc trò chuyện này đã đầy.",
+  "tutorStartNewConversation": "Bắt đầu cuộc trò chuyện mới"
 }

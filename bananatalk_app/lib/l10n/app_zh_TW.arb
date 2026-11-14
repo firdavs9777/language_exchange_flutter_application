@@ -4509,5 +4509,7 @@
   "storyInsightReplies": "{count, plural, other{{count} 則回覆}}",
   "storyInsightReactions": "{count, plural, other{{count} 個互動表情}}",
   "storyInsightQuizCorrect": "{count, plural, other{{count} 人答對}}",
-  "storyInsightCompletedMark": "已看完"
+  "storyInsightCompletedMark": "已看完",
+  "tutorConversationFull": "此對話已滿。",
+  "tutorStartNewConversation": "開始新對話"
 }

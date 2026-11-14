@@ -23197,6 +23197,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watched to the end'**
   String get storyInsightCompletedMark;
+
+  /// Inline notice in the AI tutor chat when the conversation has reached its 10 learner messages
+  ///
+  /// In en, this message translates to:
+  /// **'This conversation is full.'**
+  String get tutorConversationFull;
+
+  /// Button next to the full-conversation notice; starts a new tutor conversation with the same persona
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new conversation'**
+  String get tutorStartNewConversation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

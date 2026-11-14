@@ -12830,4 +12830,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'अंत तक देखा';
+
+  @override
+  String get tutorConversationFull => 'यह बातचीत पूरी हो चुकी है।';
+
+  @override
+  String get tutorStartNewConversation => 'नई बातचीत शुरू करें';
 }

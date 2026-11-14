@@ -63,6 +63,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   /// shows a retry view while there is no session.
   Future<void> _start() async {
     if (_started) setState(() => _started = false);
+    _sendFailed = false;
     await ref.read(tutorChatControllerProvider.notifier).start();
     if (!mounted) return;
     // No persona yet: pick one, then come back to this chat. Retrying here
@@ -290,7 +291,25 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                     },
                   ),
           ),
-          if (_sendFailed && !state.sending)
+          if (state.conversationFull && !state.sending)
+            Padding(
+              key: const Key('tutor-conversation-full'),
+              padding: const EdgeInsets.fromLTRB(16, 4, 8, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.chat_bubble_outline,
+                      size: 18, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(l10n.tutorConversationFull)),
+                  TextButton(
+                    key: const Key('tutor-new-conversation'),
+                    onPressed: _start,
+                    child: Text(l10n.tutorStartNewConversation),
+                  ),
+                ],
+              ),
+            ),
+          if (_sendFailed && !state.sending && !state.conversationFull)
             Padding(
               key: const Key('tutor-send-error'),
               padding: const EdgeInsets.fromLTRB(16, 4, 8, 0),

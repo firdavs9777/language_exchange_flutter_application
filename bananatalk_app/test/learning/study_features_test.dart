@@ -19,11 +19,11 @@ WeakArea area(String name, double acc, int attempts) => WeakArea(
 
 void main() {
   group('catalogue', () {
-    test('12 unique tiles in spec order', () {
+    test('11 unique tiles in spec order', () {
       expect(studyFeatureOrder, [
         StudyFeature.tutor, StudyFeature.roleplay, StudyFeature.story, StudyFeature.photo,
         StudyFeature.speak, StudyFeature.review, StudyFeature.writing, StudyFeature.quizzes,
-        StudyFeature.exam, StudyFeature.lessons, StudyFeature.challenges, StudyFeature.leaderboard,
+        StudyFeature.exam, StudyFeature.lessons, StudyFeature.leaderboard,
       ]);
       expect(studyFeatureOrder.toSet().length, StudyFeature.values.length);
     });

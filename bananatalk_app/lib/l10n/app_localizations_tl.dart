@@ -12823,4 +12823,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Pinanood hanggang dulo';
+
+  @override
+  String get tutorConversationFull => 'Puno na ang usapang ito.';
+
+  @override
+  String get tutorStartNewConversation => 'Magsimula ng bagong usapan';
 }

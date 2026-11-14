@@ -20,7 +20,6 @@ enum StudyFeature {
   quizzes('quizzes', StudyGroup.practice),
   exam('exam', StudyGroup.prepare),
   lessons('lessons', StudyGroup.prepare),
-  challenges('challenges', StudyGroup.prepare),
   leaderboard('leaderboard', StudyGroup.prepare);
 
   const StudyFeature(this.slug, this.group, {this.quotaKey});
@@ -37,7 +36,7 @@ enum StudyFeature {
 const Map<StudyGroup, List<StudyFeature>> studyFeatureGroups = {
   StudyGroup.talk: [StudyFeature.tutor, StudyFeature.roleplay, StudyFeature.story, StudyFeature.photo],
   StudyGroup.practice: [StudyFeature.speak, StudyFeature.review, StudyFeature.writing, StudyFeature.quizzes],
-  StudyGroup.prepare: [StudyFeature.exam, StudyFeature.lessons, StudyFeature.challenges, StudyFeature.leaderboard],
+  StudyGroup.prepare: [StudyFeature.exam, StudyFeature.lessons, StudyFeature.leaderboard],
 };
 
 List<StudyFeature> get studyFeatureOrder =>
@@ -129,11 +128,14 @@ FeatureCoverage featureCoverage(
   return FeatureCoverage.unknown;
 }
 
-/// Weakest area with enough attempts to mean something (spec §5).
+/// Weakest area with enough attempts to mean something (spec §5). The
+/// server filters weak areas itself and reports no attempt count (0), so an
+/// area only drops out when a count is reported and it is under 3.
 WeakArea? pickRecommended(List<WeakArea> areas) {
   WeakArea? best;
   for (final a in areas) {
-    if (a.attempts < 3) continue;
+    if (a.name.isEmpty) continue;
+    if (a.attempts > 0 && a.attempts < 3) continue;
     if (best == null || a.accuracy < best.accuracy) best = a;
   }
   return best;

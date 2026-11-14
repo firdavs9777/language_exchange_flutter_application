@@ -12792,4 +12792,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'ดูจนจบแล้ว';
+
+  @override
+  String get tutorConversationFull => 'การสนทนานี้เต็มแล้ว';
+
+  @override
+  String get tutorStartNewConversation => 'เริ่มการสนทนาใหม่';
 }

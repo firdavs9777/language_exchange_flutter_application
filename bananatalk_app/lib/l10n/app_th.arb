@@ -4818,5 +4818,7 @@
   "storyInsightReplies": "{count, plural, other{ตอบกลับ {count} รายการ}}",
   "storyInsightReactions": "{count, plural, other{รีแอคชัน {count} รายการ}}",
   "storyInsightQuizCorrect": "{count, plural, other{ตอบถูก {count} คน}}",
-  "storyInsightCompletedMark": "ดูจนจบแล้ว"
+  "storyInsightCompletedMark": "ดูจนจบแล้ว",
+  "tutorConversationFull": "การสนทนานี้เต็มแล้ว",
+  "tutorStartNewConversation": "เริ่มการสนทนาใหม่"
 }

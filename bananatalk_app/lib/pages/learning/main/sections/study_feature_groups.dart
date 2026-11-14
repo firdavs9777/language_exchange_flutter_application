@@ -10,7 +10,6 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/tutor_chat_screen.dart';
-import 'package:bananatalk_app/pages/learning/challenges/challenges_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_study_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
@@ -42,7 +41,6 @@ Widget destinationFor(StudyFeature f) => switch (f) {
       StudyFeature.quizzes => const AIQuizScreen(),
       StudyFeature.exam => const ExamStudyScreen(),
       StudyFeature.lessons => const LessonsScreen(),
-      StudyFeature.challenges => const ChallengesScreen(),
       StudyFeature.leaderboard => const LeaderboardScreen(),
     };
 

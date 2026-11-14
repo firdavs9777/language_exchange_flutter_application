@@ -261,7 +261,7 @@ void main() {
           expect(find.byType(RecommendedTile), findsOneWidget);
           expect(find.textContaining('Past perfect'), findsOneWidget);
           expect(find.byType(ProgressCard), findsOneWidget);
-          expect(find.byType(StudyFeatureTile), findsNWidgets(12));
+          expect(find.byType(StudyFeatureTile), findsNWidgets(11));
         });
       });
     }

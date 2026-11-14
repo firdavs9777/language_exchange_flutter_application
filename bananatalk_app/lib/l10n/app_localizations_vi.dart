@@ -12792,4 +12792,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Đã xem đến hết';
+
+  @override
+  String get tutorConversationFull => 'Cuộc trò chuyện này đã đầy.';
+
+  @override
+  String get tutorStartNewConversation => 'Bắt đầu cuộc trò chuyện mới';
 }

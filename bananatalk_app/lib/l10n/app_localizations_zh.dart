@@ -12792,6 +12792,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => '已看完';
+
+  @override
+  String get tutorConversationFull => '此对话已满。';
+
+  @override
+  String get tutorStartNewConversation => '开始新对话';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25582,4 +25588,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyInsightCompletedMark => '已看完';
+
+  @override
+  String get tutorConversationFull => '此對話已滿。';
+
+  @override
+  String get tutorStartNewConversation => '開始新對話';
 }

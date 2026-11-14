@@ -4818,5 +4818,7 @@
   "storyInsightReplies": "{count, plural, other{返信 {count}件}}",
   "storyInsightReactions": "{count, plural, other{リアクション {count}件}}",
   "storyInsightQuizCorrect": "{count, plural, other{正解 {count}人}}",
-  "storyInsightCompletedMark": "最後まで視聴"
+  "storyInsightCompletedMark": "最後まで視聴",
+  "tutorConversationFull": "この会話は上限に達しました。",
+  "tutorStartNewConversation": "新しい会話を始める"
 }

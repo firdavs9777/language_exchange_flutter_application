@@ -12948,4 +12948,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'شوهدت حتى النهاية';
+
+  @override
+  String get tutorConversationFull => 'هذه المحادثة ممتلئة.';
+
+  @override
+  String get tutorStartNewConversation => 'ابدأ محادثة جديدة';
 }

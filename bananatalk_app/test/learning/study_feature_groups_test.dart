@@ -135,13 +135,13 @@ Widget harness({
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('renders three groups and twelve tiles', (tester) async {
+  testWidgets('renders three groups and eleven tiles', (tester) async {
     await tester.pumpWidget(harness(pushed: []));
     await tester.pumpAndSettle();
     expect(find.text('TALK'), findsOneWidget);
     expect(find.text('PRACTICE'), findsOneWidget);
     expect(find.text('PREPARE & COMPETE'), findsOneWidget);
-    expect(find.byType(InkWell), findsNWidgets(12));
+    expect(find.byType(InkWell), findsNWidgets(11));
   });
 
   testWidgets('at most three NEW badges', (tester) async {

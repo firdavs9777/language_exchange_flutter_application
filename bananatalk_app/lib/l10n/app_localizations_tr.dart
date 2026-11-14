@@ -12817,4 +12817,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Sonuna kadar izlendi';
+
+  @override
+  String get tutorConversationFull => 'Bu sohbet doldu.';
+
+  @override
+  String get tutorStartNewConversation => 'Yeni sohbet başlat';
 }

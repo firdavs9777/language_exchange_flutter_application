@@ -4791,5 +4791,7 @@
   "storyInsightReplies": "{count, plural, one{{count} sagot} other{{count} sagot}}",
   "storyInsightReactions": "{count, plural, one{{count} reaksyon} other{{count} reaksyon}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} ang tama ang sagot} other{{count} ang tama ang sagot}}",
-  "storyInsightCompletedMark": "Pinanood hanggang dulo"
+  "storyInsightCompletedMark": "Pinanood hanggang dulo",
+  "tutorConversationFull": "Puno na ang usapang ito.",
+  "tutorStartNewConversation": "Magsimula ng bagong usapan"
 }

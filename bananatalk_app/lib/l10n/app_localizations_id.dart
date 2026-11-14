@@ -12803,4 +12803,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => 'Ditonton sampai habis';
+
+  @override
+  String get tutorConversationFull => 'Percakapan ini sudah penuh.';
+
+  @override
+  String get tutorStartNewConversation => 'Mulai percakapan baru';
 }

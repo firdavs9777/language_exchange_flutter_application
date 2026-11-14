@@ -386,10 +386,12 @@ class WeakArea {
 
   factory WeakArea.fromJson(Map<String, dynamic> json) {
     return WeakArea(
-      name: json['name']?.toString() ?? '',
+      // The server sends `topic` / `score` (0..1); the old shape `name` /
+      // `accuracy`.
+      name: (json['name'] ?? json['topic'])?.toString() ?? '',
       category: json['category']?.toString() ?? '',
-      accuracy: (json['accuracy'] as num?)?.toDouble() ?? 0.0,
-      attempts: json['attempts'] ?? 0,
+      accuracy: ((json['accuracy'] ?? json['score']) as num?)?.toDouble() ?? 0.0,
+      attempts: (json['attempts'] as num?)?.toInt() ?? 0,
       recommendation: json['recommendation']?.toString() ?? '',
     );
   }

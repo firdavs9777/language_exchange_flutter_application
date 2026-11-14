@@ -4818,5 +4818,7 @@
   "storyInsightReplies": "{count, plural, other{{count} balasan}}",
   "storyInsightReactions": "{count, plural, other{{count} reaksi}}",
   "storyInsightQuizCorrect": "{count, plural, other{{count} menjawab dengan benar}}",
-  "storyInsightCompletedMark": "Ditonton sampai habis"
+  "storyInsightCompletedMark": "Ditonton sampai habis",
+  "tutorConversationFull": "Percakapan ini sudah penuh.",
+  "tutorStartNewConversation": "Mulai percakapan baru"
 }

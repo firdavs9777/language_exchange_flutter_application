@@ -138,6 +138,8 @@ class TutorService {
       body: {'content': content},
     );
     if (!res.success || res.data == null) {
+      final qe = res.quotaError;
+      if (qe != null && qe.isHandledByChat) throw TutorSendRefused(qe.reason!);
       throw StateError(res.error ?? 'Failed to send message');
     }
     final body = _dataObj(res.data);
@@ -335,10 +337,23 @@ class PersonaRequiredException implements Exception {
 bool isPersonaRequired(String? code, String? message) =>
     code == 'PERSONA_REQUIRED' || (message ?? '').contains('Pick a persona');
 
+/// The server refused a tutor message with a 429 the chat answers itself
+/// ([reason] `conversation_full` or `conversation_starting`), not with the
+/// upgrade sheet.
+class TutorSendRefused implements Exception {
+  final String reason;
+  const TutorSendRefused(this.reason);
+  @override
+  String toString() => 'TutorSendRefused($reason)';
+}
+
 class TutorChatState {
   final TutorSession? session;
   final bool sending;
   final String? error;
+
+  /// Set when the last send was refused with `conversation_full`.
+  final bool conversationFull;
 
   /// The account has no persona yet; the screen opens the picker.
   final bool personaRequired;
@@ -347,13 +362,20 @@ class TutorChatState {
     this.sending = false,
     this.error,
     this.personaRequired = false,
+    this.conversationFull = false,
   });
 
-  TutorChatState copyWith({TutorSession? session, bool? sending, String? error}) =>
+  TutorChatState copyWith({
+    TutorSession? session,
+    bool? sending,
+    String? error,
+    bool conversationFull = false,
+  }) =>
       TutorChatState(
         session: session ?? this.session,
         sending: sending ?? this.sending,
         error: error,
+        conversationFull: conversationFull,
       );
 }
 
@@ -434,7 +456,16 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     _safeSet(state.copyWith(session: optimistic, sending: true, error: null));
 
     try {
-      final reply = await _svc.sendMessage(s.id, content);
+      TutorMessage reply;
+      try {
+        reply = await _svc.sendMessage(s.id, content);
+      } on TutorSendRefused catch (e) {
+        if (e.reason != 'conversation_starting') rethrow;
+        // Another request is still opening this conversation; the server
+        // asks for a retry after 2 seconds. Once, silently.
+        await Future<void>.delayed(const Duration(seconds: 2));
+        reply = await _svc.sendMessage(s.id, content);
+      }
       final updated = TutorSession(
         id: s.id,
         persona: s.persona,
@@ -455,6 +486,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         session: rollbackOnError ? s : null,
         sending: false,
         error: e.toString(),
+        conversationFull: e is TutorSendRefused && e.reason == 'conversation_full',
       ));
       return false;
     }

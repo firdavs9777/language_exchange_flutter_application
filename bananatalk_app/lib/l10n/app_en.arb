@@ -8921,5 +8921,13 @@
   "storyInsightCompletedMark": "Watched to the end",
   "@storyInsightCompletedMark": {
     "description": "Small mark and screen-reader label on a viewer who watched the story to the end"
+  },
+  "tutorConversationFull": "This conversation is full.",
+  "tutorStartNewConversation": "Start a new conversation",
+  "@tutorConversationFull": {
+    "description": "Inline notice in the AI tutor chat when the conversation has reached its 10 learner messages"
+  },
+  "@tutorStartNewConversation": {
+    "description": "Button next to the full-conversation notice; starts a new tutor conversation with the same persona"
   }
 }

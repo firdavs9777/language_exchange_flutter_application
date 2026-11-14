@@ -934,6 +934,10 @@ const Map<String, List<String>> _keysByTask = {
     'storyInsightQuizCorrect',
     'storyInsightCompletedMark',
   ],
+  'ai_study_foundations_2': [
+    'tutorConversationFull',
+    'tutorStartNewConversation',
+  ],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -1035,6 +1039,7 @@ const Map<String, List<String>> _filesByTask = {
     'pages/stories/create/create_story_screen.dart',
   ],
   'stories_features_8': ['pages/stories/viewer/story_viewers_sheet.dart'],
+  'ai_study_foundations_2': ['pages/ai/tutor/tutor_chat_screen.dart'],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],
   'moments_smart_feed_12': [

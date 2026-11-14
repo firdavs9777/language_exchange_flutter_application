@@ -12792,4 +12792,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyInsightCompletedMark => '最後まで視聴';
+
+  @override
+  String get tutorConversationFull => 'この会話は上限に達しました。';
+
+  @override
+  String get tutorStartNewConversation => '新しい会話を始める';
 }
