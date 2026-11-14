@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/daily/widgets/day_complete_sheet.d
 import 'package:bananatalk_app/pages/learning/daily/widgets/station_rail.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/review_prompt_service.dart';
+import 'package:bananatalk_app/services/study/study_hub_cache.dart';
 import 'package:bananatalk_app/services/study/study_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -132,6 +133,12 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     // A station finished is a lesson done; idempotent after the first.
     if (widget.submit == null) {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
+      // Keep the tab's saved first paint ("2/4") current even if the app is
+      // closed before the hub refetches.
+      StudyHubCache()
+          .recordStationCompleted(
+              stationsRemaining: result.stationsRemaining.length)
+          .ignore();
     }
     _last = result;
     if (result.levelChange != null) {

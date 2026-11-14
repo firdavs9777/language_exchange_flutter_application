@@ -259,6 +259,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'achievementsProvider': achievementsProvider,
   'challengesProvider': challengesProvider,
   'dailyPackProvider': dailyPackProvider,
+  // The signed-in user's saved first paint of the AI Study tab.
+  'studyHubSnapshotProvider': studyHubSnapshotProvider,
   'masteryProvider': masteryProvider,
   'weeklyReportProvider': weeklyReportProvider,
   'xpLeaderboardProvider': xpLeaderboardProvider,
@@ -333,6 +335,7 @@ const Set<String> kAppScopedProviderNames = {
   // Stateless: every entry is keyed by user id, and sign-out clears them
   // (AuthService._clearAuthData).
   'communityFirstPageCacheProvider',
+  'studyHubCacheProvider', // same: keyed by user id, cleared on sign-out
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',
