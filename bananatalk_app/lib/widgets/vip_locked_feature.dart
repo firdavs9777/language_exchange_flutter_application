@@ -125,43 +125,6 @@ class VipLockedFeature extends StatelessWidget {
   }
 }
 
-/// A compact lock indicator for smaller UI elements
-class VipLockBadge extends StatelessWidget {
-  final bool isVip;
-  final VoidCallback? onTap;
-
-  const VipLockBadge({
-    super.key,
-    required this.isVip,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (isVip) return const SizedBox.shrink();
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.7),
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: const Color(0xFFFFD700),
-            width: 1.5,
-          ),
-        ),
-        child: const Icon(
-          Icons.lock_rounded,
-          color: Color(0xFFFFD700),
-          size: 12,
-        ),
-      ),
-    );
-  }
-}
-
 /// Bottom sheet for VIP upgrade prompt
 class VipUpgradeSheet extends StatelessWidget {
   final String featureName;

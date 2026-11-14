@@ -465,7 +465,7 @@ class NotificationRouter {
             : '/tabs/$kMomentsTabIndex';
 
       // Step 16 — VIP renewal warning. No /vip route in GoRouter;
-      // VisitorUpgradeScreen is reached via Navigator.push only.
+      // The VIP screens are reached via Navigator.push only.
       // Tap opens the app to home; push body tells user to renew.
       case 'vip_renewal_warning':
         return null;
