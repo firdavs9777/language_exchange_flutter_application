@@ -76,10 +76,8 @@ Future<RestoreVerifyResult> verifySubscriptionWithBackend(
       ? const RestoreVerifyResult.success()
       : RestoreVerifyResult.failure(
           result['error']?.toString(),
-          // Only an answer from the server counts; a network error's text
-          // has no status code.
-          expired: result['statusCode'] != null &&
-              isExpiredVerifyError(result['error']),
+          expired: isServerExpiredAnswer(
+              result['statusCode'] as int?, result['error']),
         );
 }
 

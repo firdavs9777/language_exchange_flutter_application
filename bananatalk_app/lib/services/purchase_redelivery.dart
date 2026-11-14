@@ -103,8 +103,8 @@ class PurchaseRedeliveryHandler {
     if (isKnownExpired != null && await isKnownExpired!(purchase)) {
       return RedeliveryAction.skippedKnownExpired;
     }
+    // Clock-based: recomputed each launch, never written to the memo.
     if (isLapsed != null && isLapsed!(purchase)) {
-      await rememberExpired?.call(purchase);
       return RedeliveryAction.skippedLapsed;
     }
     final result = await verifySubscription(purchase);

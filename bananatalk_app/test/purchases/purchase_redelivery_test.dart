@@ -214,13 +214,27 @@ void main() {
       expect(await b.memo.contains(sub()), isFalse);
     });
 
-    test('a lapsed purchase is skipped without a request and remembered',
+    test('a lapsed purchase is skipped without a request and not remembered',
         () async {
       final b = build(
           result: const RestoreVerifyResult.success(), lapsed: (_) => true);
       expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
       expect(b.calls, isEmpty);
-      expect(await b.memo.contains(sub()), isTrue);
+      expect(await b.memo.contains(sub()), isFalse);
+    });
+
+    test('once the clock no longer says lapsed, the same purchase is sent',
+        () async {
+      var lapsed = true;
+      final b = build(
+          result: const RestoreVerifyResult.success(),
+          lapsed: (_) => lapsed);
+      expect(await b.handler.handle(sub()), RedeliveryAction.skippedLapsed);
+      lapsed = false;
+      expect(await b.handler.handle(sub()),
+          RedeliveryAction.verifiedSubscription);
+      expect(b.calls.length, 1);
     });
 
     test('a renewal with the same transaction id but a later renewedAt is sent',
@@ -266,12 +280,19 @@ void main() {
     });
   });
 
-  group('isExpiredVerifyError', () {
-    test('matches the server text, any case; other text and null are false', () {
-      expect(isExpiredVerifyError('Subscription has expired'), isTrue);
-      expect(isExpiredVerifyError('SUBSCRIPTION EXPIRED'), isTrue);
-      expect(isExpiredVerifyError('Purchase verification failed'), isFalse);
-      expect(isExpiredVerifyError(null), isFalse);
+  group('isServerExpiredAnswer', () {
+    test('only 400 plus the exact server phrase counts', () {
+      expect(isServerExpiredAnswer(400, 'Subscription has expired'), isTrue);
+      expect(isServerExpiredAnswer(400, 'SUBSCRIPTION HAS EXPIRED '), isTrue);
+      expect(isServerExpiredAnswer(401, 'jwt expired'), isFalse);
+      expect(isServerExpiredAnswer(401, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(403, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(500, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(null, 'Subscription has expired'), isFalse);
+      expect(isServerExpiredAnswer(400, 'Token expired'), isFalse);
+      expect(isServerExpiredAnswer(400, 'Purchase verification failed'),
+          isFalse);
+      expect(isServerExpiredAnswer(400, null), isFalse);
     });
   });
 

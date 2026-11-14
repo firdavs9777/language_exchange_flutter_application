@@ -4,11 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/services/purchase_restorer.dart';
 
-/// True when a verify failure says the subscription has expired (the server
-/// answers 400 "Subscription has expired"). Any other failure text is false.
-bool isExpiredVerifyError(Object? error) {
-  if (error == null) return false;
-  return error.toString().toLowerCase().contains('expired');
+/// True only for the server's own "expired" answer: status exactly 400 and
+/// the body text exactly `Subscription has expired` (trimmed, any case). A 401
+/// "jwt expired" or any other text must never count, or a valid paid receipt
+/// could be remembered as dead and never sent again.
+bool isServerExpiredAnswer(int? statusCode, Object? error) {
+  if (statusCode != 400 || error == null) return false;
+  return error.toString().trim().toLowerCase() == 'subscription has expired';
 }
 
 /// Which store transactions the server already refused as expired, per user.
