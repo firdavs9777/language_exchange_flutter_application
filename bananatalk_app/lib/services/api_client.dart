@@ -16,6 +16,20 @@ class ApiClient {
   factory ApiClient() => _instance;
   ApiClient._internal();
 
+  /// One long-lived client per zone, so connections are kept alive and
+  /// reused. The top-level `http.get`/`post`/... open a fresh connection
+  /// (TCP + TLS) per call: measured 2026-11-14, ~0.32 s of a ~0.50 s request
+  /// to api.banatalk.com was that handshake, and a reused connection answered
+  /// in ~0.18 s. Never closed: it lives as long as the app.
+  ///
+  /// Per zone rather than one static instance because `http.Client()` honours
+  /// `http.runWithClient`, which the tests use to fake the network: a client
+  /// created once, outside that zone, would ignore it. In the app there is in
+  /// practice one zone, so one client.
+  static final Expando<http.Client> _zoneClients = Expando('ApiClient.http');
+  static http.Client get _http =>
+      _zoneClients[Zone.current] ??= http.Client();
+
   String? _cachedToken;
   String? _cachedRefreshToken;
   DateTime? _lastTokenCheck;
@@ -179,7 +193,7 @@ class ApiClient {
 
 
       final url = Uri.parse('$baseUrl${Endpoints.refreshTokenURL}');
-      final response = await http
+      final response = await _http
           .post(
             url,
             body: jsonEncode({'refreshToken': _cachedRefreshToken}),
@@ -595,7 +609,7 @@ class ApiClient {
 
       _logRequest('GET', uri.toString());
       final stopwatch = Stopwatch()..start();
-      final response = await http.get(uri, headers: headers);
+      final response = await _http.get(uri, headers: headers);
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
       _logResponse('GET', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
@@ -608,7 +622,7 @@ class ApiClient {
         if (newToken != null) {
           // Retry with new token
           final retryHeaders = await _getHeaders(includeAuth: true);
-          final retryResponse = await http.get(uri, headers: retryHeaders);
+          final retryResponse = await _http.get(uri, headers: retryHeaders);
           return _handleResponse(retryResponse, endpoint);
         } else {
           // Refresh failed: log out only if the failure was definitive.
@@ -644,7 +658,7 @@ class ApiClient {
 
       _logRequest('POST', uri.toString(), body: body);
       final stopwatch = Stopwatch()..start();
-      final response = await http.post(
+      final response = await _http.post(
         uri,
         headers: headers,
         body: body != null ? jsonEncode(body) : null,
@@ -662,7 +676,7 @@ class ApiClient {
         if (newToken != null) {
           // Retry with new token
           final retryHeaders = await _getHeaders(includeAuth: true);
-          final retryResponse = await http.post(
+          final retryResponse = await _http.post(
             uri,
             headers: retryHeaders,
             body: body != null ? jsonEncode(body) : null,
@@ -697,7 +711,7 @@ class ApiClient {
 
       _logRequest('PUT', uri.toString(), body: body);
       final stopwatch = Stopwatch()..start();
-      final response = await http.put(
+      final response = await _http.put(
         uri,
         headers: headers,
         body: body != null ? jsonEncode(body) : null,
@@ -714,7 +728,7 @@ class ApiClient {
         if (newToken != null) {
           // Retry with new token
           final retryHeaders = await _getHeaders(includeAuth: true);
-          final retryResponse = await http.put(
+          final retryResponse = await _http.put(
             uri,
             headers: retryHeaders,
             body: body != null ? jsonEncode(body) : null,
@@ -755,7 +769,7 @@ class ApiClient {
         request.body = jsonEncode(body);
       }
 
-      final streamedResponse = await request.send();
+      final streamedResponse = await _http.send(request);
       final response = await http.Response.fromStream(streamedResponse);
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);
@@ -776,7 +790,7 @@ class ApiClient {
             retryRequest.body = jsonEncode(body);
           }
 
-          final retryStreamedResponse = await retryRequest.send();
+          final retryStreamedResponse = await _http.send(retryRequest);
           final retryResponse = await http.Response.fromStream(retryStreamedResponse);
           return _handleResponse(retryResponse, endpoint);
         } else {
@@ -820,7 +834,7 @@ class ApiClient {
       request.fields.addAll(fields);
       request.files.addAll(files);
 
-      final streamedResponse = await request.send();
+      final streamedResponse = await _http.send(request);
       final response = await http.Response.fromStream(streamedResponse);
       stopwatch.stop();
       final result = _handleResponse(response, endpoint);

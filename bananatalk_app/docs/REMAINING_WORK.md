@@ -737,6 +737,9 @@ P2 cleanup
 - [ ] Owner: merge, version bump, signed release build, store submission; turn on the server `COMMUNITY_SLIM_LIST_ENABLED` only after the build is adopted and the avatar-thumb backfill is done
 
 ## Backend + app check (2026-11-14)
+- [x] Slow requests, client side: `ApiClient` opened a new connection (TCP + TLS) per request via top-level `http.get/post/put`. Measured: ~0.32 s of a ~0.50 s request was the handshake; a reused connection answers in ~0.18 s. It now keeps one client per zone (one in the app). Test `test/services/api_client_connection_reuse_test.dart`.
+- [ ] 49 other files still call `http.get/post/...` directly (each a new connection); move the hot ones to `ApiClient`. M
+- [ ] Slow requests, server side: authenticated endpoints in the device log took 1.1–2.5 s vs ~0.18 s server time for `/app-config`; add per-route timing on the server and check `protect` + Mongo latency. M
 - [x] Waves were fetched twice per launch (`limit=1` for the badge count, `limit=20` for the Chats intro strip). Both now read one shared `unreadWavesProvider` request. Test `test/community/unread_waves_shared_test.dart`.
 - [x] FCM token was registered twice per launch (`main.dart` before `runApp`, awaited, and the splash screen on restore). `main.dart` no longer does it; the splash call is the only one. Guard test `test/notifications/single_token_registration_test.dart`.
 - [x] Voice rooms were unreachable: since 2ba94aa7 (four Community tabs) the only way in was the "🔴 N live" pill in Rooms, hidden whenever nothing was live, and creating a room is inside the voice rooms screen. Rooms now always shows a "Voice" row (live count as a badge when > 0) that opens the screen (`voice_rooms_entry.dart`, `test/community/voice_rooms_entry_test.dart`).
