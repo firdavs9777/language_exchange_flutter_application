@@ -735,3 +735,12 @@ P2 cleanup
 - [ ] **OWNER DECISION B (pre-existing, backend, NOT fixed):** a person blocked today stays in the server's cached daily batch until UTC midnight, so Matches shows them again. Smallest fix (backend repo): in `withoutSkipped` (`controllers/matching.js`, cached path) also drop `getBlockedUserIds(viewerId)`
 - [ ] Deferred (cosmetic): the chip-reset load never writes the Partners disk cache (the next default load refreshes it)
 - [ ] Owner: merge, version bump, signed release build, store submission; turn on the server `COMMUNITY_SLIM_LIST_ENABLED` only after the build is adopted and the avatar-thumb backfill is done
+
+## Monetization offers (project 3; design 2026-11-14, branch docs/monetization-offers-spec)
+Design: `docs/superpowers/specs/2026-11-14-monetization-offers-design.md`. Nothing built yet.
+- [ ] Owner: approve the design, then backend plan and app plan. M
+- [ ] Part A: paywall funnel events from every upsell surface, shared open helpers, `scripts/paywallFunnel.js` (switch `PAYWALL_EVENTS_ENABLED`). M
+- [ ] Part B: offer engine for four passive surfaces with caps (switch `OFFER_ENGINE_ENABLED`); masked visitor push for free users (switch `VISITOR_PUSH_MASK_ENABLED`, owner decision). M
+- [ ] Part C: prices on first paint, retry a failed product query, stop re-sending an expired receipt at launch. S–M
+- [ ] Device check: whether iOS re-emits the old transaction because the plugin's finish call fails. S
+- [ ] Owner decisions after two weeks of funnel data: `WAVE_CAP_ENABLED`, visitor push masking. S
