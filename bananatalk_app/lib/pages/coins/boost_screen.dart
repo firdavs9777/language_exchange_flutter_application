@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/boost.dart';
@@ -58,9 +59,13 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
   String? _message;
   Timer? _tick;
 
+  /// One flow per opening of the screen.
+  final PaywallFlow _flow = PaywallFlow.start(PaywallPlacement.boost);
+
   @override
   void initState() {
     super.initState();
+    paywallLog(_flow, PaywallAction.shown);
     _load();
   }
 
@@ -139,6 +144,7 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
     try {
       final b = await ref.read(boostApiClientProvider).purchaseProfileBoost();
       if (!mounted) return;
+      paywallLog(_flow, PaywallAction.unlockSucceeded, detail: 'boost');
       refreshCoinBalance(ref);
       _setActive(b);
     } on BoostException catch (e) {
@@ -147,7 +153,11 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
         case BoostError.insufficientCoins:
           openCoinShop<void>(
             context,
-            PaywallFlow.start(PaywallPlacement.boost),
+            PaywallFlow(
+              placement: PaywallPlacement.notEnoughCoins,
+              flowId: _flow.flowId,
+              detail: 'boost',
+            ),
             route: PaywallRoute.app,
           );
         case BoostError.alreadyBoosted:

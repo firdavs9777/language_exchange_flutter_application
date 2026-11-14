@@ -1,4 +1,11 @@
-# Remaining work — BananaTalk app
+- [x] Task 3: limit dialogs, upgrade sheets, `UnlockCta`, boost, visitors screen and the VIP / coin purchase screens report shown / dismissed / cta_* / unlock_succeeded / purchase_* on one flow per showing (`PaywallShowing`, `paywall_purchase_events.dart`)
+- [ ] Task 4: server-decided offers (`/offers`) on four surfaces (visitor recall, profile banner, moments chip, matches empty), behind `offerEngineEnabled`
+- [ ] Task 5: a masked visit push opens the visitors screen
+- [ ] Task 6: store prices on first paint, and a failed price query is retried
+- [ ] Task 7: an expired receipt is sent once, not at every launch
+- [ ] Task 8: remove dead upsell code (visitor_limit_dialog, visitor_upgrade_screen, daily_chat_limit_service, feature_gate branches)
+- [ ] Task 9: whole-app check and handoff doc
+- [ ] Not covered by Task 3 tests: translation_bottom_sheet limit state, watch-ad button, store purchase paths are not widget-testable (pure mappings tested instead)# Remaining work — BananaTalk app
 
 Last updated: 2026-11-11 (profile audit on fix/profile-audit; backend 04c3832 rebuilt as a4e2d6a; Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 

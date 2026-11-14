@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_showing.dart';
+import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
@@ -58,6 +60,13 @@ Future<String> runRewardedUnlock({
     messenger?.showSnackBar(SnackBar(content: Text(successMessage)));
   }
   return outcome.result;
+}
+
+/// Reports a watched ad's outcome: a server grant (`'unlocked'`) is an
+/// `unlock_succeeded` with detail `ad:<feature>`; any other result is not.
+void reportRewardedResult(PaywallFlow flow, String result, String feature) {
+  if (result != 'unlocked') return;
+  paywallLog(flow, PaywallAction.unlockSucceeded, detail: 'ad:$feature');
 }
 
 /// The app's own limit-reached sentence for [limitType] (shared by
@@ -122,7 +131,7 @@ bool isWaveLimitType(String limitType) {
   return t == 'wave' || t == 'waves';
 }
 
-class LimitExceededDialog extends ConsumerWidget {
+class LimitExceededDialog extends ConsumerStatefulWidget {
   final String limitType;
   final LimitInfo? limitInfo;
   final DateTime? resetTime;
@@ -159,6 +168,61 @@ class LimitExceededDialog extends ConsumerWidget {
     );
   }
 
+  /// Maps a daily-limit surface to its à-la-carte coin unlock key. The
+  /// message cap maps to `dm` (extra direct messages today — backend
+  /// coinCatalog `dm`, distinct from the AI-tutor `chat` quota). `moment`
+  /// maps to `moment`; the daily wave cap maps to `wave` (catalog
+  /// `wave: {cost:10, grant:1}`, also a rewarded feature). Surfaces with no
+  /// coin unlock return null (no CTA). The CTA also self-hides if the
+  /// returned key isn't in the live catalog.
+  @visibleForTesting
+  static String? featureKeyForUnlock(String limitType) {
+    switch (limitType.toLowerCase()) {
+      case 'moment':
+      case 'moments':
+        return 'moment';
+      case 'message':
+      case 'messages':
+        return 'dm';
+      case 'wave':
+      case 'waves':
+        return 'wave';
+      default:
+        return null;
+    }
+  }
+
+  @override
+  ConsumerState<LimitExceededDialog> createState() =>
+      _LimitExceededDialogState();
+}
+
+class _LimitExceededDialogState extends ConsumerState<LimitExceededDialog> {
+  late final PaywallShowing _showing;
+
+  String get limitType => widget.limitType;
+  LimitInfo? get limitInfo => widget.limitInfo;
+  DateTime? get resetTime => widget.resetTime;
+  String? get errorMessage => widget.errorMessage;
+  String get userId => widget.userId;
+
+  @override
+  void initState() {
+    super.initState();
+    // One showing is one flow: `shown` here, every button reuses it.
+    _showing = PaywallShowing.begin(
+      paywallPlacementForLimit(widget.limitType),
+      detail: widget.limitType,
+    );
+  }
+
+  @override
+  void dispose() {
+    // Closed without a CTA (Maybe later, back button): dismissed.
+    _showing.finish();
+    super.dispose();
+  }
+
   bool get _isWave => isWaveLimitType(limitType);
 
   String _getLimitTypeLabel(AppLocalizations l10n) {
@@ -190,34 +254,11 @@ class LimitExceededDialog extends ConsumerWidget {
   String _getLimitTypeDescription(AppLocalizations l10n) =>
       limitTypeDescription(l10n, limitType);
 
-  /// Maps a daily-limit surface to its à-la-carte coin unlock key. The
-  /// message cap maps to `dm` (extra direct messages today — backend
-  /// coinCatalog `dm`, distinct from the AI-tutor `chat` quota). `moment`
-  /// maps to `moment`; the daily wave cap maps to `wave` (catalog
-  /// `wave: {cost:10, grant:1}`, also a rewarded feature). Surfaces with no
-  /// coin unlock return null (no CTA). The CTA also self-hides if the
-  /// returned key isn't in the live catalog.
-  @visibleForTesting
-  static String? featureKeyForUnlock(String limitType) {
-    switch (limitType.toLowerCase()) {
-      case 'moment':
-      case 'moments':
-        return 'moment';
-      case 'message':
-      case 'messages':
-        return 'dm';
-      case 'wave':
-      case 'waves':
-        return 'wave';
-      default:
-        return null;
-    }
-  }
-
-  String? _featureKeyForUnlock() => featureKeyForUnlock(limitType);
+  String? _featureKeyForUnlock() =>
+      LimitExceededDialog.featureKeyForUnlock(limitType);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textPrimary = context.textPrimary;
     final secondaryText = context.textSecondary;
@@ -429,6 +470,8 @@ class LimitExceededDialog extends ConsumerWidget {
         if (_featureKeyForUnlock() != null)
           UnlockCta(
             featureKey: _featureKeyForUnlock()!,
+            flow: _showing.flow,
+            onCtaTapped: _showing.markActed,
             // Pops 'unlocked' so callers that can retry inline (the chat
             // screen) resend; other callers ignore the result.
             onUnlocked: () => Navigator.pop(context, 'unlocked'),
@@ -436,6 +479,7 @@ class LimitExceededDialog extends ConsumerWidget {
         if (showWatchAd)
           OutlinedButton.icon(
             onPressed: () {
+              _showing.act(PaywallAction.ctaAd);
               final config = ref.read(appConfigProvider).valueOrNull;
               final flagOn = config?.rewardedLimitsEnabled ?? false;
               final featureKey = _featureKeyForUnlock();
@@ -457,6 +501,11 @@ class LimitExceededDialog extends ConsumerWidget {
                     limitMessage: l10n.rewardedLimitReached,
                     successMessage: l10n.rewardedUnlockSuccess,
                   );
+                  reportRewardedResult(
+                    _showing.flow,
+                    result,
+                    featureKey ?? limitType,
+                  );
                   navigator.pop(result);
                 },
               );
@@ -474,15 +523,9 @@ class LimitExceededDialog extends ConsumerWidget {
           ),
         ElevatedButton(
           onPressed: () {
+            _showing.markActed();
             Navigator.pop(context);
-            openVipPlans<void>(
-              context,
-              PaywallFlow.start(
-                paywallPlacementForLimit(limitType),
-                detail: limitType,
-              ),
-              userId: userId,
-            );
+            openVipPlans<void>(context, _showing.flow, userId: userId);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFFD700),

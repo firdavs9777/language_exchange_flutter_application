@@ -26,7 +26,12 @@ class MaskedPersonTile extends ConsumerWidget {
     this.title,
     this.body,
     this.placement = PaywallPlacement.other,
+    this.flow,
   });
+
+  /// The host screen's flow (it logged `shown` once). Without one the tile's
+  /// buttons start their own.
+  final PaywallFlow? flow;
 
   /// Paywall placement reported when "Go VIP" is tapped.
   final String placement;
@@ -108,6 +113,7 @@ class MaskedPersonTile extends ConsumerWidget {
                   children: [
                     UnlockCta(
                       featureKey: 'who_waved',
+                      flow: flow,
                       onUnlocked: onUnlocked,
                       labelBuilder: (cost, _) => l10n.coinAmount(cost),
                     ),
@@ -115,7 +121,8 @@ class MaskedPersonTile extends ConsumerWidget {
                       key: const ValueKey('masked-go-vip'),
                       onPressed: () => openVipPlans<void>(
                         context,
-                        PaywallFlow.start(placement, detail: 'masked_tile'),
+                        flow ??
+                            PaywallFlow.start(placement, detail: 'masked_tile'),
                         route: PaywallRoute.app,
                       ),
                       child: Text(l10n.goVip),

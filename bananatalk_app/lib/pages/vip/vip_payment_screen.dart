@@ -20,6 +20,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'dart:async';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
 
 class VipPaymentScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -162,10 +163,12 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
 
       // Initiate purchase and wait for completion
+      paywallLogPurchase(widget.flow, PurchaseOutcome.started, productId: productId);
       final purchaseDetails = await IOSPurchaseService.purchaseProductAndWait(productId);
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
+        paywallLogPurchase(widget.flow, PurchaseOutcome.cancelled);
         if (!mounted) return;
         setState(() {
           isProcessing = false;
@@ -230,6 +233,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         if (!mounted) return;
         if (confirmedVip) {
           ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
+          paywallLogPurchase(
+            widget.flow,
+            PurchaseOutcome.succeeded,
+            productId: productId,
+          );
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name,
             platform: Platform.isIOS ? 'ios' : 'android',
@@ -245,6 +253,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           platform: Platform.isIOS ? 'ios' : 'android',
           errorCode: verifyResult['error']?.toString() ?? 'unknown',
         );
+        paywallLogPurchase(widget.flow, PurchaseOutcome.verifyFailed);
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
@@ -254,6 +263,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
       }
     } catch (e) {
+      paywallLogPurchase(widget.flow, PurchaseOutcome.error);
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 
@@ -332,6 +342,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       // Initiate purchase and wait for completion. A plan switch replaces
       // the owned subscription instead of buying a second one.
+      paywallLogPurchase(widget.flow, PurchaseOutcome.started, productId: productId);
       final PurchaseDetails? purchaseDetails;
       if (widget.isPlanSwitch) {
         final result =
@@ -363,6 +374,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
+        paywallLogPurchase(widget.flow, PurchaseOutcome.cancelled);
         if (!mounted) return;
         setState(() {
           isProcessing = false;
@@ -424,6 +436,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         if (!mounted) return;
         if (confirmedVip) {
           ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
+          paywallLogPurchase(
+            widget.flow,
+            PurchaseOutcome.succeeded,
+            productId: productId,
+          );
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name, platform: 'android',
           );
@@ -437,6 +454,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
           plan: widget.plan.name, platform: 'android',
           errorCode: verifyResult['error']?.toString() ?? 'unknown',
         );
+        paywallLogPurchase(widget.flow, PurchaseOutcome.verifyFailed);
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
@@ -446,6 +464,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
       }
     } catch (e) {
+      paywallLogPurchase(widget.flow, PurchaseOutcome.error);
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 

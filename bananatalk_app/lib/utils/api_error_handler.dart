@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_showing.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ApiErrorHandler {
@@ -42,6 +43,7 @@ class ApiErrorHandler {
 
     // Show dialog
     final l10n = AppLocalizations.of(context)!;
+    final showing = PaywallShowing.begin(placement, detail: 'api_error');
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -105,11 +107,8 @@ class ApiErrorHandler {
             onPressed: () {
               Navigator.pop(context);
               if (userId != null) {
-                openVipPlans<void>(
-                  context,
-                  PaywallFlow.start(placement, detail: 'api_error'),
-                  userId: userId,
-                );
+                showing.markActed();
+                openVipPlans<void>(context, showing.flow, userId: userId);
               }
             },
             style: ElevatedButton.styleFrom(
@@ -121,6 +120,7 @@ class ApiErrorHandler {
         ],
       ),
     );
+    showing.finish();
   }
 
   /// Parse error from API response

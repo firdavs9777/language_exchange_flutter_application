@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_showing.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
@@ -42,6 +43,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
   bool _cached = false;
   bool _isLimitReached = false;
 
+  /// The limit state's showing: begun when the cap answer arrives (not in
+  /// build), finished when the sheet closes.
+  PaywallShowing? _limitShowing;
+
   // TTS
   final AudioPlayer _audioPlayer = AudioPlayer();
   bool _isTtsLoading = false;
@@ -66,6 +71,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
 
   @override
   void dispose() {
+    _limitShowing?.finish();
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -165,6 +171,12 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
               );
         _isLoading = false;
       });
+      if (_isLimitReached) {
+        _limitShowing ??= PaywallShowing.begin(
+          PaywallPlacement.translationCap,
+          detail: 'bottom_sheet',
+        );
+      }
     }
   }
 
@@ -383,11 +395,14 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     height: 48,
                     child: ElevatedButton(
                       onPressed: () {
+                        final showing = _limitShowing ??
+                            PaywallShowing.begin(
+                              PaywallPlacement.translationCap,
+                              detail: 'bottom_sheet',
+                            );
+                        showing.markActed();
                         Navigator.pop(context);
-                        openVipPlans<void>(
-                          context,
-                          PaywallFlow.start(PaywallPlacement.translationCap, detail: 'bottom_sheet'),
-                        );
+                        openVipPlans<void>(context, showing.flow);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber[700],
@@ -421,6 +436,8 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     height: 48,
                     child: UnlockCta(
                       featureKey: 'translation',
+                      flow: _limitShowing?.flow,
+                      onCtaTapped: _limitShowing?.markActed,
                       onUnlocked: _translate,
                     ),
                   ),

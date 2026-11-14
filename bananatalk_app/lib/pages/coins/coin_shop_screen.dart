@@ -15,6 +15,7 @@ import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -62,13 +63,14 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   // loaded up front.
   bool _adCapReached = false;
 
+  /// The flow this opening of the shop belongs to; purchases report on it.
+  late final PaywallFlow _flow =
+      widget.flow ?? PaywallFlow.start(PaywallPlacement.other);
+
   @override
   void initState() {
     super.initState();
-    paywallLog(
-      widget.flow ?? PaywallFlow.start(PaywallPlacement.other),
-      PaywallAction.shopViewed,
-    );
+    paywallLog(_flow, PaywallAction.shopViewed);
     // Coins can change outside this device (an admin grant, a purchase on
     // another device); show the server's balance, not the session's cache.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -96,11 +98,17 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
 
     try {
       final productId = pack.productId(_isIOS);
+      paywallLogPurchase(
+        _flow,
+        PurchaseOutcome.started,
+        productId: productId,
+      );
       final purchase = _isIOS
           ? await IOSPurchaseService.purchaseCoinPack(productId)
           : await AndroidPurchaseService.purchaseCoinPack(productId);
 
       if (purchase == null) {
+        paywallLogPurchase(_flow, PurchaseOutcome.cancelled);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsPurchaseCanceled);
         }
@@ -125,6 +133,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       }
 
       if (receipt.isEmpty || transactionId.isEmpty) {
+        paywallLogPurchase(_flow, PurchaseOutcome.error);
         if (mounted) {
           _showSnack(AppLocalizations.of(context)!.coinsReceiptUnreadable);
         }
@@ -139,6 +148,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       );
 
       final outcome = coinVerifyOutcome(response);
+      paywallLogPurchase(
+        _flow,
+        purchaseOutcomeForCoinVerify(outcome),
+        productId: productId,
+      );
       if (outcome.finishesPurchase) {
         // Only now is it safe to finish/consume — the backend confirmed
         // the receipt and credited coins (or refused it for good because
@@ -170,6 +184,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           );
         }
       }
+    } catch (_) {
+      paywallLogPurchase(_flow, PurchaseOutcome.error);
+      rethrow;
     } finally {
       if (mounted) setState(() => _purchasingPackId = null);
     }

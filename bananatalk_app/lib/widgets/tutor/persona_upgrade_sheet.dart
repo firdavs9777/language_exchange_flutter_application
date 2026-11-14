@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
+import 'package:bananatalk_app/services/paywall/paywall_showing.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
@@ -29,6 +30,7 @@ class PersonaUpgradeSheet extends ConsumerStatefulWidget {
 
 class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
   String get triggerChip => widget.triggerChip;
+  late final PaywallShowing _showing;
 
   @override
   void initState() {
@@ -37,6 +39,16 @@ class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
     // loading, keyboard insets, catalog) as another paywall view.
     AnalyticsService.instance
         .paywallShown(triggerChip: widget.triggerChip, reason: widget.reason);
+    _showing = PaywallShowing.begin(
+      PaywallPlacement.tutorQuota,
+      detail: widget.triggerChip,
+    );
+  }
+
+  @override
+  void dispose() {
+    _showing.finish();
+    super.dispose();
   }
 
   String _copyForPersona(AppLocalizations l10n, String? persona) {
@@ -96,11 +108,9 @@ class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
               ),
               onPressed: () {
                 AnalyticsService.instance.paywallCtaTapped(chipName: triggerChip);
+                _showing.markActed();
                 Navigator.pop(context);
-                openVipPlans<void>(
-                  context,
-                  PaywallFlow.start(PaywallPlacement.tutorQuota, detail: 'PersonaUpgradeSheet'),
-                );
+                openVipPlans<void>(context, _showing.flow);
               },
               child: Text(
                 AppLocalizations.of(context)!.upgradeToVip,
@@ -118,6 +128,8 @@ class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
             width: double.infinity,
             child: UnlockCta(
               featureKey: triggerChip,
+              flow: _showing.flow,
+              onCtaTapped: _showing.markActed,
               // This sheet is shown from a global 429 interceptor
               // (main.dart) with no handle back to the chat screen that
               // triggered it, so there's no gated action to retry inline
