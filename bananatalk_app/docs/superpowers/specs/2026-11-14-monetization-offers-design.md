@@ -102,13 +102,13 @@ With `offerEngineEnabled` off, all four behave as today. With it on, each shows 
 
 `lead` names the button the widget emphasises when it already has more than one; a widget with one button ignores it. There is no `ad` lead in v1: none of these four has a rewarded path.
 
-"Last opened the visitors screen" is a new field, `User.visitorsSeenAt`, written when the owner loads their own visitors list. It is written only while `OFFER_ENGINE_ENABLED` is on, so nothing changes with the switch off.
+"Last opened the visitors screen" is a new field, `User.visitorsSeenAt`, written when the visitors screen loads the list with `?seen=1` (the recall card previews the same list and must not count). It is written only while `OFFER_ENGINE_ENABLED` is on, so nothing changes with the switch off.
 
 ### 5.2 Request
 
 `GET /api/v1/offers` (authenticated; 404 with the switch off). The app calls it once per app open and again after a purchase or unlock, never more than once per 2 minutes, and never awaits it before drawing a screen.
 
-Response: `{ offers: [{ id, surface, placement, lead }] }`, holding zero or one offer.
+Response: `{ offers: [{ id, surface, placement, lead, validUntil }] }`, holding zero or one offer. `validUntil` is the next UTC midnight; the app drops the offer after it.
 
 The request reserves the slot: the first call of a UTC day that finds an eligible surface records the choice in `offerstates` and counts it against the caps, seen or not. Later calls that day return the same offer (until a purchase or unlock ends it). This is deliberate: a lost `shown` event must never lead to showing more.
 
@@ -128,7 +128,7 @@ Ranking when more than one surface is eligible: each surface has a smoothed conv
 New collection `offerstates`, one row per user: today's reserved offer, per surface `lastOfferedAt` and `ignored` (times seen without a tap), and a user-level `quietUntil`.
 
 - At most one engine offer per person per UTC day, and the same surface at most once per 3 days.
-- None of the four widgets has a close control and none is added. Instead: a surface seen 3 times in a row without a tap is quiet for 14 days; a tap resets the count.
+- None of the four widgets has a close control and none is added. Instead: a surface seen 3 times in a row without a tap is quiet for 14 days; a tap resets the count, and a tap on that third view cancels the quiet period.
 - Any successful purchase or unlock by the person, whether or not it started from an engine offer, makes all engine offers quiet for 7 days.
 - Seen and tapped come from the batch endpoint (`shown` and `cta_*` events carrying the `offerId`), so the engine needs `PAYWALL_EVENTS_ENABLED` on; with it off, `/offers` returns no offers. Purchases and unlocks are read from the server's own coin ledger (a coin purchase or spend in the last 7 days), which does not depend on the app reporting them; a new VIP is excluded anyway.
 - The row is removed in the account delete cascade.
